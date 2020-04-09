@@ -5,13 +5,16 @@ using System.Threading.Tasks;
 using Meta.TI.Domain.Entities;
 using Meta.TI.Domain.Repositories;
 using Meta.TI.Infra.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Meta.TI.Api.Controllers
 {
+
     [ApiController]
     [Route("[controller]")]
+    // [Authorize]
     public class HospitalController : ControllerBase
     {
         private readonly ILogger<HospitalController> _logger;
