@@ -23,7 +23,7 @@ namespace Meta.TI.Api.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                return StatusCode(401, "Usuário não encontrado");
+                return StatusCode(401, new { message = "Usuário não encontrado" });
             }
             else
             {

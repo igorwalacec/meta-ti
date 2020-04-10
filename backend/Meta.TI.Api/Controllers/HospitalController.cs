@@ -14,7 +14,7 @@ namespace Meta.TI.Api.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class HospitalController : ControllerBase
     {
         private readonly ILogger<HospitalController> _logger;
