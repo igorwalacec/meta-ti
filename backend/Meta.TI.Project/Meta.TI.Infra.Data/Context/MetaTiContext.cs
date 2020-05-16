@@ -20,6 +20,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<DiaSemana> DiaSemana { get; set; }
         public DbSet<Hemocentro> Hemocentro { get; set; }
         public DbSet<EstoqueSanguineo> EstoqueSanguineo { get; set; }
+        public DbSet<Expediente> Expediente { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EstadoMap());
@@ -31,6 +32,7 @@ namespace Meta.TI.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new DiaSemanaMap());
             modelBuilder.ApplyConfiguration(new HemocentroMap());
             modelBuilder.ApplyConfiguration(new EstoqueSanguineoMap());
+            modelBuilder.ApplyConfiguration(new ExpedienteMap());
 
 
             foreach (var property in modelBuilder.Model.GetEntityTypes()

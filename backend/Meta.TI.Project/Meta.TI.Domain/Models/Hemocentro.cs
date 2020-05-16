@@ -19,5 +19,6 @@ namespace Meta.TI.Domain.Models
 
         public Endereco Endereco { get; set; }
         public ICollection<EstoqueSanguineo> EstoqueSanguineo { get; set; }
+        public ICollection<Expediente> Expediente { get; set; }
     }
 }

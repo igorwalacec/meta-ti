@@ -11,7 +11,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
         public static void RegisterServices(IServiceCollection services)
         {
             //Infra - Data
-            services.AddScoped<MetaTiContext>();
+            services.AddDbContext <MetaTiContext>();
         }
     }
 }
