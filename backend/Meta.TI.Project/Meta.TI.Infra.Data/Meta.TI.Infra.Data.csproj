@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200516165309_TipoLogin.cs" />
+    <Compile Remove="Migrations\20200516165309_TipoLogin.Designer.cs" />
+    <Compile Remove="Migrations\20200516170112_TiposLogins.cs" />
+    <Compile Remove="Migrations\20200516170112_TiposLogins.Designer.cs" />
+    <Compile Remove="Migrations\20200516184207_Usuario.cs" />
+    <Compile Remove="Migrations\20200516184207_Usuario.Designer.cs" />
+    <Compile Remove="Migrations\20200516194239_Dia Semana.cs" />
+    <Compile Remove="Migrations\20200516194239_Dia Semana.Designer.cs" />
+    <Compile Remove="Migrations\20200516201857_Hemocentro.cs" />
+    <Compile Remove="Migrations\20200516201857_Hemocentro.Designer.cs" />
+    <Compile Remove="Migrations\20200516203134_Estoque Sanguineo.cs" />
+    <Compile Remove="Migrations\20200516203134_Estoque Sanguineo.Designer.cs" />
+    <Compile Remove="Migrations\20200516203311_Estoque Sanguineo.cs" />
+    <Compile Remove="Migrations\20200516203311_Estoque Sanguineo.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Meta.TI.Domain\Meta.TI.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

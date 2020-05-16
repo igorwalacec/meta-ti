@@ -1,0 +1,1 @@
+docker run --name contextMetaTI -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Metatiadmin%%%%" -e "MSSQL_PID=Express" --cap-add SYS_PTRACE -p 11433:1433 -d microsoft/mssql-server-linux:2017-latest
