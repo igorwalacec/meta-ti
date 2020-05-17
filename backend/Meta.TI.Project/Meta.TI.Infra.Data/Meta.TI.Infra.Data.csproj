@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20200516203311_Estoque Sanguineo.Designer.cs" />
     <Compile Remove="Migrations\20200517184258_Funcionario.cs" />
     <Compile Remove="Migrations\20200517184258_Funcionario.Designer.cs" />
+    <Compile Remove="Migrations\20200517185517_Funcionario-Admin.cs" />
+    <Compile Remove="Migrations\20200517185517_Funcionario-Admin.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

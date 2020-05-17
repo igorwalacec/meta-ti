@@ -20,5 +20,6 @@ namespace Meta.TI.Domain.Models
         public DateTime? DataAlteracao { get; set; }
 
         public Hemocentro Hemocentro { get; set; }
+        public FuncionarioAdmin FuncionarioAdmin { get; set; }
     }
 }

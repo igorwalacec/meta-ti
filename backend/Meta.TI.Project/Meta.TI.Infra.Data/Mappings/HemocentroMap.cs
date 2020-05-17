@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Meta.TI.Infra.Data.Mappings
@@ -44,8 +45,7 @@ namespace Meta.TI.Infra.Data.Mappings
 
             builder.HasOne(u => u.Endereco)
                .WithOne(t => t.Hemocentro)
-               .HasForeignKey<Hemocentro>(t => t.IdEndereco);
-
+               .HasForeignKey<Hemocentro>(t => t.IdEndereco);                         
         }
     }
 }
