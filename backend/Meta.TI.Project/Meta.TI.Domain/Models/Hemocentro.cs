@@ -21,5 +21,6 @@ namespace Meta.TI.Domain.Models
         public ICollection<EstoqueSanguineo> EstoquesSanguineos { get; set; }
         public ICollection<Expediente> Expedientes { get; set; }
         public ICollection<Telefone> Telefones { get; set; }
+        public ICollection<Funcionario> Funcionarios { get; set; }
     }
 }

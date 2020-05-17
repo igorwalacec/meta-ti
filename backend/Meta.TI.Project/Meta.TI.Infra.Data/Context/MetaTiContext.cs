@@ -22,6 +22,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<EstoqueSanguineo> EstoqueSanguineo { get; set; }
         public DbSet<Expediente> Expediente { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
+        public DbSet<Funcionario> Funcionario { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EstadoMap());
@@ -35,7 +36,7 @@ namespace Meta.TI.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new EstoqueSanguineoMap());
             modelBuilder.ApplyConfiguration(new ExpedienteMap());
             modelBuilder.ApplyConfiguration(new TelefoneMap());
-
+            modelBuilder.ApplyConfiguration(new FuncionarioMap());
 
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
