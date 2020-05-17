@@ -15,12 +15,12 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasColumnName("Id");
 
             builder.HasOne(e => e.TipoSanguineo)
-                .WithMany(e => e.EstoqueSanguineo)
+                .WithMany(e => e.EstoquesSanguineos)
                 .HasForeignKey(e => e.IdTipoSanguineo)
                 .IsRequired();
 
             builder.HasOne(e => e.Hemocentro)
-                .WithMany(e => e.EstoqueSanguineo)
+                .WithMany(e => e.EstoquesSanguineos)
                 .HasForeignKey(e => e.IdHemocentro)
                 .IsRequired();
         }

@@ -11,6 +11,6 @@ namespace Meta.TI.Domain.Models
         public int Id { get; set; }
         public string Nome { get; set; }
 
-        public ICollection<Expediente> Expediente { get; set; }
+        public ICollection<Expediente> Expedientes { get; set; }
     }
 }

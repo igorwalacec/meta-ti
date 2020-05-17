@@ -12,6 +12,6 @@ namespace Meta.TI.Domain.Models
         public string Nome { get; set; }
 
         public Usuario Usuario { get; set; }
-        public ICollection<EstoqueSanguineo> EstoqueSanguineo { get; set; }
+        public ICollection<EstoqueSanguineo> EstoquesSanguineos { get; set; }
     }
 }

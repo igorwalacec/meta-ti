@@ -18,7 +18,8 @@ namespace Meta.TI.Domain.Models
         public DateTime? DataAlteracao { get; set; }
 
         public Endereco Endereco { get; set; }
-        public ICollection<EstoqueSanguineo> EstoqueSanguineo { get; set; }
-        public ICollection<Expediente> Expediente { get; set; }
+        public ICollection<EstoqueSanguineo> EstoquesSanguineos { get; set; }
+        public ICollection<Expediente> Expedientes { get; set; }
+        public ICollection<Telefone> Telefones { get; set; }
     }
 }
