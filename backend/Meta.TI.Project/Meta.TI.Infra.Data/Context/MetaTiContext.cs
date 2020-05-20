@@ -14,7 +14,6 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Estado> Estado { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
-        public DbSet<TipoLogin> TipoLogin { get; set; }
         public DbSet<TipoSanguineo> TipoSanguineo { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<DiaSemana> DiaSemana { get; set; }
@@ -25,19 +24,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Funcionario> Funcionario { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new EstadoMap());
-            modelBuilder.ApplyConfiguration(new CidadeMap());
-            modelBuilder.ApplyConfiguration(new EnderecoMap());
-            modelBuilder.ApplyConfiguration(new TipoLoginMap());
-            modelBuilder.ApplyConfiguration(new TipoSanguineoMap());
-            modelBuilder.ApplyConfiguration(new UsuarioMap());
-            modelBuilder.ApplyConfiguration(new DiaSemanaMap());
-            modelBuilder.ApplyConfiguration(new HemocentroMap());
-            modelBuilder.ApplyConfiguration(new EstoqueSanguineoMap());
-            modelBuilder.ApplyConfiguration(new ExpedienteMap());
-            modelBuilder.ApplyConfiguration(new TelefoneMap());
-            modelBuilder.ApplyConfiguration(new FuncionarioMap());
-
+            
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
                     .Where(p => p.ClrType == typeof(string))))

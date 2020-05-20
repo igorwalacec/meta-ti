@@ -28,7 +28,8 @@ namespace Meta.TI.Infra.Data.Mappings
 
             builder.Property(u => u.Senha)
                 .HasColumnType("varchar(255)")
-                .HasColumnName("Senha");
+                .HasColumnName("Senha")
+                .IsRequired();
             
             builder.Property(u => u.RG)
                 .HasColumnType("varchar(255)")
@@ -57,11 +58,7 @@ namespace Meta.TI.Infra.Data.Mappings
             builder.HasOne(u => u.TipoSanguineo)
                 .WithOne(t => t.Usuario)
                 .HasForeignKey<Usuario>(t => t.IdTipoSanguineo);
-
-            builder.HasOne(u => u.TipoLogin)
-                .WithOne(t => t.Usuario)
-                .HasForeignKey<Usuario>(t => t.IdTipoLogin);
-
+           
             builder.HasOne(u => u.Endereco)
                 .WithOne(t => t.Usuario)
                 .HasForeignKey<Usuario>(t => t.IdEndereco);

@@ -22,7 +22,6 @@ namespace Meta.TI.Domain.Models
         public DateTime? DataAlteracao { get; set; }
 
         public TipoSanguineo TipoSanguineo { get; set; }
-        public Endereco Endereco { get; set; }
-        public  TipoLogin TipoLogin { get; set; }
+        public Endereco Endereco { get; set; }        
     }
 }
