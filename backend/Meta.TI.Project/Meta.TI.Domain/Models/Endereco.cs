@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -17,7 +17,7 @@ namespace Meta.TI.Domain.Models
         public string Longitude { get; set; }
         public int IdCidade { get; set; }
 
-        public Cidade Cidade { get; set; }        
+        public Cidade Cidade { get; set; }
         public Usuario Usuario { get; set; }
         public Hemocentro Hemocentro { get; set; }
 

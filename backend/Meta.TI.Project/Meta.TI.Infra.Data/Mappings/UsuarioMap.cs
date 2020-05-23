@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Models;
+using Meta.TI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -12,12 +12,17 @@ namespace Meta.TI.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.Property(u => u.Id)                
+            builder.Property(u => u.Id)
                 .HasColumnName("Id");
 
-            builder.Property(u => u.NomeCompleto)
+            builder.Property(u => u.Nome)
                 .HasColumnType("varchar(255)")
-                .HasColumnName("NomeCompleto")
+                .HasColumnName("Nome")
+                .IsRequired();
+
+            builder.Property(u => u.Sobrenome)
+                .HasColumnType("varchar(255)")
+                .HasColumnName("Sobrenome")
                 .IsRequired();
 
             builder.Property(u => u.Email)
@@ -30,15 +35,20 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasColumnType("varchar(255)")
                 .HasColumnName("Senha")
                 .IsRequired();
-            
+
             builder.Property(u => u.RG)
                 .HasColumnType("varchar(255)")
                 .HasColumnName("RG")
-                .IsRequired(); 
+                .IsRequired();
 
             builder.Property(u => u.CPF)
                 .HasColumnType("varchar(255)")
                 .HasColumnName("CPF")
+                .IsRequired();
+
+            builder.Property(u => u.DataNascimento)
+                .HasColumnType("datetime")
+                .HasColumnName("DataNascimento")
                 .IsRequired();
 
             builder.Property(u => u.Ativo)
@@ -51,14 +61,15 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasColumnName("DataCriacao")
                 .IsRequired();
 
+
             builder.Property(u => u.DataAlteracao)
                 .HasColumnType("datetime")
-                .HasColumnName("DataAlteracao");                
+                .HasColumnName("DataAlteracao");
 
             builder.HasOne(u => u.TipoSanguineo)
                 .WithOne(t => t.Usuario)
                 .HasForeignKey<Usuario>(t => t.IdTipoSanguineo);
-           
+
             builder.HasOne(u => u.Endereco)
                 .WithOne(t => t.Usuario)
                 .HasForeignKey<Usuario>(t => t.IdEndereco);

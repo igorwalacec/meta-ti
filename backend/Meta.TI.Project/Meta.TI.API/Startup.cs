@@ -43,7 +43,7 @@ namespace Meta.TI.API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDependencyInjectionSetup();
-            
+
             services.AddAutoMapperSetup();
 
             services.AddControllers();
