@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Meta.TI.Application.ViewModels;
 using Meta.TI.Domain.Models;
 using System;
@@ -12,6 +12,7 @@ namespace Meta.TI.Application.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Estado, EstadoViewModel>();
+            CreateMap<Cidade, CidadeViewModel>();
         }
     }
 }

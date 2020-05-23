@@ -17,6 +17,8 @@ namespace Meta.TI.API.Controllers
         {
             estadoService = _estadoService;
         }
+
+        [HttpGet]
         [Route("obter-estados")]
         public IEnumerable<EstadoViewModel> ObterEstados()
         {

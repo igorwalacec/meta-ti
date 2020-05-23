@@ -13,6 +13,8 @@ namespace Meta.TI.Application.AutoMapper
         {
             CreateMap<EstadoViewModel, Estado>()
                 .ConstructUsing(c => new Estado());
+            CreateMap<CidadeViewModel, Cidade>()
+                .ConstructUsing(c => new Cidade());
         }
     }
 }
