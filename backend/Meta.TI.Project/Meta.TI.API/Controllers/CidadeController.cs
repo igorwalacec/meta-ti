@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,19 +14,19 @@ namespace Meta.TI.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CidadeController : ControllerBase
+    public class CidadeController : ApiController
     {
-        private readonly ICidadeService cidadeService;
-        public CidadeController(ICidadeService _cidadeService)
+        private readonly ICidadeApp cidadeApp;
+        public CidadeController(ICidadeApp _cidadeApp)
         {
-            cidadeService = _cidadeService;
+            cidadeApp = _cidadeApp;
         }
 
         [HttpGet]
         [Route("obter-cidades/{idEstado}")]
-        public IEnumerable<CidadeViewModel> ObterCidadesPorEstado([FromRoute] int idEstado)
+        public IActionResult ObterCidadesPorEstado([FromRoute] int idEstado)
         {
-            return cidadeService.ObterCidadesPorEstado(idEstado);
+            return Response(cidadeApp.ObterCidadesPorEstado(idEstado));
         }
     }
 }

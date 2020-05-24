@@ -13,6 +13,9 @@ namespace Meta.TI.Application.AutoMapper
         {
             CreateMap<Estado, EstadoViewModel>();
             CreateMap<Cidade, CidadeViewModel>();
+            CreateMap<Usuario, UsuarioViewModel>();
+            CreateMap<Endereco, EnderecoViewModel>();
+            CreateMap<TipoSanguineo, TipoSanguineoViewModel>();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Interfaces;
+using Meta.TI.Domain.Interfaces;
 using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +20,7 @@ namespace Meta.TI.Infra.Data.Repository
         public virtual void Adicionar(TEntity obj)
         {
             DbSet.Add(obj);
-        }        
+        }
         public virtual IQueryable<TEntity> ObterTodos()
         {
             return DbSet;
@@ -48,7 +48,7 @@ namespace Meta.TI.Infra.Data.Repository
 
         public virtual void Alterar(TEntity obj)
         {
-            DbSet.Update(obj);            
+            DbSet.Update(obj);
         }
         public virtual void Salvar()
         {

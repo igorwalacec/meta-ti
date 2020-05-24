@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,19 +10,19 @@ namespace Meta.TI.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EstadoController : ControllerBase
+    public class EstadoController : ApiController
     {
-        private readonly IEstadoService estadoService;
-        public EstadoController(IEstadoService _estadoService)
+        private readonly IEstadoApp estadoApp;
+        public EstadoController(IEstadoApp _estadoApp)
         {
-            estadoService = _estadoService;
+            estadoApp = _estadoApp;
         }
 
         [HttpGet]
         [Route("obter-estados")]
-        public IEnumerable<EstadoViewModel> ObterEstados()
+        public IActionResult ObterEstados()
         {
-            return estadoService.ObterEstados();
+            return Response(estadoApp.ObterEstados());
         }
     }
 }

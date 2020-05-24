@@ -7,22 +7,39 @@ namespace Meta.TI.Domain.Models
 {
     public class Usuario
     {
-        [Key]
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public string Sobrenome { get; set; }
-        public string Email { get; set; }
-        public string Senha { get; set; }
-        public string RG { get; set; }
-        public string CPF { get; set; }
-        public DateTime DataNascimento { get; set; }
-        public bool Ativo { get; set; }
-        public int? IdTipoSanguineo { get; set; }
-        public int IdEndereco { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public DateTime? DataAlteracao { get; set; }
+        public Usuario()
+        {
+        }
+        public Usuario(string nome, string sobrenome, string email, string senha, string RG, string CPF, DateTime dataNascimento, int? idTipoSanguineo, Endereco endereco)
+        {
+            Nome = nome;
+            Sobrenome = sobrenome;
+            Email = email;
+            Senha = senha;
+            this.RG = RG;
+            this.CPF = CPF;
+            DataNascimento = dataNascimento;
+            IdTipoSanguineo = idTipoSanguineo;
+            Endereco = endereco;
+            TipoSanguineo = new TipoSanguineo();
 
-        public TipoSanguineo TipoSanguineo { get; set; }
-        public Endereco Endereco { get; set; }
+        }
+        [Key]
+        public Guid Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Sobrenome { get; private set; }
+        public string Email { get; private set; }
+        public string Senha { get; private set; }
+        public string RG { get; private set; }
+        public string CPF { get; private set; }
+        public DateTime DataNascimento { get; private set; }
+        public bool Ativo { get; private set; }
+        public int? IdTipoSanguineo { get; private set; }
+        public int IdEndereco { get; private set; }
+        public DateTime DataCriacao { get; private set; }
+        public DateTime? DataAlteracao { get; private set; }
+
+        public TipoSanguineo TipoSanguineo { get; private set; }
+        public Endereco Endereco { get; private set; }
     }
 }
