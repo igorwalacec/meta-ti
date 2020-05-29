@@ -20,13 +20,11 @@ namespace Meta.TI.Application.Services
             mapper = _mapper;
         }
 
-        public GenericCommandResult CriarUsuario(UsuarioViewModel usuario)
+        public GenericCommandResult CriarUsuario(CriacaoUsuarioCommand comando)
         {
-            var comando = new CriacaoUsuarioCommand(mapper.Map<Usuario>(usuario));
+
             var result = (GenericCommandResult)handler.Handle(comando);
-
             result.Data = mapper.Map<UsuarioViewModel>(result.Data);
-
             return result;
         }
 

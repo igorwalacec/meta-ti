@@ -23,7 +23,9 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             // Infra - Data
             services.AddScoped<IEstadoRepository, EstadoRepository>();
             services.AddScoped<ICidadeRepository, CidadeRepository>();
-            services.AddDbContext <MetaTiContext>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddDbContext<MetaTiContext>();
         }
     }
 }

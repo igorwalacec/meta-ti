@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Meta.TI.Domain.Extensions;
 
 namespace Meta.TI.Domain.Models
 {
@@ -10,20 +11,43 @@ namespace Meta.TI.Domain.Models
         public Usuario()
         {
         }
-        public Usuario(string nome, string sobrenome, string email, string senha, string RG, string CPF, DateTime dataNascimento, int? idTipoSanguineo, Endereco endereco)
+
+        public Usuario(
+            string nome, string sobrenome, string email,
+            string senha, string RG, string CPF,
+            DateTime dataNascimento, int? idTipoSanguineo, Endereco endereco)
         {
             Nome = nome;
             Sobrenome = sobrenome;
             Email = email;
-            Senha = senha;
+            Senha = CriptografarSenha(senha);
             this.RG = RG;
             this.CPF = CPF;
             DataNascimento = dataNascimento;
             IdTipoSanguineo = idTipoSanguineo;
             Endereco = endereco;
-            TipoSanguineo = new TipoSanguineo();
-
         }
+        public Usuario(
+            Guid id, string nome, string sobrenome,
+            string email, string RG, string CPF,
+            DateTime dataNascimento, int? idTipoSanguineo, Endereco endereco)
+        {
+            Id = id;
+            Nome = nome;
+            Sobrenome = sobrenome;
+            Email = email;
+            this.RG = RG;
+            this.CPF = CPF;
+            DataNascimento = dataNascimento;
+            IdTipoSanguineo = idTipoSanguineo;
+            IdEndereco = endereco.Id;
+            Endereco = endereco;
+            if (idTipoSanguineo != null)
+            {
+                TipoSanguineo = new TipoSanguineo((int)idTipoSanguineo);
+            }
+        }
+
         [Key]
         public Guid Id { get; private set; }
         public string Nome { get; private set; }
@@ -41,5 +65,30 @@ namespace Meta.TI.Domain.Models
 
         public TipoSanguineo TipoSanguineo { get; private set; }
         public Endereco Endereco { get; private set; }
+
+        public void SetarIdEndereco(int idEndereco)
+        {
+            IdEndereco = idEndereco;
+        }
+        public void GerarId()
+        {
+            Id = Guid.NewGuid();
+        }
+        private string CriptografarSenha(string senhaNormal)
+        {
+            return senhaNormal.GetMd5Hash();
+        }
+        public void SetarDataCriacao(DateTime data)
+        {
+            DataCriacao = data;
+        }
+        public void SetarDataAlteracao(DateTime data)
+        {
+            DataAlteracao = data;
+        }
+        public void SetarUsuarioAtivo()
+        {
+            Ativo = true;
+        }
     }
 }

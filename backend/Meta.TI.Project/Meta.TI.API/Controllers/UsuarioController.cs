@@ -21,7 +21,7 @@ namespace Meta.TI.API.Controllers
         }
         [HttpPost]
         [Route("criar-usuario")]
-        public IActionResult CriarUsuario([FromBody] UsuarioViewModel usuario)
+        public IActionResult CriarUsuario([FromBody] CriacaoUsuarioCommand usuario)
         {
             return Response(usuarioApp.CriarUsuario(usuario));
         }

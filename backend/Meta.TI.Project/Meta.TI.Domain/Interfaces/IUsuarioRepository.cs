@@ -1,11 +1,11 @@
-using Meta.TI.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Meta.TI.Domain.Models;
 
 namespace Meta.TI.Domain.Interfaces
 {
-    public interface IEstadoRepository : IRepository<Estado>
+    public interface IUsuarioRepository : IRepository<Usuario>
     {
     }
 }

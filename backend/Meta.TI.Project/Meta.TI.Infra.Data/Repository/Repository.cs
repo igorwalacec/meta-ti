@@ -20,6 +20,7 @@ namespace Meta.TI.Infra.Data.Repository
         public virtual void Adicionar(TEntity obj)
         {
             DbSet.Add(obj);
+            this.Salvar();
         }
         public virtual IQueryable<TEntity> ObterTodos()
         {
@@ -39,16 +40,19 @@ namespace Meta.TI.Infra.Data.Repository
         public virtual void Remover(Guid id)
         {
             DbSet.Remove(ObterPorId(id));
+            this.Salvar();
         }
 
         public virtual void Remover(int id)
         {
             DbSet.Remove(ObterPorId(id));
+            this.Salvar();
         }
 
         public virtual void Alterar(TEntity obj)
         {
             DbSet.Update(obj);
+            this.Salvar();
         }
         public virtual void Salvar()
         {

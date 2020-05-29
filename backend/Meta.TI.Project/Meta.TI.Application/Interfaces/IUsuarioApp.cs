@@ -8,6 +8,6 @@ namespace Meta.TI.Application.Interfaces
 {
     public interface IUsuarioApp : IDisposable
     {
-        GenericCommandResult CriarUsuario(UsuarioViewModel usuario);
+        GenericCommandResult CriarUsuario(CriacaoUsuarioCommand comando);
     }
 }
