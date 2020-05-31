@@ -27,6 +27,18 @@ namespace Meta.TI.Domain.Handlers
             {
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
             }
+
+            if (usuarioRepository.VerificarExistenciaCPF(command.CPF))
+            {
+                command.AddNotification(new Notification("CPF", "CPF já cadastrado!"));
+                return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
+            }
+            if (usuarioRepository.VerificarExistenciaEmail(command.Email))
+            {
+                command.AddNotification(new Notification("E-mail", "E-mail já cadastrado!"));
+                return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
+            }
+
             var endereco = new Endereco(
                 command.Logradouro,
                 command.Complemento,

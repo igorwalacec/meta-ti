@@ -24,7 +24,11 @@ namespace Meta.TI.Application.Services
         {
 
             var result = (GenericCommandResult)handler.Handle(comando);
-            result.Data = mapper.Map<UsuarioViewModel>(result.Data);
+
+            if(result.Sucess)
+            {
+                result.Data = mapper.Map<UsuarioViewModel>(result.Data);
+            }
             return result;
         }
 
