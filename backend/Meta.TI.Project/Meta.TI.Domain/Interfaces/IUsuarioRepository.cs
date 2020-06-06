@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Meta.TI.Domain.Models;
 
 namespace Meta.TI.Domain.Interfaces
@@ -9,5 +6,6 @@ namespace Meta.TI.Domain.Interfaces
     {
         bool VerificarExistenciaCPF(string cpf);
         bool VerificarExistenciaEmail(string email);
+        Usuario ObterUsuarioPorEmailSenha(string email, string senha);
     }
 }

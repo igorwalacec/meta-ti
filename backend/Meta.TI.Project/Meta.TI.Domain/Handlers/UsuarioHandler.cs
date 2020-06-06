@@ -1,23 +1,41 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
 using Meta.TI.Domain.Commands.Contracts;
+using Meta.TI.Domain.Extensions;
 using Meta.TI.Domain.Handlers.Contracts;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Meta.TI.Domain.Handlers
 {
     public class UsuarioHandler : Notifiable,
-                            IHandler<CriacaoUsuarioCommand>
+                            IHandler<CriacaoUsuarioCommand>,
+                            IHandler<TokenCommand>
     {
+        private readonly string secret;
+        private readonly string expirationDate;
+        private readonly IConfiguration configuration;
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IUsuarioRepository usuarioRepository;
-        public UsuarioHandler(IEnderecoRepository _enderecoRepository, IUsuarioRepository _usuarioRepository)
+        public UsuarioHandler(IConfiguration _configuration, IEnderecoRepository _enderecoRepository, IUsuarioRepository _usuarioRepository)
         {
+            configuration = _configuration;
+
+            secret = configuration.GetSection("JwtConfig")
+                .GetSection("secret").Value;
+
+            expirationDate = configuration.GetSection("JwtConfig")
+                .GetSection("expirationInMinutes").Value;
+
             enderecoRepository = _enderecoRepository;
+
             usuarioRepository = _usuarioRepository;
         }
         public ICommandResult Handle(CriacaoUsuarioCommand command)
@@ -67,8 +85,6 @@ namespace Meta.TI.Domain.Handlers
             usuario.SetarDataCriacao(DateTime.Now);
 
             usuarioRepository.Adicionar(usuario);
-            //TODO: Validar se CPF já esta cadastrado
-            //TODO: Validar se e-mail já esta cadastrado
 
             var novoUsuario = new Usuario(
                 usuario.Id,
@@ -83,6 +99,56 @@ namespace Meta.TI.Domain.Handlers
             );
 
             return new GenericCommandResult(true, "Usuário cadastrado!", novoUsuario);
+        }
+
+        public ICommandResult Handle(TokenCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
+            }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(secret);
+
+
+            var usuario = usuarioRepository.ObterUsuarioPorEmailSenha(command.Email, command.Senha.GetMd5Hash());
+            if (usuario != null)
+            {
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]{
+                    new Claim(ClaimTypes.Email, usuario.Email),
+                    new Claim(ClaimTypes.PrimarySid, usuario.Id.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Nome),
+                    new Claim(ClaimTypes.Role, "doador")
+                }),
+                    Expires = DateTime.UtcNow.AddMinutes(double.Parse(expirationDate)),
+                    SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                var usuarioToken = new
+                {
+                    usuario = new
+                    {
+                        usuario.Id,
+                        usuario.Nome,
+                        usuario.Email
+                    },
+                    token = tokenHandler.WriteToken(token)
+                };
+
+                return new GenericCommandResult(true, "token gerado com sucesso", usuarioToken);
+            }
+            else
+            {
+                return new GenericCommandResult(false, "usuário não encontrado");
+            }
         }
     }
 }

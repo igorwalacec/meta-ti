@@ -9,5 +9,6 @@ namespace Meta.TI.Application.Interfaces
     public interface IUsuarioApp : IDisposable
     {
         GenericCommandResult CriarUsuario(CriacaoUsuarioCommand comando);
+        GenericCommandResult GetToken(TokenCommand comando);
     }
 }

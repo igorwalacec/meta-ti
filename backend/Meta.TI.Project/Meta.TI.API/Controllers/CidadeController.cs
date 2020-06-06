@@ -6,6 +6,7 @@ using Meta.TI.Application.Interfaces;
 using Meta.TI.Application.ViewModels;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -22,6 +23,7 @@ namespace Meta.TI.API.Controllers
             cidadeApp = _cidadeApp;
         }
 
+        [Authorize(Roles = "doador")]
         [HttpGet]
         [Route("obter-cidades/{idEstado}")]
         public IActionResult ObterCidadesPorEstado([FromRoute] int idEstado)

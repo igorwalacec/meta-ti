@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Meta.TI.Application.Interfaces;
-using Meta.TI.Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Meta.TI.API.Controllers
@@ -20,6 +16,7 @@ namespace Meta.TI.API.Controllers
 
         [HttpGet]
         [Route("obter-estados")]
+        [Authorize(Roles = "doador")]
         public IActionResult ObterEstados()
         {
             return Response(estadoApp.ObterEstados());

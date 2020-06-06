@@ -36,5 +36,10 @@ namespace Meta.TI.Application.Services
         {
             GC.SuppressFinalize(this);
         }
+
+        public GenericCommandResult GetToken(TokenCommand comando)
+        {
+            return (GenericCommandResult)handler.Handle(comando);
+        }
     }
 }
