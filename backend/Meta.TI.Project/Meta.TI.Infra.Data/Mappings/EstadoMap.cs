@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Models;
+using Meta.TI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace Meta.TI.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Estado> builder)
         {
-            builder.Property(e => e.Id)                
+            builder.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("Id");
 
@@ -30,7 +30,7 @@ namespace Meta.TI.Infra.Data.Mappings
                 new Estado { Id = 6, Nome = "Ceará", UF = "CE" },
                 new Estado { Id = 7, Nome = "Distrito Federal", UF = "DF" },
                 new Estado { Id = 8, Nome = "Espírito Santo", UF = "ES" },
-                new Estado { Id = 9, Nome = "Goiás", UF = "GO" }, 
+                new Estado { Id = 9, Nome = "Goiás", UF = "GO" },
                 new Estado { Id = 10, Nome = "Maranhão", UF = "MA" },
                 new Estado { Id = 11, Nome = "Minas Gerais", UF = "MG" },
                 new Estado { Id = 12, Nome = "Mato Grosso do Sul", UF = "MS" },

@@ -8,7 +8,7 @@ using Meta.TI.Domain.Commands;
 using Meta.TI.Domain.Handlers;
 using Meta.TI.Domain.Models;
 
-namespace Meta.TI.Application.Services
+namespace Meta.TI.Application.App
 {
     public class UsuarioApp : IUsuarioApp
     {

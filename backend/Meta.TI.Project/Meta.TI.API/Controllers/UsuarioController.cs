@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Meta.TI.Application.Interfaces;
-using Meta.TI.Application.ViewModels;
 using Meta.TI.Domain.Commands;
-using Meta.TI.Domain.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

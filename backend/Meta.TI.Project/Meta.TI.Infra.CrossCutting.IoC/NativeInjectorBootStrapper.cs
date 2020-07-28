@@ -1,5 +1,5 @@
+using Meta.TI.Application.App;
 using Meta.TI.Application.Interfaces;
-using Meta.TI.Application.Services;
 using Meta.TI.Domain.Handlers;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Infra.Data.Context;
@@ -16,6 +16,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IEstadoApp, EstadoApp>();
             services.AddScoped<ICidadeApp, CidadeApp>();
             services.AddScoped<IUsuarioApp, UsuarioApp>();
+            services.AddScoped<ITipoSanguineoApp, TipoSanguineoApp>();
 
             // Commands
             services.AddTransient<UsuarioHandler>();
@@ -25,6 +26,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<ICidadeRepository, CidadeRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ITipoSanguineoRepository, TipoSanguineoRepository>();
             services.AddDbContext<MetaTiContext>();
         }
     }
