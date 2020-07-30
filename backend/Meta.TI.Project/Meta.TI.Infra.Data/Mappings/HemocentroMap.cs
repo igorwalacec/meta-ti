@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Models;
+using Meta.TI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -12,7 +12,7 @@ namespace Meta.TI.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Hemocentro> builder)
         {
-            builder.Property(h => h.Id)                
+            builder.Property(h => h.Id)
                 .HasColumnName("Id");
 
             builder.Property(h => h.Nome)
@@ -45,7 +45,7 @@ namespace Meta.TI.Infra.Data.Mappings
 
             builder.HasOne(u => u.Endereco)
                .WithOne(t => t.Hemocentro)
-               .HasForeignKey<Hemocentro>(t => t.IdEndereco);                         
+               .HasForeignKey<Hemocentro>(t => t.IdEndereco);
         }
     }
 }

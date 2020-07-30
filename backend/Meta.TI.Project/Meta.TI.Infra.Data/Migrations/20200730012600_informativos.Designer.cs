@@ -4,14 +4,16 @@ using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    partial class MetaTiContextModelSnapshot : ModelSnapshot
+    [Migration("20200730012600_informativos")]
+    partial class informativos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33888,12 +33890,12 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnName("Descricao")
-                        .HasColumnType("varchar(2000)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnName("Titulo")
-                        .HasColumnType("varchar(2000)");
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
