@@ -8,5 +8,6 @@ namespace Meta.TI.Application.Interfaces
     public interface ITipoSanguineoApp
     {
         GenericCommandResult ObterTiposSanguineos();
+        GenericCommandResult AlterarTipoSanguineo(AlterarTipoSanguineoCommand comando);
     }
 }

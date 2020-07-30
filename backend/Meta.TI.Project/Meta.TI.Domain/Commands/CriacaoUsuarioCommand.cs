@@ -1,10 +1,8 @@
 using System;
-using System.Net.Cache;
 using Flunt.Br.Extensions;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Meta.TI.Domain.Commands.Contracts;
-using Meta.TI.Domain.Models;
 
 namespace Meta.TI.Domain.Commands
 {

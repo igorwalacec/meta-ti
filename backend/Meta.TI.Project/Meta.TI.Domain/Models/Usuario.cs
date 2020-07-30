@@ -90,5 +90,9 @@ namespace Meta.TI.Domain.Models
         {
             Ativo = true;
         }
+        public void AlterarTipoSanguineo(int idTipoSanguineo)
+        {
+            this.IdTipoSanguineo = idTipoSanguineo;
+        }
     }
 }

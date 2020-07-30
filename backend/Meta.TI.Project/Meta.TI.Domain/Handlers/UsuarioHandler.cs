@@ -17,7 +17,8 @@ namespace Meta.TI.Domain.Handlers
 {
     public class UsuarioHandler : Notifiable,
                             IHandler<CriacaoUsuarioCommand>,
-                            IHandler<TokenCommand>
+                            IHandler<TokenCommand>,
+                            IHandler<AlterarTipoSanguineoCommand>
     {
         private readonly string secret;
         private readonly string expirationDate;
@@ -149,6 +150,23 @@ namespace Meta.TI.Domain.Handlers
             {
                 return new GenericCommandResult(false, "usuário não encontrado");
             }
+        }
+
+        public ICommandResult Handle(AlterarTipoSanguineoCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
+            }
+
+            var usuario = usuarioRepository.ObterPorId(command.IdUsuario);
+            usuario.AlterarTipoSanguineo(command.IdTipoSanguineo);
+
+            usuarioRepository.Alterar(usuario);
+
+
+            return new GenericCommandResult(true, "Tipo sanguíneo alterado com sucesso", usuario);
         }
     }
 }
