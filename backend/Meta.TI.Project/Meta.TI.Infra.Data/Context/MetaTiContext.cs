@@ -23,6 +23,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Telefone> Telefone { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Informativo> Informativo { get; set; }
+        public DbSet<TipoSexo> TipoSexo { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

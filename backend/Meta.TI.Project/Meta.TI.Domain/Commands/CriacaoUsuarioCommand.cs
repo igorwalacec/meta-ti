@@ -14,6 +14,7 @@ namespace Meta.TI.Domain.Commands
         public string Senha { get; set; }
         public string RG { get; set; }
         public string CPF { get; set; }
+        public int IdTipoSexo { get; set; }
         public int? IdTipoSanguineo { get; set; }
         public DateTime DataNascimento { get; set; }
         public string Logradouro { get; set; }
@@ -29,6 +30,7 @@ namespace Meta.TI.Domain.Commands
                 .Requires()
                 .IsNotNullOrEmpty(Nome,"Nome","Por favor, digite seu nome.")
                 .IsNotNullOrEmpty(Sobrenome, "Sobrenome", "Por favor, digite seu sobrenome.")
+                .AreNotEquals(IdTipoSexo, 0,"Sexo", "Por favor, selecione seu sexo.")
                 .IsEmail(Email, "Email", "Por favor, digite um e-mail válido.")
                 .IsNotNullOrEmpty(Senha, "Senha","Por favor, senha obrigatória.")
                 .IsNotNullOrEmpty(RG, "RG", "Por favor, informe seu RG.")
@@ -40,7 +42,7 @@ namespace Meta.TI.Domain.Commands
                 .IsNotNullOrEmpty(Logradouro, "Logradouro", "Por favor, digite o seu logradouro.")
                 .IsNotNullOrEmpty(Numero, "Número", "Por favor, digite um número.")
                 .IsNotNullOrEmpty(Cep, "CEP", "Por favor, digite seu CEP.")
-                .IsNotNull(IdCidade, "Cidade", "Por favor, selecione uma cidade.")
+                .AreNotEquals(IdCidade, 0,"Cidade", "Por favor, selecione uma cidade.")
             );
         }
     }

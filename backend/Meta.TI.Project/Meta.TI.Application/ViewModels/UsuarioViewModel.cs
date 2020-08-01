@@ -17,6 +17,7 @@ namespace Meta.TI.Application.ViewModels
         public bool Ativo { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
+        public int IdTipoSexo { get; set; }
         public int? IdTipoSanguineo { get; set; }
 
         public TipoSanguineoViewModel TipoSanguineo { get; set; }

@@ -15,7 +15,7 @@ namespace Meta.TI.Domain.Models
         public Usuario(
             string nome, string sobrenome, string email,
             string senha, string RG, string CPF,
-            DateTime dataNascimento, int? idTipoSanguineo, Endereco endereco)
+            DateTime dataNascimento, int idTipoSexo, int? idTipoSanguineo, Endereco endereco)
         {
             Nome = nome;
             Sobrenome = sobrenome;
@@ -24,13 +24,14 @@ namespace Meta.TI.Domain.Models
             this.RG = RG;
             this.CPF = CPF;
             DataNascimento = dataNascimento;
-            IdTipoSanguineo = idTipoSanguineo;
+            IdTipoSexo = idTipoSexo;
+            IdTipoSanguineo = idTipoSanguineo == 0 ? null : IdTipoSanguineo;
             Endereco = endereco;
         }
         public Usuario(
             Guid id, string nome, string sobrenome,
             string email, string RG, string CPF,
-            DateTime dataNascimento, int? idTipoSanguineo, Endereco endereco)
+            DateTime dataNascimento,int idTipoSexo, int? idTipoSanguineo, Endereco endereco)
         {
             Id = id;
             Nome = nome;
@@ -39,10 +40,11 @@ namespace Meta.TI.Domain.Models
             this.RG = RG;
             this.CPF = CPF;
             DataNascimento = dataNascimento;
-            IdTipoSanguineo = idTipoSanguineo;
+            IdTipoSexo = idTipoSexo;
+            IdTipoSanguineo = idTipoSanguineo == 0 ? null : idTipoSanguineo;
             IdEndereco = endereco.Id;
             Endereco = endereco;
-            if (idTipoSanguineo != null)
+            if (IdTipoSanguineo != null)
             {
                 TipoSanguineo = new TipoSanguineo((int)idTipoSanguineo);
             }
@@ -58,6 +60,7 @@ namespace Meta.TI.Domain.Models
         public string CPF { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public bool Ativo { get; private set; }
+        public int IdTipoSexo { get; private set; }
         public int? IdTipoSanguineo { get; private set; }
         public int IdEndereco { get; private set; }
         public DateTime DataCriacao { get; private set; }
@@ -65,6 +68,7 @@ namespace Meta.TI.Domain.Models
 
         public TipoSanguineo TipoSanguineo { get; private set; }
         public Endereco Endereco { get; private set; }
+        public TipoSexo TipoSexo { get; private set; }
 
         public void SetarIdEndereco(int idEndereco)
         {

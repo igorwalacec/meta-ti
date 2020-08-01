@@ -74,6 +74,7 @@ namespace Meta.TI.Domain.Handlers
                 command.RG,
                 command.CPF,
                 command.DataNascimento,
+                command.IdTipoSexo,
                 command.IdTipoSanguineo,
                 endereco
             );
@@ -95,6 +96,7 @@ namespace Meta.TI.Domain.Handlers
                 command.RG,
                 command.CPF,
                 command.DataNascimento,
+                command.IdTipoSexo,
                 command.IdTipoSanguineo,
                 endereco
             );
