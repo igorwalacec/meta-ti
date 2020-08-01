@@ -30,6 +30,10 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasColumnName("Email")
                 .IsRequired();
 
+            builder.Property(u => u.IdTipoSexo)
+                .HasColumnType("int")
+                .HasColumnName("IdTipoSexo")
+                .IsRequired();
 
             builder.Property(u => u.Senha)
                 .HasColumnType("varchar(255)")
@@ -66,9 +70,13 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasColumnType("datetime")
                 .HasColumnName("DataAlteracao");
 
-            builder.HasOne(u => u.TipoSanguineo)
-                .WithOne(t => t.Usuario)
-                .HasForeignKey<Usuario>(t => t.IdTipoSanguineo);
+            builder.HasOne(t => t.TipoSanguineo)
+                .WithMany(t => t.Usuarios)
+                .HasForeignKey(t => t.IdTipoSanguineo);
+
+            builder.HasOne(t => t.TipoSexo)
+                .WithMany(t => t.Usuarios)
+                .HasForeignKey(t => t.IdTipoSexo);
 
             builder.HasOne(u => u.Endereco)
                 .WithOne(t => t.Usuario)
