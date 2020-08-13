@@ -10,5 +10,7 @@ namespace Meta.TI.Domain.Models
         public string Descricao { get; set; }
 
         public ICollection<Usuario> Usuarios { get; set; }
+
+        public ICollection<QuestoesAptidao> QuestoesAptidao { get; set; }
     }
 }

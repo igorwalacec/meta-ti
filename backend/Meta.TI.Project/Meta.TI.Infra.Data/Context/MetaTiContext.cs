@@ -20,6 +20,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Hemocentro> Hemocentro { get; set; }
         public DbSet<EstoqueSanguineo> EstoqueSanguineo { get; set; }
         public DbSet<Expediente> Expediente { get; set; }
+        public DbSet<QuestoesAptidao> QuestoesAptidao { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Informativo> Informativo { get; set; }

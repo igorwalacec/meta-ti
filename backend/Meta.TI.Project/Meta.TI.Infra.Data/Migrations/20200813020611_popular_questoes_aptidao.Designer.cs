@@ -4,14 +4,16 @@ using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    partial class MetaTiContextModelSnapshot : ModelSnapshot
+    [Migration("20200813020611_popular_questoes_aptidao")]
+    partial class popular_questoes_aptidao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33992,7 +33994,7 @@ namespace Meta.TI.Infra.Data.Migrations
                             ImpeditivoDefinitivo = false,
                             ImpeditivoDeterminado = true,
                             NumeroDiasAfastado = 180,
-                            Pergunta = "Teve um parto cesario nos ultimos 180 dias?"
+                            Pergunta = "Teve um parto normal nos ultimos 180 dias?"
                         },
                         new
                         {
