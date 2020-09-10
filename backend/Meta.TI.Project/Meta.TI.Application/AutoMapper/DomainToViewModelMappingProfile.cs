@@ -16,6 +16,7 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<Usuario, UsuarioViewModel>();
             CreateMap<Endereco, EnderecoViewModel>();
             CreateMap<TipoSanguineo, TipoSanguineoViewModel>();
+            CreateMap<QuestoesAptidao, QuestoesAptidaoViewModel>();
         }
     }
 }

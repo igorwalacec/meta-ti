@@ -19,6 +19,8 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c => new TipoSanguineo());
             CreateMap<EnderecoViewModel, Endereco>()
                 .ConstructUsing(c => new Endereco());
+            CreateMap<QuestoesAptidaoViewModel, QuestoesAptidao>()
+                .ConstructUsing(c => new QuestoesAptidao());
             CreateMap<UsuarioViewModel, Usuario>()
                 .ConstructUsing(c =>
                     new Usuario

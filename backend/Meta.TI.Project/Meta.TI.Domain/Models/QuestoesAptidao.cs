@@ -12,6 +12,8 @@ namespace Meta.TI.Domain.Models
         public bool ImpeditivoDefinitivo { get; set; }
         public bool ImpeditivoDeterminado { get; set; }
         public int? IdTipoSexo { get; set; }
+
         public TipoSexo TipoSexo { get; set; }
+        public  ICollection<RespostasAptidao> RespostasAptidao { get; set; }
     }
 }
