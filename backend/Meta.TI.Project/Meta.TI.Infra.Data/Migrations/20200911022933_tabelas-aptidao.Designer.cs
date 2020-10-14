@@ -4,14 +4,16 @@ using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    partial class MetaTiContextModelSnapshot : ModelSnapshot
+    [Migration("20200911022933_tabelas-aptidao")]
+    partial class tabelasaptidao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34220,10 +34222,6 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.Property<DateTime>("DataResultado")
                         .HasColumnName("DataResultado")
                         .HasColumnType("datetime");
-
-                    b.Property<int>("DiasAfastados")
-                        .HasColumnName("DiasAfastados")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

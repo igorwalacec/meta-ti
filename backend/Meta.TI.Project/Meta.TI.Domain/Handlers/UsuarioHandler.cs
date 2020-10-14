@@ -25,7 +25,8 @@ namespace Meta.TI.Domain.Handlers
         private readonly IConfiguration configuration;
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IUsuarioRepository usuarioRepository;
-        public UsuarioHandler(IConfiguration _configuration, IEnderecoRepository _enderecoRepository, IUsuarioRepository _usuarioRepository)
+        private readonly IHistoricoAptidaoRepository historicoAptidaoRepository;
+        public UsuarioHandler(IConfiguration _configuration, IEnderecoRepository _enderecoRepository, IUsuarioRepository _usuarioRepository, IHistoricoAptidaoRepository _historicoAptidaoRepository)
         {
             configuration = _configuration;
 
@@ -38,6 +39,8 @@ namespace Meta.TI.Domain.Handlers
             enderecoRepository = _enderecoRepository;
 
             usuarioRepository = _usuarioRepository;
+
+            historicoAptidaoRepository = _historicoAptidaoRepository;
         }
         public ICommandResult Handle(CriacaoUsuarioCommand command)
         {
@@ -169,6 +172,19 @@ namespace Meta.TI.Domain.Handlers
 
 
             return new GenericCommandResult(true, "Tipo sanguíneo alterado com sucesso", usuario);
+        }
+
+        public ICommandResult Handle(Guid usuarioId)
+        {
+            var dataAtual = DateTime.Now;
+            var retornoDados = historicoAptidaoRepository.CalcularDayOff(usuarioId);
+
+            if (retornoDados == null) return new GenericCommandResult(true, 0);
+
+            TimeSpan ts = retornoDados.ResultadoAptidao.DataProximaDoacao.Subtract(dataAtual);
+            retornoDados.ResultadoAptidao.DiasAfastados = (int)ts.TotalDays;
+
+            return new GenericCommandResult(true, retornoDados);
         }
     }
 }

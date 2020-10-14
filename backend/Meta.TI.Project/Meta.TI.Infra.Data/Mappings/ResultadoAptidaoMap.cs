@@ -28,6 +28,11 @@ namespace Meta.TI.Infra.Data.Mappings
             builder.HasMany(q => q.RespostasAptidao)
                 .WithOne(t => t.ResultadoAptidao)
                 .HasForeignKey(q => q.Id);
+
+            builder.Property(q => q.DiasAfastados)
+                .HasColumnType("int")
+                .HasColumnName("DiasAfastados")
+                .IsRequired();
         }
     }
 }
