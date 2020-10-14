@@ -25,6 +25,14 @@
     <Compile Remove="Migrations\20200517185517_Funcionario-Admin.Designer.cs" />
     <Compile Remove="Migrations\20200730011955_informativos.cs" />
     <Compile Remove="Migrations\20200730011955_informativos.Designer.cs" />
+    <Compile Remove="Migrations\20200813020611_popular_questoes_aptidao.cs" />
+    <Compile Remove="Migrations\20200813020611_popular_questoes_aptidao.Designer.cs" />
+    <Compile Remove="Migrations\20200813021416_update_questoes_aptidao.cs" />
+    <Compile Remove="Migrations\20200813021416_update_questoes_aptidao.Designer.cs" />
+    <Compile Remove="Migrations\20200911022933_tabelas-aptidao.cs" />
+    <Compile Remove="Migrations\20200911022933_tabelas-aptidao.Designer.cs" />
+    <Compile Remove="Migrations\20200911024023_dias-afastados-resultado-aptidao.cs" />
+    <Compile Remove="Migrations\20200911024023_dias-afastados-resultado-aptidao.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

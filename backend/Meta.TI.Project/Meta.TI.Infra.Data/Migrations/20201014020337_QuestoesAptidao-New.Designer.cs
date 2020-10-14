@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    [Migration("20200813021416_update_questoes_aptidao")]
-    partial class update_questoes_aptidao
+    [Migration("20201014020337_QuestoesAptidao-New")]
+    partial class QuestoesAptidaoNew
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33879,6 +33879,29 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.ToTable("Hemocentro");
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.HistoricoAptidao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ResultadoAptidao_Id")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("Usuario_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResultadoAptidao_Id");
+
+                    b.HasIndex("Usuario_Id");
+
+                    b.ToTable("HistoricoAptidao");
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.Informativo", b =>
                 {
                     b.Property<int>("Id")
@@ -34159,6 +34182,56 @@ namespace Meta.TI.Infra.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.RespostasAptidao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("QuestoesAptidao_Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Resposta")
+                        .HasColumnName("Resposta")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResultadoAptidao_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestoesAptidao_Id");
+
+                    b.ToTable("RespostasAptidao");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.ResultadoAptidao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataProximaDoacao")
+                        .HasColumnName("DataProximaDoacao")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DataResultado")
+                        .HasColumnName("DataResultado")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("DiasAfastados")
+                        .HasColumnName("DiasAfastados")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResultadoAptidao");
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.Telefone", b =>
                 {
                     b.Property<int>("Id")
@@ -34422,11 +34495,37 @@ namespace Meta.TI.Infra.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.HistoricoAptidao", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.ResultadoAptidao", "ResultadoAptidao")
+                        .WithMany("HistoricoAptidao")
+                        .HasForeignKey("ResultadoAptidao_Id")
+                        .IsRequired();
+
+                    b.HasOne("Meta.TI.Domain.Models.Usuario", "Usuario")
+                        .WithMany("HistoricoAptidao")
+                        .HasForeignKey("Usuario_Id")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.QuestoesAptidao", b =>
                 {
                     b.HasOne("Meta.TI.Domain.Models.TipoSexo", "TipoSexo")
                         .WithMany("QuestoesAptidao")
                         .HasForeignKey("IdTipoSexo");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.RespostasAptidao", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.ResultadoAptidao", "ResultadoAptidao")
+                        .WithMany("RespostasAptidao")
+                        .HasForeignKey("Id")
+                        .IsRequired();
+
+                    b.HasOne("Meta.TI.Domain.Models.QuestoesAptidao", "QuestoesAptidao")
+                        .WithMany("RespostasAptidao")
+                        .HasForeignKey("QuestoesAptidao_Id")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.Telefone", b =>
