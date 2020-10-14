@@ -32,6 +32,8 @@
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-use-before-define": "off",
+    "no-use-before-define": "off",
     "react/jsx-filename-extension": [
       1,
       {
@@ -51,6 +53,9 @@
     ]
   },
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "typescript": {}
     }

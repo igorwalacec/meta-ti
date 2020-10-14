@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Models;
+using Meta.TI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -11,6 +11,8 @@ namespace Meta.TI.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Cidade> builder)
         {
+            builder
+
             builder.Property(e => e.Id)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("Id");
