@@ -18,6 +18,7 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<TipoSanguineo, TipoSanguineoViewModel>();
             CreateMap<QuestoesAptidao, QuestoesAptidaoViewModel>();
             CreateMap<HistoricoAptidao, HistoricoAptidaoViewModel>();
+            CreateMap<HistoricoDoacao, HistoricoDoacaoViewModel>();
         }
     }
 }

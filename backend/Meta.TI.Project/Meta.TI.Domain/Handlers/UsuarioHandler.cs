@@ -26,7 +26,13 @@ namespace Meta.TI.Domain.Handlers
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IUsuarioRepository usuarioRepository;
         private readonly IHistoricoAptidaoRepository historicoAptidaoRepository;
-        public UsuarioHandler(IConfiguration _configuration, IEnderecoRepository _enderecoRepository, IUsuarioRepository _usuarioRepository, IHistoricoAptidaoRepository _historicoAptidaoRepository)
+        private readonly IHistoricoDoacaoRepository historicoDoacaoRepository;
+
+        public UsuarioHandler(IConfiguration _configuration,
+                                IEnderecoRepository _enderecoRepository,
+                                IUsuarioRepository _usuarioRepository,
+                                IHistoricoAptidaoRepository _historicoAptidaoRepository,
+                                IHistoricoDoacaoRepository _historicoDoacaoRepository)
         {
             configuration = _configuration;
 
@@ -41,6 +47,8 @@ namespace Meta.TI.Domain.Handlers
             usuarioRepository = _usuarioRepository;
 
             historicoAptidaoRepository = _historicoAptidaoRepository;
+
+            historicoDoacaoRepository = _historicoDoacaoRepository;
         }
         public ICommandResult Handle(CriacaoUsuarioCommand command)
         {
@@ -185,6 +193,26 @@ namespace Meta.TI.Domain.Handlers
             retornoDados.ResultadoAptidao.DiasAfastados = (int)ts.TotalDays;
 
             return new GenericCommandResult(true, retornoDados);
+        }
+
+        public ICommandResult Handle(CadastrarNovaDoacaoCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
+            }
+
+            var novoHistorico = new HistoricoDoacao
+            (
+                command.IdUsuario,
+                command.DataCadastro,
+                command.IdHemocentro
+            );
+
+            historicoDoacaoRepository.Adicionar(novoHistorico);
+
+            return new GenericCommandResult(true, "Historico de doação adicionado com sucesso", novoHistorico);
         }
     }
 }

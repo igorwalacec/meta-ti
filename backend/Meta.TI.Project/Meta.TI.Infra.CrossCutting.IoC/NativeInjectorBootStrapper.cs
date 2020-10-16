@@ -19,6 +19,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<ITipoSanguineoApp, TipoSanguineoApp>();
             services.AddScoped<IQuestoesAptidaoApp, QuestoesAptidaoApp>();
             services.AddScoped<IHistoricoAptidaoApp, HistoricoAptidaoApp>();
+            services.AddScoped<IHistoricoDoacaoApp, HistoricoDoacaoApp>();
 
             // Commands
             services.AddTransient<UsuarioHandler>();
@@ -31,6 +32,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<ITipoSanguineoRepository, TipoSanguineoRepository>();
             services.AddScoped<IQuestoesAptidaoRepository, QuestoesAptidaoRepository>();
             services.AddScoped<IHistoricoAptidaoRepository, HistoricoAptidaoRepository>();
+            services.AddScoped<IHistoricoDoacaoRepository, HistoricoDoacaoRepository>();
             services.AddDbContext<MetaTiContext>();
         }
     }
