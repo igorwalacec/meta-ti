@@ -27,12 +27,14 @@ namespace Meta.TI.Domain.Handlers
         private readonly IUsuarioRepository usuarioRepository;
         private readonly IHistoricoAptidaoRepository historicoAptidaoRepository;
         private readonly IHistoricoDoacaoRepository historicoDoacaoRepository;
+        private readonly IStatusDoacaoRepository statusDoacaoRepository;
 
         public UsuarioHandler(IConfiguration _configuration,
                                 IEnderecoRepository _enderecoRepository,
                                 IUsuarioRepository _usuarioRepository,
                                 IHistoricoAptidaoRepository _historicoAptidaoRepository,
-                                IHistoricoDoacaoRepository _historicoDoacaoRepository)
+                                IHistoricoDoacaoRepository _historicoDoacaoRepository,
+                                IStatusDoacaoRepository _statusDoacaoRepository)
         {
             configuration = _configuration;
 
@@ -49,6 +51,8 @@ namespace Meta.TI.Domain.Handlers
             historicoAptidaoRepository = _historicoAptidaoRepository;
 
             historicoDoacaoRepository = _historicoDoacaoRepository;
+
+            statusDoacaoRepository = _statusDoacaoRepository;
         }
         public ICommandResult Handle(CriacaoUsuarioCommand command)
         {
@@ -192,7 +196,28 @@ namespace Meta.TI.Domain.Handlers
             TimeSpan ts = retornoDados.ResultadoAptidao.DataProximaDoacao.Subtract(dataAtual);
             retornoDados.ResultadoAptidao.DiasAfastados = (int)ts.TotalDays;
 
-            return new GenericCommandResult(true, retornoDados);
+            if (retornoDados.ResultadoAptidao.DiasAfastados > 0)
+            {
+                retornoDados.ResultadoAptidao.IdStatus = 2;
+            }
+            else
+            {
+                retornoDados.ResultadoAptidao.IdStatus = 1;
+            }
+
+            var status = statusDoacaoRepository.BuscarStatus(retornoDados.ResultadoAptidao.IdStatus);
+
+            var resultado = new
+            {
+                resultado = new
+                {
+                    retornoDados.ResultadoAptidao.DiasAfastados,
+                    retornoDados.ResultadoAptidao.DataProximaDoacao,
+                    status
+                },
+            };
+
+            return new GenericCommandResult(true, resultado);
         }
 
         public ICommandResult Handle(CadastrarNovaDoacaoCommand command)

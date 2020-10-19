@@ -12,26 +12,25 @@ namespace Meta.TI.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HistoricoAptidaoController : ApiController
+    public class StatusDoacaoController : ApiController
     {
-        private readonly IHistoricoAptidaoApp historicoAptidaoApp;
-        public HistoricoAptidaoController(IHistoricoAptidaoApp _historicoAptidaoApp)
+        private readonly IStatusDoacaoApp statusDoacaoApp;
+        public StatusDoacaoController(IStatusDoacaoApp _statusDoacaoApp)
         {
-            historicoAptidaoApp = _historicoAptidaoApp;
+            statusDoacaoApp = _statusDoacaoApp;
         }
 
         [HttpGet]
-        [Route("calcular-daysoff")]
+        [Route("buscar-status-doacao")]
         [Authorize(Roles = "doador")]
-        public IActionResult CalcularDayOff()
+        public IActionResult BuscarStatusDoacao()
         {
             var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
                    .Select(c => c.Value).SingleOrDefault());
 
-            var retorno = historicoAptidaoApp.CalcularDayOff(idUsuario);
+            var retorno = statusDoacaoApp.BuscarStatusDoacao(idUsuario);
 
             return Response(retorno);
         }
     }
-
 }
