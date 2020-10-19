@@ -19,6 +19,10 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c => new TipoSanguineo());
             CreateMap<EnderecoViewModel, Endereco>()
                 .ConstructUsing(c => new Endereco());
+            CreateMap<FuncionarioViewModel, Funcionario>()
+                .ConstructUsing(c => new Funcionario());
+            CreateMap<TelefoneViewModel, Telefone>()
+                .ConstructUsing(c => new Telefone());
             CreateMap<UsuarioViewModel, Usuario>()
                 .ConstructUsing(c =>
                     new Usuario
@@ -39,6 +43,36 @@ namespace Meta.TI.Application.AutoMapper
                             Cep = c.Endereco.Cep,
                             IdCidade = c.Endereco.Cidade.Id
                         }));
+            CreateMap<HemocentroViewModel, Hemocentro>()
+                .ConstructUsing(c =>
+                    new Hemocentro
+                    (
+                        c.Nome,
+                        c.CNPJ,
+                        new Endereco
+                        {
+                            Logradouro = c.Endereco.Logradouro,
+                            Complemento = c.Endereco.Complemento,
+                            Numero = c.Endereco.Numero,
+                            Cep = c.Endereco.Cep,
+                            IdCidade = c.Endereco.Cidade.Id
+                        }));
+            //CreateMap<EstoqueSanguineoViewModel, EstoqueSanguineo>()
+            //    .ConstructUsing(c =>
+            //        new EstoqueSanguineo
+            //        (                        
+            //            c.QuantidadeBolsas,
+            //            c.QuantidadeMinimaBolsas,
+            //            new TipoSanguineo
+            //            {
+            //                Id = c.TipoSanguineo.Id,
+            //                Nome = c.TipoSanguineo.Nome,
+            //            },
+            //            new Hemocentro
+            //            {
+            //                Nome = c.Hemocentro.Nome,
+            //                CNPJ = c.Hemocentro.CNPJ,
+            //            }));
         }
     }
 }

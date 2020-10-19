@@ -107,7 +107,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que suas informações estão inválidas.", command.Notifications);
             }
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -167,6 +167,30 @@ namespace Meta.TI.Domain.Handlers
 
 
             return new GenericCommandResult(true, "Tipo sanguíneo alterado com sucesso", usuario);
+        }
+
+        public ICommandResult Handle(AlterarEnderecoUsuarioCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
+            }
+
+            var usuario = usuarioRepository.ObterPorId(command.IdUsuario);
+            
+            var endereco = new Endereco(
+               usuario.Endereco.Id,
+               command.DadosEndereco.Logradouro,
+               command.DadosEndereco.Complemento,
+               command.DadosEndereco.Numero,
+               command.DadosEndereco.Cep,
+               command.DadosEndereco.IdCidade
+           );
+
+            enderecoRepository.Alterar(endereco);           
+
+            return new GenericCommandResult(true, "Endereço alterado com sucesso", usuario);
         }
     }
 }

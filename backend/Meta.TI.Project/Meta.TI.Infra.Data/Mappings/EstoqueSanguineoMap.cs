@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Models;
+using Meta.TI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -22,6 +22,14 @@ namespace Meta.TI.Infra.Data.Mappings
             builder.HasOne(e => e.Hemocentro)
                 .WithMany(e => e.EstoquesSanguineos)
                 .HasForeignKey(e => e.IdHemocentro)
+                .IsRequired();
+
+            builder.Property(e => e.QuantidadeBolsas)
+                .HasColumnName("QtdBolsas")
+                .IsRequired();
+
+            builder.Property(e => e.QuantidadeMinimaBolsas)
+                .HasColumnName("QtdMinimaBolsas")
                 .IsRequired();
         }
     }

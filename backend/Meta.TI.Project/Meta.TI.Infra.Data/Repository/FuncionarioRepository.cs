@@ -8,9 +8,9 @@ using Meta.TI.Infra.Data.Context;
 
 namespace Meta.TI.Infra.Data.Repository
 {
-    public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
+    public class FuncionarioRepository: Repository<Funcionario>, IFuncionarioRepository
     {
-        public UsuarioRepository(MetaTiContext context) : base(context)
+        public FuncionarioRepository(MetaTiContext context) : base(context)
         {
         }
 
@@ -24,7 +24,7 @@ namespace Meta.TI.Infra.Data.Repository
             return DbSet.Where(x => x.CPF.ToUpper() == cpf.ToUpper()).Any();
         }
 
-        public Usuario ObterUsuarioPorEmailSenha(string email, string senha)
+        public Funcionario ObterFuncionarioPorEmailSenha(string email, string senha)
         {
             return DbSet.FirstOrDefault(x => x.Email == email && x.Senha == senha);
         }
