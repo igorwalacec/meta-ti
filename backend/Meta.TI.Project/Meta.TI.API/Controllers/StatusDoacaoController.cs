@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Meta.TI.Application.Interfaces;
+using Meta.TI.Domain.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,11 @@ namespace Meta.TI.API.Controllers
     public class StatusDoacaoController : ApiController
     {
         private readonly IStatusDoacaoApp statusDoacaoApp;
-        public StatusDoacaoController(IStatusDoacaoApp _statusDoacaoApp)
+        private readonly StatusDoacaoCommand statusDoacaoCommand;
+        public StatusDoacaoController(IStatusDoacaoApp _statusDoacaoApp, StatusDoacaoCommand _statusDoacaoCommand)
         {
             statusDoacaoApp = _statusDoacaoApp;
+            statusDoacaoCommand = _statusDoacaoCommand;
         }
 
         [HttpGet]
@@ -28,7 +31,9 @@ namespace Meta.TI.API.Controllers
             var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
                    .Select(c => c.Value).SingleOrDefault());
 
-            var retorno = statusDoacaoApp.BuscarStatusDoacao(idUsuario);
+            statusDoacaoCommand.IdUsuario = idUsuario;
+
+            var retorno = statusDoacaoApp.BuscarStatusDoacao(statusDoacaoCommand);
 
             return Response(retorno);
         }

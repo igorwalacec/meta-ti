@@ -33,6 +33,12 @@
     <Compile Remove="Migrations\20200911022933_tabelas-aptidao.Designer.cs" />
     <Compile Remove="Migrations\20200911024023_dias-afastados-resultado-aptidao.cs" />
     <Compile Remove="Migrations\20200911024023_dias-afastados-resultado-aptidao.Designer.cs" />
+    <Compile Remove="Migrations\20201020012727_tabela-orientacao-doacao.cs" />
+    <Compile Remove="Migrations\20201020012727_tabela-orientacao-doacao.Designer.cs" />
+    <Compile Remove="Migrations\20201020014258_tabela-orientacao-doacao.cs" />
+    <Compile Remove="Migrations\20201020014258_tabela-orientacao-doacao.Designer.cs" />
+    <Compile Remove="Migrations\20201020014916_tabela-orientacao-doacao-status-doacao.cs" />
+    <Compile Remove="Migrations\20201020014916_tabela-orientacao-doacao-status-doacao.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

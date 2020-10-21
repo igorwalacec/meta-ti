@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Meta.TI.Application.Interfaces;
+using Meta.TI.Domain.Commands;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,11 @@ namespace Meta.TI.API.Controllers
     public class HistoricoAptidaoController : ApiController
     {
         private readonly IHistoricoAptidaoApp historicoAptidaoApp;
-        public HistoricoAptidaoController(IHistoricoAptidaoApp _historicoAptidaoApp)
+        private readonly StatusDoacaoCommand statusDoacaoCommand;
+        public HistoricoAptidaoController(IHistoricoAptidaoApp _historicoAptidaoApp, StatusDoacaoCommand _statusDoacaoCommand)
         {
             historicoAptidaoApp = _historicoAptidaoApp;
+            statusDoacaoCommand = _statusDoacaoCommand;
         }
 
         [HttpGet]
@@ -28,7 +31,9 @@ namespace Meta.TI.API.Controllers
             var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
                    .Select(c => c.Value).SingleOrDefault());
 
-            var retorno = historicoAptidaoApp.CalcularDayOff(idUsuario);
+            statusDoacaoCommand.IdUsuario = idUsuario;
+
+            var retorno = historicoAptidaoApp.CalcularDayOff(statusDoacaoCommand);
 
             return Response(retorno);
         }

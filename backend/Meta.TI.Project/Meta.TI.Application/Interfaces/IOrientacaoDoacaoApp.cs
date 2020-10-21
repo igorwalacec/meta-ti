@@ -5,8 +5,8 @@ using Meta.TI.Domain.Commands;
 
 namespace Meta.TI.Application.Interfaces
 {
-    public interface IStatusDoacaoApp : IDisposable
+    public interface IOrientacaoDoacaoApp : IDisposable
     {
-        GenericCommandResult BuscarStatusDoacao(StatusDoacaoCommand status);
+        GenericCommandResult ObterOrientacoesDoacao();
     }
 }

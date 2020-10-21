@@ -20,7 +20,7 @@ namespace Meta.TI.Application.App
             handler = _handler;
         }
 
-        public GenericCommandResult BuscarStatusDoacao(Guid idUsuario)
+        public GenericCommandResult BuscarStatusDoacao(StatusDoacaoCommand idUsuario)
         {
             var result = (GenericCommandResult)handler.Handle(idUsuario);
 

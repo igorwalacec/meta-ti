@@ -7,6 +7,6 @@ namespace Meta.TI.Application.Interfaces
 {
     public interface IHistoricoAptidaoApp : IDisposable
     {
-        GenericCommandResult CalcularDayOff(Guid usuarioId);
+        GenericCommandResult CalcularDayOff(StatusDoacaoCommand status);
     }
 }

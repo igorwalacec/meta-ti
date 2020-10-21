@@ -186,12 +186,12 @@ namespace Meta.TI.Domain.Handlers
             return new GenericCommandResult(true, "Tipo sanguíneo alterado com sucesso", usuario);
         }
 
-        public ICommandResult Handle(Guid usuarioId)
+        public ICommandResult Handle(StatusDoacaoCommand usuarioId)
         {
             var dataAtual = DateTime.Now;
-            var retornoDados = historicoAptidaoRepository.CalcularDayOff(usuarioId);
+            var retornoDados = historicoAptidaoRepository.CalcularDayOff(usuarioId.IdUsuario);
 
-            if (retornoDados == null) return new GenericCommandResult(true, 0);
+            if (retornoDados == null) return new GenericCommandResult(false, "Historico de doação não encontrado!",null);
 
             TimeSpan ts = retornoDados.ResultadoAptidao.DataProximaDoacao.Subtract(dataAtual);
             retornoDados.ResultadoAptidao.DiasAfastados = (int)ts.TotalDays;

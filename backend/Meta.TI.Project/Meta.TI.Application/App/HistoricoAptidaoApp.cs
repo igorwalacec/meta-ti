@@ -24,7 +24,7 @@ namespace Meta.TI.Application.App
             handler = _handler;
         }
 
-        public GenericCommandResult CalcularDayOff(Guid usuarioId)
+        public GenericCommandResult CalcularDayOff(StatusDoacaoCommand usuarioId)
         {
             var result = (GenericCommandResult)handler.Handle(usuarioId);
             if (result.Sucess)

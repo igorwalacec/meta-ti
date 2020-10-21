@@ -20,6 +20,8 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IQuestoesAptidaoApp, QuestoesAptidaoApp>();
             services.AddScoped<IHistoricoAptidaoApp, HistoricoAptidaoApp>();
             services.AddScoped<IHistoricoDoacaoApp, HistoricoDoacaoApp>();
+            services.AddScoped<IOrientacaoDoacaoApp, OrientacaoDoacaoApp>();
+            services.AddScoped<IStatusDoacaoApp, StatusDoacaoApp>();
 
             // Commands
             services.AddTransient<UsuarioHandler>();
@@ -33,6 +35,8 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IQuestoesAptidaoRepository, QuestoesAptidaoRepository>();
             services.AddScoped<IHistoricoAptidaoRepository, HistoricoAptidaoRepository>();
             services.AddScoped<IHistoricoDoacaoRepository, HistoricoDoacaoRepository>();
+            services.AddScoped<IOrientacaoDoacaoRepository, OrientacaoDoacaoRepository>();
+            services.AddScoped<IStatusDoacaoRepository, StatusDoacaoRepository>();
             services.AddDbContext<MetaTiContext>();
         }
     }

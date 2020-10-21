@@ -25,6 +25,10 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c => new HistoricoAptidao());
             CreateMap<HistoricoDoacaoViewModel, HistoricoDoacao>()
                 .ConstructUsing(c => new HistoricoDoacao());
+            CreateMap<OrientacaoDoacaoViewModel, OrientacaoDoacao>()
+                .ConstructUsing(c => new OrientacaoDoacao());
+            CreateMap<HistoricoAptidaoViewModel, StatusDoacao>()
+                .ConstructUsing(c => new StatusDoacao());
             CreateMap<UsuarioViewModel, Usuario>()
                 .ConstructUsing(c =>
                     new Usuario
