@@ -4,46 +4,22 @@ using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    partial class MetaTiContextModelSnapshot : ModelSnapshot
+    [Migration("20201020021628_Create_Table_Campanha")]
+    partial class Create_Table_Campanha
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Meta.TI.Domain.Models.Agendamento", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DataAgendamento")
-                        .HasColumnName("DataAgendamento")
-                        .HasColumnType("datetime");
-
-                    b.Property<Guid>("IdHemocentro")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdHemocentro");
-
-                    b.HasIndex("IdUsuario");
-
-                    b.ToTable("Agendamento");
-                });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.Campanha", b =>
                 {
@@ -34171,19 +34147,6 @@ namespace Meta.TI.Infra.Data.Migrations
                         .HasFilter("[IdTipoSanguineo] IS NOT NULL");
 
                     b.ToTable("Usuario");
-                });
-
-            modelBuilder.Entity("Meta.TI.Domain.Models.Agendamento", b =>
-                {
-                    b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
-                        .WithMany("Agendamentos")
-                        .HasForeignKey("IdHemocentro")
-                        .IsRequired();
-
-                    b.HasOne("Meta.TI.Domain.Models.Usuario", "Usuario")
-                        .WithMany("Agendamentos")
-                        .HasForeignKey("IdUsuario")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.Campanha", b =>

@@ -4,14 +4,16 @@ using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    partial class MetaTiContextModelSnapshot : ModelSnapshot
+    [Migration("20201020235314_create_agendamento_doacao")]
+    partial class create_agendamento_doacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

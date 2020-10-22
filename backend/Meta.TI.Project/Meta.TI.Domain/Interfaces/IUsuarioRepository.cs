@@ -7,5 +7,6 @@ namespace Meta.TI.Domain.Interfaces
         bool VerificarExistenciaCPF(string cpf);
         bool VerificarExistenciaEmail(string email);
         Usuario ObterUsuarioPorEmailSenha(string email, string senha);
+        Usuario ObterUsuarioPorCPF(string cpf);
     }
 }

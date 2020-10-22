@@ -13,8 +13,7 @@ namespace Meta.TI.Domain.Models
         {
         }
 
-        public Funcionario(
-            string nomeCompleto, string email, string senha, string cpf, Guid? idHemocentro)
+        public Funcionario(string nomeCompleto, string email, string senha, string cpf, Guid? idHemocentro)
         {
             NomeCompleto = nomeCompleto;
             Email = email;
@@ -22,8 +21,7 @@ namespace Meta.TI.Domain.Models
             CPF = cpf;
             IdHemocentro = idHemocentro;
         }
-        public Funcionario(
-            Guid id, string nomeCompleto, string email, string cpf)
+        public Funcionario(Guid id, string nomeCompleto, string email, string cpf)
         {
             Id = id;
             NomeCompleto = nomeCompleto;

@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections.Generic;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
@@ -11,7 +11,13 @@ namespace Meta.TI.Domain.Handlers
 {
     public class HemocentroHandler : Notifiable,
                                      IHandler<CriacaoHemocentroCommand>,
-                                     IHandler<AlterarAtivoHemocentroCommand>
+                                     IHandler<AlterarAtivoHemocentroCommand>,
+                                     IHandler<AlterarEnderecoHemocentroCommand>,
+                                     IHandler<AlterarTelefoneHemocentroCommand>,
+                                     IHandler<ConsultarEstoqueSanguineoPorHemocentroCommand>,
+                                     IHandler<ConsultarEstoqueSanquineoCommand>,
+                                     IHandler<AlterarEstoqueSanguineoCommand>,
+                                     IHandler<AlterarExpedienteHemocentroCommand>
     {
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IHemocentroRepository hemocentroRepository;
@@ -139,9 +145,9 @@ namespace Meta.TI.Domain.Handlers
             return new GenericCommandResult(true, "Telefones alterados com sucesso");
         }
 
-        public ICommandResult Handle(Guid idHemocentro)
+        public ICommandResult Handle(ConsultarEstoqueSanguineoPorHemocentroCommand command)
         {
-            var estoqueSanguineo = estoqueSanquineoRepository.ObterTodosEstoqueSanguineo(idHemocentro);
+            var estoqueSanguineo = estoqueSanquineoRepository.ObterTodosEstoqueSanguineo(command.IdHemocentro);
 
             return new GenericCommandResult(true, estoqueSanguineo);
         }

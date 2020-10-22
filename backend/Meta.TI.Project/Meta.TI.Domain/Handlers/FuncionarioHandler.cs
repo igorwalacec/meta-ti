@@ -22,10 +22,10 @@ namespace Meta.TI.Domain.Handlers
         private readonly string secret;
         private readonly string expirationDate;
         private readonly IConfiguration configuration;
-        private readonly IEnderecoRepository enderecoRepository;
+        //private readonly IEnderecoRepository enderecoRepository;
         private readonly IFuncionarioRepository funcionarioRepository;
         public FuncionarioHandler(IConfiguration _configuration,
-                                  IEnderecoRepository _enderecoRepository,
+                                  //IEnderecoRepository _enderecoRepository,
                                   IFuncionarioRepository _funcionarioRepository)
         {
             configuration = _configuration;
@@ -36,7 +36,7 @@ namespace Meta.TI.Domain.Handlers
             expirationDate = configuration.GetSection("JwtConfig")
                 .GetSection("expirationInMinutes").Value;
 
-            enderecoRepository = _enderecoRepository;
+            //enderecoRepository = _enderecoRepository;
 
             funcionarioRepository = _funcionarioRepository;
         }

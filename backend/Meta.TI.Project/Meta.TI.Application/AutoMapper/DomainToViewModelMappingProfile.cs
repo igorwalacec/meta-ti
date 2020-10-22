@@ -18,7 +18,9 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<TipoSanguineo, TipoSanguineoViewModel>();
             CreateMap<Hemocentro, HemocentroViewModel>();
             CreateMap<Funcionario, FuncionarioViewModel>();
-            CreateMap<Telefone, TelefoneViewModel>();
+            CreateMap<FeedSolicitacao, FeedSolicitacaoViewModel>();
+            CreateMap<Campanha, CampanhaViewModel>();
+            CreateMap<Agendamento, AgendamentoViewModel>();
         }
     }
 }

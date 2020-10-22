@@ -1,45 +1,39 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Text;
 
 namespace Meta.TI.Domain.Models
 {
-    public class FeedSolicitacao
+    public class Campanha 
     {
-        public FeedSolicitacao()
+        public Campanha()
         {
         }
 
-        public FeedSolicitacao(string descricao, Usuario usuario, Hemocentro hemocentro, TipoSanguineo tipoSanguineo)
+        public Campanha(string titulo, string descricao, Hemocentro hemocentro)
         {
+            Titulo = titulo;
             Descricao = descricao;
-            Usuario = usuario;
             Hemocentro = hemocentro;
-            TipoSanguineo = tipoSanguineo;
         }
 
-        public FeedSolicitacao(int id, string descricao, Usuario usuario, Hemocentro hemocentro, TipoSanguineo tipoSanguineo)
+        public Campanha(int id, string titulo, string descricao, Hemocentro hemocentro)
         {
             Id = id;
+            Titulo = titulo;
             Descricao = descricao;
-            Usuario = usuario;
             Hemocentro = hemocentro;
-            TipoSanguineo = tipoSanguineo;
         }
 
         [Key]
         public int Id { get; set; }
         public Guid IdHemocentro { get; set; }
-        public Guid IdUsuario { get; set; }
-        public int IdTipoSanguineo { get; set; }
+        public string Titulo { get; set; }
         public string Descricao { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
-        public Usuario Usuario { get; set; }
         public Hemocentro Hemocentro { get; set; }
-        public TipoSanguineo TipoSanguineo { get; set; }
 
         public void SetarDataCriacao(DateTime data)
         {

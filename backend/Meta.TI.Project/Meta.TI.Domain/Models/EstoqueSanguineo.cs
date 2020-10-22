@@ -7,28 +7,28 @@ namespace Meta.TI.Domain.Models
 {
     public class EstoqueSanguineo
     {
-        public EstoqueSanguineo()
-        {
-        }
+        //public EstoqueSanguineo()
+        //{
+        //}
 
-        public EstoqueSanguineo(int quantidadeBolsas,
-            int quantidadeMinimaBolsas, TipoSanguineo tipoSanguineo, Hemocentro hemocentro)
-        {
-            QuantidadeBolsas = quantidadeBolsas;
-            QuantidadeMinimaBolsas = quantidadeMinimaBolsas;
-            TipoSanguineo = tipoSanguineo;
-            Hemocentro = hemocentro;
-        }
+        //public EstoqueSanguineo(int quantidadeBolsas,
+        //    int quantidadeMinimaBolsas, int idTipoSanguineo, Guid idHemocentro)
+        //{
+        //    QuantidadeBolsas = quantidadeBolsas;
+        //    QuantidadeMinimaBolsas = quantidadeMinimaBolsas;
+        //    IdTipoSanguineo = idTipoSanguineo;
+        //    IdHemocentro = idHemocentro;
+        //}
 
-        public EstoqueSanguineo(int id, int quantidadeBolsas,
-            int quantidadeMinimaBolsas, TipoSanguineo tipoSanguineo, Hemocentro hemocentro)
-        {
-            Id = id;
-            QuantidadeBolsas = quantidadeBolsas;
-            QuantidadeMinimaBolsas = quantidadeMinimaBolsas;
-            TipoSanguineo = tipoSanguineo;
-            Hemocentro = hemocentro;
-        }
+        //public EstoqueSanguineo(int id, int quantidadeBolsas,
+        //    int quantidadeMinimaBolsas, int idTipoSanguineo, Guid idHemocentro)
+        //{
+        //    Id = id;
+        //    QuantidadeBolsas = quantidadeBolsas;
+        //    QuantidadeMinimaBolsas = quantidadeMinimaBolsas;
+        //    IdTipoSanguineo = idTipoSanguineo;
+        //    IdHemocentro = idHemocentro;
+        //}
 
         [Key]
         public int Id { get; set; }

@@ -5,6 +5,7 @@ using System.Text;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
 using Meta.TI.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Meta.TI.Infra.Data.Repository
 {
@@ -22,8 +23,12 @@ namespace Meta.TI.Infra.Data.Repository
 
         public Hemocentro ObterHemocentroPorId(Guid guid)
         {
-            return DbSet.FirstOrDefault(x => x.Id == guid);
-            //TODO: incluir expediente e demais informações para retorno
+            return DbSet.Where(x => x.Id == guid)
+                .Include(w => w.EstoquesSanguineos)
+                .Include(y => y.Endereco)
+                .Include(z => z.Expedientes)
+                .Include(t => t.Telefones)
+                .FirstOrDefault();
         }
 
         public bool VerificarExistenciaCNPJ(string cnpj)

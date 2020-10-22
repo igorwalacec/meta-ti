@@ -21,8 +21,6 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c => new Endereco());
             CreateMap<FuncionarioViewModel, Funcionario>()
                 .ConstructUsing(c => new Funcionario());
-            CreateMap<TelefoneViewModel, Telefone>()
-                .ConstructUsing(c => new Telefone());
             CreateMap<UsuarioViewModel, Usuario>()
                 .ConstructUsing(c =>
                     new Usuario
@@ -57,6 +55,67 @@ namespace Meta.TI.Application.AutoMapper
                             Cep = c.Endereco.Cep,
                             IdCidade = c.Endereco.Cidade.Id
                         }));
+
+            CreateMap<FeedSolicitacaoViewModel, FeedSolicitacao>()
+                .ConstructUsing(c =>
+                    new FeedSolicitacao
+                    (
+                        c.Id,
+                        c.Descricao,
+                        new Usuario
+                        {
+                            Nome = c.Usuario.Nome,
+                            Sobrenome = c.Usuario.Sobrenome,
+                            Email = c.Usuario.Email,
+                            Senha = c.Usuario.Senha,
+                            RG = c.Usuario.RG,
+                            CPF = c.Usuario.CPF,
+                            DataNascimento = c.Usuario.DataNascimento,
+                            IdTipoSanguineo = c.Usuario.IdTipoSanguineo,
+                        },
+                        new Hemocentro
+                        {
+                           Nome =  c.Hemocentro.Nome,
+                           CNPJ = c.Hemocentro.CNPJ,
+                        },
+                        new TipoSanguineo
+                        {
+                            Nome = c.TipoSanguineo.Nome,
+                        }));
+            CreateMap<CampanhaViewModel, Campanha>()
+                .ConstructUsing(c =>
+                    new Campanha
+                    (
+                        c.Id,
+                        c.Titulo,
+                        c.Descricao,
+                        new Hemocentro
+                        {
+                            Nome = c.Hemocentro.Nome,
+                            CNPJ = c.Hemocentro.CNPJ,
+                        }));
+            CreateMap<AgendamentoViewModel, Agendamento>()
+               .ConstructUsing(c =>
+                   new Agendamento
+                   (
+                       c.Id,                       
+                       new Usuario
+                       {
+                           Nome = c.Usuario.Nome,
+                           Sobrenome = c.Usuario.Sobrenome,
+                           Email = c.Usuario.Email,
+                           Senha = c.Usuario.Senha,
+                           RG = c.Usuario.RG,
+                           CPF = c.Usuario.CPF,
+                           DataNascimento = c.Usuario.DataNascimento,
+                           IdTipoSanguineo = c.Usuario.IdTipoSanguineo,
+                       },
+                       new Hemocentro
+                       {
+                           Nome = c.Hemocentro.Nome,
+                           CNPJ = c.Hemocentro.CNPJ,
+                       },
+                       c.DataAgendamento));
             //CreateMap<EstoqueSanguineoViewModel, EstoqueSanguineo>()
             //    .ConstructUsing(c =>
             //        new EstoqueSanguineo
