@@ -15,8 +15,7 @@ namespace Meta.TI.API.Controllers
         }
 
         [HttpGet]
-        [Route("obter-estados")]
-        [Authorize(Roles = "doador")]
+        [Route("obter-estados")]        
         public IActionResult ObterEstados()
         {
             return Response(estadoApp.ObterEstados());
