@@ -33900,6 +33900,33 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.ToTable("HistoricoAptidao");
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.HistoricoDoacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnName("DataCadastro")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("IdHemocentro")
+                        .HasColumnName("IdHemocentro")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnName("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdHemocentro");
+
+                    b.ToTable("HistoricoDoacao");
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.Informativo", b =>
                 {
                     b.Property<int>("Id")
@@ -33921,6 +33948,110 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Informativo");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnName("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdRecompensa")
+                        .HasColumnName("IdRecompensas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nivel")
+                        .HasColumnName("Nivel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeDoacao")
+                        .HasColumnName("QuantidadeDoacao")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdRecompensa")
+                        .IsUnique();
+
+                    b.ToTable("Level");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.OrientacaoDoacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Orientacao")
+                        .IsRequired()
+                        .HasColumnName("Orientacao")
+                        .HasColumnType("varchar(1500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrientacaoDoacao");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Orientacao = "Estar em boas condições de saúde."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Orientacao = "Ter entre 16 e 69 anos, desde que a primeira doação tenha sido feita até 60 anos (menores de 18 anos)."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Orientacao = "Pesar no minimo 50Kg."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Orientacao = "Estar descansado (ter dormido pelo menos 6 horas nas últimas 24 horas)."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Orientacao = "Estar alimentado (evitar alimentação gordurosa nas 4 horas que antecedem a doação)."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Orientacao = "Apresentar documento original com foto recente, que permita a identificação do usuario (Carteira de Identidade, Cartão de Identidade de Profissional Liberal, Carteira de Trabalho e Previdência Social, Carteira nacional de Habilitação e RNE-Registro Nacional de Estrangeiro)."
+                        });
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Patrocinador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnName("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NomePatrocinador")
+                        .IsRequired()
+                        .HasColumnName("NomePatrocinador")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Patrocinador");
                 });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.QuestoesAptidao", b =>
@@ -34180,6 +34311,34 @@ namespace Meta.TI.Infra.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.Recompensas", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnName("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("IdPatrocinador")
+                        .HasColumnName("IdPatrocinador")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdPatrocinador");
+
+                    b.ToTable("Recompensas");
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.RespostasAptidao", b =>
                 {
                     b.Property<int>("Id")
@@ -34225,9 +34384,50 @@ namespace Meta.TI.Infra.Data.Migrations
                         .HasColumnName("DiasAfastados")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdStatus")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("IdStatus");
+
                     b.ToTable("ResultadoAptidao");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.StatusDoacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("IdStatus")
+                        .HasColumnName("IdStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusDoacao");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descricao = "Apto para doar",
+                            IdStatus = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descricao = "Não apto para doar",
+                            IdStatus = 2
+                        });
                 });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.Telefone", b =>
@@ -34506,11 +34706,35 @@ namespace Meta.TI.Infra.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.HistoricoDoacao", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
+                        .WithMany("HistoricoDoacao")
+                        .HasForeignKey("IdHemocentro")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Level", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Recompensas", "Recompensa")
+                        .WithOne("Level")
+                        .HasForeignKey("Meta.TI.Domain.Models.Level", "IdRecompensa")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.QuestoesAptidao", b =>
                 {
                     b.HasOne("Meta.TI.Domain.Models.TipoSexo", "TipoSexo")
                         .WithMany("QuestoesAptidao")
                         .HasForeignKey("IdTipoSexo");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Recompensas", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Patrocinador", "Patrocinador")
+                        .WithMany("Recompensas")
+                        .HasForeignKey("IdPatrocinador")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.RespostasAptidao", b =>
@@ -34523,6 +34747,14 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.HasOne("Meta.TI.Domain.Models.QuestoesAptidao", "QuestoesAptidao")
                         .WithMany("RespostasAptidao")
                         .HasForeignKey("QuestoesAptidao_Id")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.ResultadoAptidao", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.StatusDoacao", "StatusDoacao")
+                        .WithMany("ResultadoAptidao")
+                        .HasForeignKey("IdStatus")
                         .IsRequired();
                 });
 

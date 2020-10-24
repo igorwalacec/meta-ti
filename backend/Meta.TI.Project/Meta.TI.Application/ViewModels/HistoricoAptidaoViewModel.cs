@@ -7,9 +7,8 @@ namespace Meta.TI.Application.ViewModels
 {
     public class HistoricoAptidaoViewModel
     {
-        public int Id { get; set; }
-        public Guid Usuario_Id { get; set; }
-        public int ResultadoAptidao_Id { get; set; }
-        public ResultadoAptidao ResultadoAptidao { get; set; }        
+        public int DiasAfastados { get; set; }
+        public DateTime DataProximaDoacao { get; set; }
+        public string StatusDoacao { get; set; }
     }
 }

@@ -33,6 +33,10 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasColumnType("int")
                 .HasColumnName("DiasAfastados")
                 .IsRequired();
+
+            builder.HasOne(q => q.StatusDoacao)
+                .WithMany(t => t.ResultadoAptidao)
+                .HasForeignKey(q => q.IdStatus);
         }
     }
 }
