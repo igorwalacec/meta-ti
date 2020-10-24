@@ -8,9 +8,9 @@ using Meta.TI.Infra.Data.Context;
 
 namespace Meta.TI.Infra.Data.Repository
 {
-    public class EstoqueSanquineoRepository : Repository<EstoqueSanguineo>, IEstoqueSanquineoRepository
+    public class EstoqueSanguineoRepository : Repository<EstoqueSanguineo>, IEstoqueSanguineoRepository
     {
-        public EstoqueSanquineoRepository(MetaTiContext context) : base(context)
+        public EstoqueSanguineoRepository(MetaTiContext context) : base(context)
         {
         }
         public List<EstoqueSanguineo> ObterTodosEstoqueSanguineo(Guid idHemocentro)

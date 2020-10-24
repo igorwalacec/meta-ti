@@ -18,9 +18,9 @@ namespace Meta.TI.Application.App
             mapper = _mapper;
         }
 
-        public GenericCommandResult ObterTodosFeedSolicitacao()
+        public GenericCommandResult ObterTodosFeedSolicitacao(ConsultarFeedSolicitacaoCommand command)
         {
-            var result = (GenericCommandResult)handler.Handle();
+            var result = (GenericCommandResult)handler.Handle(command);
 
             if (result.Sucess)
             {
@@ -29,9 +29,9 @@ namespace Meta.TI.Application.App
             return result;
         }
 
-        public GenericCommandResult ObterFeedSolicitacaoPorHemocentro(Guid idHemocentro)
+        public GenericCommandResult ObterFeedSolicitacaoPorHemocentro(ConsultarFeedSolicitacaoPorHemocentroCommand command)
         {
-            var result = (GenericCommandResult)handler.Handle(idHemocentro);
+            var result = (GenericCommandResult)handler.Handle(command);
 
             if (result.Sucess)
             {
@@ -62,9 +62,9 @@ namespace Meta.TI.Application.App
             return result;
         }
 
-        public GenericCommandResult DeletarFeedSolicitacao(int idFeedSolicitacao)
+        public GenericCommandResult DeletarFeedSolicitacao(DeletarFeedSolicitacaoCommand command)
         {
-            return (GenericCommandResult)handler.Handle(idFeedSolicitacao);
+            return (GenericCommandResult)handler.Handle(command);
         }
 
         public void Dispose()

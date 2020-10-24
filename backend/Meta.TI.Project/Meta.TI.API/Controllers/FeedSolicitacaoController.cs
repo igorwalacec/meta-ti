@@ -23,7 +23,10 @@ namespace Meta.TI.API.Controllers
         [HttpGet]
         public IActionResult ObterTodosFeedSolicitacao()
         {
-            return Response(feedSolicitacaoApp.ObterTodosFeedSolicitacao());
+            ConsultarFeedSolicitacaoCommand comando = new ConsultarFeedSolicitacaoCommand();
+            comando.DataAtual = DateTime.Now;
+
+            return Response(feedSolicitacaoApp.ObterTodosFeedSolicitacao(comando));
         }
 
         [HttpGet("filtrar-hemocentro")]
@@ -32,25 +35,29 @@ namespace Meta.TI.API.Controllers
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
                    .Select(c => c.Value).SingleOrDefault());
 
-            return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorHemocentro(idHemocentro));
+            ConsultarFeedSolicitacaoPorHemocentroCommand comando = new ConsultarFeedSolicitacaoPorHemocentroCommand();
+            comando.IdHemocentro = idHemocentro;
+            comando.DataAtual = DateTime.Now;
+
+            return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorHemocentro(comando));
         }
 
         [HttpPost("criar")]
-        public IActionResult CriacaoFeedSolicitacao(CriacaoFeedSolicitacaoCommand comando)
+        public IActionResult CriacaoFeedSolicitacao([FromBody] CriacaoFeedSolicitacaoCommand comando)
         {
             return Response(feedSolicitacaoApp.CriacaoFeedSolicitacao(comando));
         }
 
         [HttpPut("alterar")]
-        public IActionResult AlterarFeedSolicitacao(AlterarFeedSolicitacaoCommand comando)
+        public IActionResult AlterarFeedSolicitacao([FromBody] AlterarFeedSolicitacaoCommand comando)
         {
             return Response(feedSolicitacaoApp.AlterarFeedSolicitacao(comando));
         }
 
-        [HttpDelete("/{idFeedSolicitacao}")]
-        public IActionResult DeletarFeedSolicitacao([FromRoute] int idFeedSolicitacao)
+        [HttpDelete("deletar")]
+        public IActionResult DeletarFeedSolicitacao([FromBody] DeletarFeedSolicitacaoCommand comando)
         {
-            return Response(feedSolicitacaoApp.DeletarFeedSolicitacao(idFeedSolicitacao));
+            return Response(feedSolicitacaoApp.DeletarFeedSolicitacao(comando));
         }
     }
 }

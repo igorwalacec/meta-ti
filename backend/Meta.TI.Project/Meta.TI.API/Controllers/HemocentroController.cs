@@ -18,7 +18,7 @@ namespace Meta.TI.API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("criar-hemocentro")]
+        [Route("criar")]
         public IActionResult CriarHemocentro([FromBody] CriacaoHemocentroCommand hemocentro)
         {
             return Response(hemocentroApp.CriarHemocentro(hemocentro));
@@ -26,7 +26,7 @@ namespace Meta.TI.API.Controllers
 
         [AllowAnonymous]
         [HttpPut]
-        [Route("alterar-status-hemocentro")]
+        [Route("alterar-status")]
         public IActionResult AlterarStatusHemocentro([FromBody] AlterarAtivoHemocentroCommand ativoHemocentro)
         {
             return Response(hemocentroApp.AlterarStatusHemocentro(ativoHemocentro));

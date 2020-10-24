@@ -33,24 +33,24 @@ namespace Meta.TI.API.Controllers
                    .Select(c => c.Value).SingleOrDefault());
 
             ConsultarAgendamentoPorIdUsuarioCommand comando = new ConsultarAgendamentoPorIdUsuarioCommand();
-            comando.Id = idUsuario;
+            comando.IdUsuario = idUsuario;
 
             return Response(agendamentoApp.ConsultarAgendamentoPorIdUsuario(comando));
         }
 
-        [HttpPost("criar-agendamento")]
+        [HttpPost("criar")]
         public IActionResult CriacaoAgendamento([FromBody] CriacaoAgendamentoCommand comando)
         {
             return Response(agendamentoApp.CriacaoAgendamento(comando));
         }
 
-        [HttpPut("alterar-agendamento")]
+        [HttpPut("alterar")]
         public IActionResult AlterarAgendamento([FromBody] AlterarAgendamentoCommand comando)
         {       
             return Response(agendamentoApp.AlterarAgendamento(comando));
         }
 
-        [HttpDelete("deletar-agendamento")]
+        [HttpDelete("deletar")]
         public IActionResult DeletarAgendamento([FromBody] DeletarAgendamentoCommand comando)
         {
             return Response(agendamentoApp.DeletarAgendamento(comando));

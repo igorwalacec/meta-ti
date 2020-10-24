@@ -10,17 +10,17 @@ namespace Meta.TI.Application.App
     public class EstoqueSanguineoApp : IEstoqueSanguineoApp
     {
         private readonly IMapper mapper;
-        private readonly IEstoqueSanquineoRepository estoqueSanquineoRepository;
+        private readonly IEstoqueSanguineoRepository estoqueSanquineoRepository;
         private readonly HemocentroHandler handler;
-        public EstoqueSanguineoApp(IEstoqueSanquineoRepository _estoqueSanquineoRepository, IMapper _mapper, HemocentroHandler _handler)
+        public EstoqueSanguineoApp(IEstoqueSanguineoRepository _estoqueSanquineoRepository, IMapper _mapper, HemocentroHandler _handler)
         {
             estoqueSanquineoRepository = _estoqueSanquineoRepository;
             mapper = _mapper;
             handler = _handler;
         }
-        public GenericCommandResult ObterTodosEstoqueSanguineo(Guid idHemocentro)
+        public GenericCommandResult ObterTodosEstoqueSanguineo(ConsultarEstoqueSanguineoPorHemocentroCommand command)
         {
-            return (GenericCommandResult)handler.Handle(idHemocentro);
+            return (GenericCommandResult)handler.Handle(command);
         }
 
         public GenericCommandResult ObterEstoqueSanquineoPorTipo(ConsultarEstoqueSanquineoCommand comando)

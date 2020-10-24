@@ -133,5 +133,7 @@ namespace Meta.TI.Domain.Handlers
 
             return new GenericCommandResult(true, "Agendamento removido!");
         }
+
+      
     }
 }

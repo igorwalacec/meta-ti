@@ -27,7 +27,10 @@ namespace Meta.TI.API.Controllers
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
                    .Select(c => c.Value).SingleOrDefault());
 
-            return Response(estoqueSanguineoApp.ObterTodosEstoqueSanguineo(idHemocentro));
+            ConsultarEstoqueSanguineoPorHemocentroCommand comando = new ConsultarEstoqueSanguineoPorHemocentroCommand();
+            comando.IdHemocentro = idHemocentro;
+
+            return Response(estoqueSanguineoApp.ObterTodosEstoqueSanguineo(comando));
         }
 
         [HttpGet("/{idTipoSanguineo}")]
@@ -42,7 +45,7 @@ namespace Meta.TI.API.Controllers
             return Response(estoqueSanguineoApp.ObterEstoqueSanquineoPorTipo(comando));
         }
 
-        [HttpPut("atualizar-estoque-sanguineo")]
+        [HttpPut("atualizar")]
         public IActionResult AtualizarEstoqueSanguineo([FromBody] AlterarEstoqueSanguineoCommand comando)
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)

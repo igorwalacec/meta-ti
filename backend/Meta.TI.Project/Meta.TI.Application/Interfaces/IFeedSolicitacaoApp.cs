@@ -7,10 +7,10 @@ namespace Meta.TI.Application.Interfaces
 {
     public interface IFeedSolicitacaoApp : IDisposable
     {
-        GenericCommandResult ObterTodosFeedSolicitacao();
-        GenericCommandResult ObterFeedSolicitacaoPorHemocentro(Guid guid);
+        GenericCommandResult ObterTodosFeedSolicitacao(ConsultarFeedSolicitacaoCommand command);
+        GenericCommandResult ObterFeedSolicitacaoPorHemocentro(ConsultarFeedSolicitacaoPorHemocentroCommand command);
         GenericCommandResult CriacaoFeedSolicitacao(CriacaoFeedSolicitacaoCommand command);
         GenericCommandResult AlterarFeedSolicitacao(AlterarFeedSolicitacaoCommand command);
-        GenericCommandResult DeletarFeedSolicitacao(int idFeedSolicitacao);
+        GenericCommandResult DeletarFeedSolicitacao(DeletarFeedSolicitacaoCommand command);
     }
 }

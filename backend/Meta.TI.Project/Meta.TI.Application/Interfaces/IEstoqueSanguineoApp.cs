@@ -5,7 +5,7 @@ namespace Meta.TI.Application.Interfaces
 {
     public interface IEstoqueSanguineoApp
     {
-        GenericCommandResult ObterTodosEstoqueSanguineo(Guid comando);
+        GenericCommandResult ObterTodosEstoqueSanguineo(ConsultarEstoqueSanguineoPorHemocentroCommand command);
 
         GenericCommandResult ObterEstoqueSanquineoPorTipo(ConsultarEstoqueSanquineoCommand comando);
 

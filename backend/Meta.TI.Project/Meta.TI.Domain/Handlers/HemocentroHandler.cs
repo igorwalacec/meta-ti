@@ -22,13 +22,13 @@ namespace Meta.TI.Domain.Handlers
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IHemocentroRepository hemocentroRepository;
         private readonly ITelefoneRepository telefoneRepository;
-        private readonly IEstoqueSanquineoRepository estoqueSanquineoRepository;
+        private readonly IEstoqueSanguineoRepository estoqueSanquineoRepository;
         private readonly IExpedienteRepository expedienteRepository;
 
         public HemocentroHandler(IEnderecoRepository _enderecoRepository,
                                  IHemocentroRepository _hemocentroRepository,
                                  ITelefoneRepository _telefoneRepository,
-                                 IEstoqueSanquineoRepository _estoqueSanquineoRepository,
+                                 IEstoqueSanguineoRepository _estoqueSanquineoRepository,
                                  IExpedienteRepository _expedienteRepository)
         {
             enderecoRepository = _enderecoRepository;

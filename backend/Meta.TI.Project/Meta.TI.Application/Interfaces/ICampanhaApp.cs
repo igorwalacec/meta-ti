@@ -7,10 +7,10 @@ namespace Meta.TI.Application.Interfaces
 {
     public interface ICampanhaApp : IDisposable
     {
-        GenericCommandResult ObterTodasCampanhas();
-        GenericCommandResult ObterCampanhaPorHemocentro(Guid idHemocentro);
+        GenericCommandResult ObterTodasCampanhas(ConsultarCampanhaCommand command);
+        GenericCommandResult ObterCampanhaPorHemocentro(ConsultarCampanhaPorHemocentroCommand command);
         GenericCommandResult CriacaoCampanha(CriacaoCampanhaCommand command);
         GenericCommandResult AlterarCampanha(AlterarCampanhaCommand command);
-        GenericCommandResult DeletarCampanha(int idCampanha);
+        GenericCommandResult DeletarCampanha(DeletarCampanhaCommand command);
     }
 }

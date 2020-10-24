@@ -34,5 +34,10 @@ namespace Meta.TI.Infra.Data.Repository
         {
             return DbSet.FirstOrDefault(x => x.CPF.ToUpper().Equals(cpf.ToUpper()));
         }
+
+        public Usuario ObterUsuarioPorId(Guid id)
+        {
+            return DbSet.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

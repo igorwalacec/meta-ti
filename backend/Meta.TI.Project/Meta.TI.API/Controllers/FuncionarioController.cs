@@ -25,7 +25,7 @@ namespace Meta.TI.API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("criar-funcionario")]
+        [Route("criar")]
         public IActionResult CriarFuncionario([FromBody] CriacaoFuncionarioCommand funcionario)
         {
             return Response(funcionarioApp.CriarFuncionario(funcionario));

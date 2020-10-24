@@ -18,9 +18,9 @@ namespace Meta.TI.Application.App
             mapper = _mapper;
         }
 
-        public GenericCommandResult ObterTodasCampanhas()
+        public GenericCommandResult ObterTodasCampanhas(ConsultarCampanhaCommand command)
         {
-            var result = (GenericCommandResult)handler.Handle();
+            var result = (GenericCommandResult)handler.Handle(command);
 
             if (result.Sucess)
             {
@@ -29,9 +29,9 @@ namespace Meta.TI.Application.App
             return result;
         }
 
-        public GenericCommandResult ObterCampanhaPorHemocentro(Guid idHemocentro)
+        public GenericCommandResult ObterCampanhaPorHemocentro(ConsultarCampanhaPorHemocentroCommand command)
         {
-            var result = (GenericCommandResult)handler.Handle(idHemocentro);
+            var result = (GenericCommandResult)handler.Handle(command);
 
             if (result.Sucess)
             {
@@ -62,9 +62,9 @@ namespace Meta.TI.Application.App
         }
 
 
-        public GenericCommandResult DeletarCampanha(int idCampanha)
+        public GenericCommandResult DeletarCampanha(DeletarCampanhaCommand command)
         {
-            return (GenericCommandResult)handler.Handle(idCampanha);
+            return (GenericCommandResult)handler.Handle(command);
         }
 
 

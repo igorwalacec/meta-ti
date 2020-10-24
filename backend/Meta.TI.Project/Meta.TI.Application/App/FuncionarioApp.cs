@@ -28,14 +28,14 @@ namespace Meta.TI.Application.App
             return result;
         }
 
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
 
         public GenericCommandResult GetToken(TokenCommand comando)
         {
             return (GenericCommandResult)handler.Handle(comando);
+        }
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -23,34 +23,43 @@ namespace Meta.TI.API.Controllers
         [HttpGet]
         public IActionResult ObterTodasCampanha()
         {
-            return Response(campanhaApp.ObterTodasCampanhas());
+            ConsultarCampanhaCommand comando = new ConsultarCampanhaCommand();
+            comando.DataAtual = DateTime.Now;
+
+            return Response(campanhaApp.ObterTodasCampanhas(comando));
         }
 
-        [HttpGet("filtrar-campanha")]
+        [HttpGet("filtrar-campanha-hemocentro")]
         public IActionResult ObterCampanhaPorHemocentro()
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
                    .Select(c => c.Value).SingleOrDefault());
 
-            return Response(campanhaApp.ObterCampanhaPorHemocentro(idHemocentro));
+            ConsultarCampanhaPorHemocentroCommand comando = new ConsultarCampanhaPorHemocentroCommand();
+            comando.IdHemocentro = idHemocentro;
+            comando.DataAtual = DateTime.Now;
+
+            return Response(campanhaApp.ObterCampanhaPorHemocentro(comando));
         }
 
         [HttpPost("criar")]
-        public IActionResult CriacaoCampanha(CriacaoCampanhaCommand comando)
+        public IActionResult CriacaoCampanha([FromBody] CriacaoCampanhaCommand comando)
         {
             return Response(campanhaApp.CriacaoCampanha(comando));
         }
 
         [HttpPut("alterar")]
-        public IActionResult AlterarCampanha(AlterarCampanhaCommand comando)
+        public IActionResult AlterarCampanha([FromBody] AlterarCampanhaCommand comando)
         {
             return Response(campanhaApp.AlterarCampanha(comando));
         }
 
-        [HttpDelete("/{idFeedSolicitacao}")]
-        public IActionResult DeletarCampanha([FromRoute] int idCampanha)
+        [HttpDelete("deletar")]
+        public IActionResult DeletarCampanha([FromBody] DeletarCampanhaCommand comando)
         {
-            return Response(campanhaApp.DeletarCampanha(idCampanha));
+
+
+            return Response(campanhaApp.DeletarCampanha(comando));
         }
     }
 }

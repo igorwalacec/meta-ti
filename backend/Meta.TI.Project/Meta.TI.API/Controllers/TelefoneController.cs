@@ -22,7 +22,7 @@ namespace Meta.TI.API.Controllers
             telefoneApp = _telefoneApp;
         }
 
-        [HttpPut("atualizar-telefones")]
+        [HttpPut("atualizar")]
         public IActionResult AtualizarTelefones([FromBody] AlterarTelefoneHemocentroCommand comando)
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)

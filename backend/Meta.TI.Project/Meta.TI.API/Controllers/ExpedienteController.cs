@@ -22,7 +22,7 @@ namespace Meta.TI.API.Controllers
             expedienteApp = _expedienteApp;
         }
 
-        [HttpPut("atualizar-expediente")]
+        [HttpPut("atualizar")]
         public IActionResult AtualizarExpediente([FromBody] AlterarExpedienteHemocentroCommand comando)
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)

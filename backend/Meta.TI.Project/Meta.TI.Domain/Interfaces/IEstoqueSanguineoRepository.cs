@@ -4,7 +4,7 @@ using Meta.TI.Domain.Models;
 
 namespace Meta.TI.Domain.Interfaces
 {
-    public interface IEstoqueSanquineoRepository : IRepository<EstoqueSanguineo>
+    public interface IEstoqueSanguineoRepository : IRepository<EstoqueSanguineo>
     {
         List<EstoqueSanguineo> ObterTodosEstoqueSanguineo(Guid idHemocentro);
 
