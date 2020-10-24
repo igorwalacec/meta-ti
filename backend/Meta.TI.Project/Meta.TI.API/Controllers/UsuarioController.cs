@@ -1,3 +1,4 @@
+using System;
 using Meta.TI.Application.Interfaces;
 using Meta.TI.Domain.Commands;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ namespace Meta.TI.API.Controllers
         [HttpPost]
         [Route("get-token")]
         public IActionResult CriarUsuario([FromBody] TokenCommand usuario)
-        {
+        {            
             return Response(usuarioApp.GetToken(usuario));
         }
 

@@ -153,7 +153,7 @@ namespace Meta.TI.Domain.Handlers
             }
             else
             {
-                return new GenericCommandResult(false, "usuário não encontrado");
+                return new GenericCommandResult(false, "Usuário não encontrado", null);
             }
         }
 
