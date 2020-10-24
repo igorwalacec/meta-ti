@@ -26,6 +26,15 @@ namespace Meta.TI.Domain.Models
             Hemocentro = hemocentro;
         }
 
+        public Campanha(int id, string titulo, string descricao, DateTime dateCriacao, Guid idHemocentro)
+        {
+            Id = id;
+            Titulo = titulo;
+            Descricao = descricao;
+            DataCriacao = dateCriacao;
+            IdHemocentro = idHemocentro;
+        }
+
         [Key]
         public int Id { get; set; }
         public Guid IdHemocentro { get; set; }
@@ -42,6 +51,11 @@ namespace Meta.TI.Domain.Models
         public void SetarDataAlteracao(DateTime data)
         {
             DataAlteracao = data;
+        }
+        public void AlterarCampanha(string titulo, string descricao)
+        {
+            Titulo = titulo;
+            Descricao = descricao;
         }
     }
 }

@@ -115,6 +115,11 @@ namespace Meta.TI.Domain.Handlers
                 command.AddNotification(new Notification("CNPJ", "Hemocentro não cadastrado na plataforma!"));
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
             }
+            if (!agendamentoRepository.VerificarAgendamentoPorUsuario(usuario))
+            {
+                command.AddNotification(new Notification("Agendamento", "Agendamento não encontrado!"));
+                return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
+            }
             if (command.DataAgendamento < DateTime.Now)
             {
                 command.AddNotification(new Notification("DataAgendamento", "Data do agendamento já passou!"));

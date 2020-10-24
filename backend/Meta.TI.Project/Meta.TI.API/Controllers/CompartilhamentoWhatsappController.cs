@@ -20,13 +20,15 @@ namespace Meta.TI.API.Controllers
             compartilhamentoWhatsappApp = _compartilhamentoWhatsappApp;
         }
 
-        [HttpGet("convite")]
-        public IActionResult MontarConvite([FromBody] CompartilhamentoWhatsappCommand comando)
+        [HttpGet("convite/{numero}")]
+        public IActionResult MontarConvite([FromRoute] string numero)
         {
-            var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
+            var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
                   .Select(c => c.Value).SingleOrDefault());
 
+            CompartilhamentoWhatsappCommand comando = new CompartilhamentoWhatsappCommand();
             comando.IdUsuario = idUsuario;
+            comando.NumeroCelular = numero;
 
             return Response(compartilhamentoWhatsappApp.MontarConvite(comando));
         }

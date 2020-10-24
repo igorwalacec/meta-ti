@@ -28,7 +28,7 @@ namespace Meta.TI.Domain.Handlers
             {
                 return new GenericCommandResult(false, "Ops, parece seu Envio está inválido.", command.Notifications);
             }
-            if (command.NumeroCelular.IsValidNumber())
+            if (!command.NumeroCelular.IsValidNumber())
             {
                 command.AddNotification(new Notification("Número", "Número de celular inválido!"));
                 return new GenericCommandResult(false, "Ops, parece que o número digitado está inválido.", command.Notifications);
@@ -39,7 +39,7 @@ namespace Meta.TI.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
             }
 
-            string mensagem = string.Concat("Olá, seu amigo(a)", usuario.Nome.FirstCharToUpper() ,
+            string mensagem = string.Concat("Olá, seu amigo(a) ", usuario.Nome.FirstCharToUpper() ,
                               " te convidou para uma boa ação! Venha conhecer mais nossa plataforma, contamos com você!");
             string urlWhatsapp = string.Concat("whatsapp://send?phone=55", command.NumeroCelular, "Text=", mensagem);
 

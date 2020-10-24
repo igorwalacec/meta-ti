@@ -79,6 +79,7 @@ namespace Meta.TI.Domain.Handlers
         public ICommandResult Handle(AlterarCampanhaCommand command)
         {
             var hemocentro = hemocentroRepository.ObterPorId(command.IdHemocentro);
+            var campanha = campanhaRepository.ObterCampanhaPorId(command.Id);
 
             command.Validate();
             if (command.Invalid)
@@ -90,19 +91,18 @@ namespace Meta.TI.Domain.Handlers
                 command.AddNotification(new Notification("CNPJ", "Hemocentro não cadastrado na plataforma!"));
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
             }
+            if (campanha == null)
+            {
+                command.AddNotification(new Notification("Campanha", "Campanha não cadastrada na plataforma!"));
+                return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
+            }          
 
-            var campanha = new Campanha(
-                command.Id,
-                command.Titulo,
-                command.Descricao,
-                hemocentro
-            );
-
+            campanha.AlterarCampanha(command.Titulo, command.Descricao);             
             campanha.SetarDataAlteracao(DateTime.Now);
             campanhaRepository.Alterar(campanha);
             var novaCampanha = campanhaRepository.ObterCampanhaPorId(command.Id);
 
-            return new GenericCommandResult(true, "Campanha cadastrada!", novaCampanha);
+            return new GenericCommandResult(true, "Campanha Alterada!", novaCampanha);
         }
 
         public ICommandResult Handle(DeletarCampanhaCommand command)

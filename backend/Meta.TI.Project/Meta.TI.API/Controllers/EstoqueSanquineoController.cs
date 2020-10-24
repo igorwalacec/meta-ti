@@ -33,7 +33,7 @@ namespace Meta.TI.API.Controllers
             return Response(estoqueSanguineoApp.ObterTodosEstoqueSanguineo(comando));
         }
 
-        [HttpGet("/{idTipoSanguineo}")]
+        [HttpGet("{idTipoSanguineo}")]
         public IActionResult ObterEstoqueSanquineoPorTipo([FromRoute] int idTipoSanguineo)
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
