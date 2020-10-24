@@ -10,7 +10,7 @@ const AuthRoutes: React.FC = () => (
     <Auth.Navigator>
         <Auth.Screen name="SwitchLogin" component={SwitchLogin} options={{ headerShown: false }} />
         <Auth.Screen name="CadastroUsuario" component={CadastroUsuario} options={{
-            title: "",
+            title: "Cadastro Doador",
             headerTintColor: '#C4284D',
             headerStyle: { backgroundColor: '#fff', elevation: 0 }
         }} />
