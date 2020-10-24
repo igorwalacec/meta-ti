@@ -1,18 +1,35 @@
+import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
-import React, { useRef } from 'react';
-import { TextInput } from 'react-native';
+import React, { useCallback, useRef } from 'react';
+import { Alert, TextInput } from 'react-native';
+import { GenericCommandResult } from '../../@types/GenericCommandResult';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import { useAuth } from '../../hooks/auth';
+import api from '../../services/api';
 import { Container, ContainerCadastro, CadastroText, NaoPossueConta } from './styles';
 
+interface SubmitFormLogin {
+    email: string;
+    senha: string;
+}
 
 const LoginUser: React.FC = () => {
+    const { signIn, usuario } = useAuth();
+    const navigate = useNavigation();    
+    const logar = useCallback(async (data: SubmitFormLogin) => {
+        await signIn({
+            email: data.email,
+            senha: data.senha
+        });
+    }, []);
+
     const formRef = useRef<FormHandles>(null);
     const senhaRef = useRef<TextInput>(null);
     return (
         <Container>
-            <Form ref={formRef} onSubmit={(data) => { console.log(data) }}>
+            <Form ref={formRef} onSubmit={logar}>
                 <Input
                     autoCorrect={false}
                     autoCapitalize="none"
@@ -47,7 +64,9 @@ const LoginUser: React.FC = () => {
             <NaoPossueConta>
                 Ainda não possui uma conta?
             </NaoPossueConta>
-            <ContainerCadastro>
+            <ContainerCadastro onPress={() => {
+                navigate.navigate("CadastroUsuario");
+            }}>
                 <CadastroText>
                     CADASTRAR
                 </CadastroText>

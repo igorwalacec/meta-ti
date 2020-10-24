@@ -22,8 +22,7 @@ namespace Meta.TI.API.Controllers
         {
             cidadeApp = _cidadeApp;
         }
-
-        [Authorize(Roles = "doador")]
+        
         [HttpGet]
         [Route("obter-cidades/{idEstado}")]
         public IActionResult ObterCidadesPorEstado([FromRoute] int idEstado)
