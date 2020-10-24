@@ -27,6 +27,9 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<TipoSexo> TipoSexo { get; set; }
         public DbSet<StatusDoacao> StatusDoacao { get; set; }
         public DbSet<OrientacaoDoacao> OrientacaoDoacao { get; set; }
+        public DbSet<Patrocinador> Patrocinador { get; set; }
+        public DbSet<Recompensas> Recompensas { get; set; }
+        public DbSet<Level> Level { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

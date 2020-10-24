@@ -4,14 +4,16 @@ using Meta.TI.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meta.TI.Infra.Data.Migrations
 {
     [DbContext(typeof(MetaTiContext))]
-    partial class MetaTiContextModelSnapshot : ModelSnapshot
+    [Migration("20201024052130_tabela-recompensa-level-patrocinador")]
+    partial class tabelarecompensalevelpatrocinador
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33958,10 +33960,6 @@ namespace Meta.TI.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("Ativo")
-                        .HasColumnType("bit");
-
                     b.Property<int>("IdRecompensa")
                         .HasColumnName("IdRecompensas")
                         .HasColumnType("int");
@@ -34318,10 +34316,6 @@ namespace Meta.TI.Infra.Data.Migrations
                         .HasColumnName("Id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Ativo")
-                        .HasColumnName("Ativo")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Descricao")
                         .IsRequired()

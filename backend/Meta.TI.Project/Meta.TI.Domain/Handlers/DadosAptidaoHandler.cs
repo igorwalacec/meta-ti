@@ -17,8 +17,6 @@ namespace Meta.TI.Domain.Handlers
     public class DadosAptidaoHandler : Notifiable,
                             IHandler<RespostaAptidaoCommand>
     {
-        private readonly string secret;
-        private readonly string expirationDate;
         private readonly IConfiguration configuration;
         private readonly IQuestoesAptidaoRepository questoesAptidaoRepository;
         private readonly IResultadoAptidaoRepository resultadoAptidaoRepository;
@@ -32,12 +30,6 @@ namespace Meta.TI.Domain.Handlers
             IHistoricoAptidaoRepository _historicoAptidaoRepository)
         {
             configuration = _configuration;
-
-            secret = configuration.GetSection("JwtConfig")
-                .GetSection("secret").Value;
-
-            expirationDate = configuration.GetSection("JwtConfig")
-                .GetSection("expirationInMinutes").Value;
 
             questoesAptidaoRepository = _questoesAptidaoRepository;
 
