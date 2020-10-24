@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Meta.TI.Application.Interfaces;
 using Meta.TI.Application.ViewModels;
@@ -24,7 +25,7 @@ namespace Meta.TI.Application.App
 
             if (result.Sucess)
             {
-                result.Data = mapper.Map<CampanhaViewModel>(result.Data);
+                result.Data = mapper.Map<List<CampanhaViewModel>>(result.Data);
             }
             return result;
         }
@@ -35,7 +36,7 @@ namespace Meta.TI.Application.App
 
             if (result.Sucess)
             {
-                result.Data = mapper.Map<CampanhaViewModel>(result.Data);
+                result.Data = mapper.Map<List<CampanhaViewModel>>(result.Data);
             }
             return result;
         }
@@ -70,7 +71,7 @@ namespace Meta.TI.Application.App
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            GC.SuppressFinalize(this);
         }
     }
 }

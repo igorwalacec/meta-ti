@@ -20,16 +20,19 @@ namespace Meta.TI.API.Controllers
             agendamentoApp = _agendamentoApp;
         }
 
-        [HttpGet("filtrar-por-agendamento")]
-        public IActionResult ConsultarAgendamentoPorId([FromBody] ConsultarAgendamentoPorIdCommand comando)
+        [HttpGet("{idAgendamento}")]
+        public IActionResult ConsultarAgendamentoPorId([FromRoute] Guid idAgendamento)
         {
+            ConsultarAgendamentoPorIdCommand comando = new ConsultarAgendamentoPorIdCommand();
+            comando.Id = idAgendamento;
+
             return Response(agendamentoApp.ConsultarAgendamentoPorId(comando));
         }
 
         [HttpGet("obter-por-usuario")]
         public IActionResult ConsultarAgendamentoPorIdUsuario()
         {
-            var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
+            var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
                    .Select(c => c.Value).SingleOrDefault());
 
             ConsultarAgendamentoPorIdUsuarioCommand comando = new ConsultarAgendamentoPorIdUsuarioCommand();

@@ -26,6 +26,14 @@ namespace Meta.TI.Domain.Models
             DataAgendamento = dataAgendamento;
         }
 
+        public Agendamento(Guid id, Guid idUsuario, Guid idHemocentro, DateTime dataAgendamento)
+        {
+            Id = id;
+            IdUsuario = idUsuario;
+            IdHemocentro = idHemocentro;
+            DataAgendamento = dataAgendamento;
+        }
+
         [Key]
         public Guid Id { get; set; }
         public Guid IdUsuario { get; set; }

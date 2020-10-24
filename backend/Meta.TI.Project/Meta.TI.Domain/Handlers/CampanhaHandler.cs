@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
@@ -31,12 +32,18 @@ namespace Meta.TI.Domain.Handlers
         {
             var campanhas = campanhaRepository.ObterTodasCampanhas(command.DataAtual);
 
+            if (campanhas.Count() <= 0)
+                return new GenericCommandResult(false, "Campanha não encontrada!");
+
             return new GenericCommandResult(true, campanhas);
         }
 
         public ICommandResult Handle(ConsultarCampanhaPorHemocentroCommand command)
         {
             var campanhas = campanhaRepository.ObterCampanhaPorHemocentro(command.DataAtual, command.IdHemocentro);
+
+            if (campanhas == null)
+                return new GenericCommandResult(false, "Campanha não encontrada!");
 
             return new GenericCommandResult(true, campanhas);
         }

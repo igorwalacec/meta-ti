@@ -29,7 +29,7 @@ namespace Meta.TI.API.Controllers
             return Response(feedSolicitacaoApp.ObterTodosFeedSolicitacao(comando));
         }
 
-        [HttpGet("filtrar-hemocentro")]
+        [HttpGet("obter-por-hemocentro")]
         public IActionResult ObterFeedSolicitacaoPorHemocentro()
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)

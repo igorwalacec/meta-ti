@@ -48,7 +48,7 @@ namespace Meta.TI.Application.App
 
             if (result.Sucess)
             {
-                result.Data = mapper.Map<AgendamentoViewModel>(result.Data);
+                result.Data = mapper.Map<List<AgendamentoViewModel>>(result.Data);
             }
             return result;
         }
@@ -71,7 +71,7 @@ namespace Meta.TI.Application.App
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            GC.SuppressFinalize(this);
         }
     }
 }

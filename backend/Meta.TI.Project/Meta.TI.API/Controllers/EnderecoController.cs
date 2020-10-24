@@ -46,7 +46,5 @@ namespace Meta.TI.API.Controllers
           
             return Response(enderecoApp.AlterarEnderecoHemocentro(comando));
         }
-
-
     }
 }

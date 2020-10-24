@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
@@ -34,12 +35,18 @@ namespace Meta.TI.Domain.Handlers
         {
             var agendamento = agendamentoRepository.ObterAgendamentoPorId(command.Id);
 
+            if (agendamento == null)
+                return new GenericCommandResult(false, "Agendamento não encontrado!");
+
             return new GenericCommandResult(true, agendamento);
         }
 
         public ICommandResult Handle(ConsultarAgendamentoPorIdUsuarioCommand command)
         {
             var agendamento = agendamentoRepository.ObterAgendamentoPorUsuario(command.IdUsuario);
+
+            if (agendamento.Count() <= 0)
+                return new GenericCommandResult(false, "Agendamento não encontrado!");
 
             return new GenericCommandResult(true, agendamento);
         }
@@ -64,7 +71,7 @@ namespace Meta.TI.Domain.Handlers
                 command.AddNotification(new Notification("CNPJ", "Hemocentro não cadastrado na plataforma!"));
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
             }
-            if (!agendamentoRepository.VerificarAgendamentoPorUsuario(usuario))
+            if (agendamentoRepository.VerificarAgendamentoPorUsuario(usuario))
             {
                 command.AddNotification(new Notification("Usuario", "Usuario já possui agendamento!"));
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
@@ -116,8 +123,8 @@ namespace Meta.TI.Domain.Handlers
 
             var agendamento = new Agendamento(
                 command.Id,
-                usuario,
-                hemocentro,
+                command.IdUsuario,
+                command.IdHemocentro,
                 command.DataAgendamento
             );
 

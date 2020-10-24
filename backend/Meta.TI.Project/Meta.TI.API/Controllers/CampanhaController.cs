@@ -29,7 +29,7 @@ namespace Meta.TI.API.Controllers
             return Response(campanhaApp.ObterTodasCampanhas(comando));
         }
 
-        [HttpGet("filtrar-campanha-hemocentro")]
+        [HttpGet("obter-campanha-por-hemocentro")]
         public IActionResult ObterCampanhaPorHemocentro()
         {
             var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
@@ -57,8 +57,6 @@ namespace Meta.TI.API.Controllers
         [HttpDelete("deletar")]
         public IActionResult DeletarCampanha([FromBody] DeletarCampanhaCommand comando)
         {
-
-
             return Response(campanhaApp.DeletarCampanha(comando));
         }
     }
