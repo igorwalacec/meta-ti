@@ -39,6 +39,7 @@ namespace Meta.TI.Infra.Data.Mappings
                 .WithMany(t => t.QuestoesAptidao)
                 .HasForeignKey(q => q.IdTipoSexo);
 
+            // Se alterar o ID 1, 2 e 3, deve alterar os Ids na classe QuestoesAptidao.cs o metodo CalcularData
             builder.HasData(
                 new QuestoesAptidao { Id = 1, Pergunta = "Boas condições de saúde", NumeroDiasAfastado = -1, ImpeditivoDefinitivo = false, ImpeditivoDeterminado = true, IdTipoSexo = null },
                 new QuestoesAptidao { Id = 2, Pergunta = "Possui um peso maior que 50kg?", NumeroDiasAfastado = -1, ImpeditivoDefinitivo = false, ImpeditivoDeterminado = true, IdTipoSexo = null },

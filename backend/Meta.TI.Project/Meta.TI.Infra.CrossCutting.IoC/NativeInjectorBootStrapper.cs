@@ -17,14 +17,12 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<ICidadeApp, CidadeApp>();
             services.AddScoped<IUsuarioApp, UsuarioApp>();
             services.AddScoped<ITipoSanguineoApp, TipoSanguineoApp>();
-            services.AddScoped<IQuestoesAptidaoApp, QuestoesAptidaoApp>();
-            services.AddScoped<IHistoricoAptidaoApp, HistoricoAptidaoApp>();
-            services.AddScoped<IHistoricoDoacaoApp, HistoricoDoacaoApp>();
-            services.AddScoped<IOrientacaoDoacaoApp, OrientacaoDoacaoApp>();
-            services.AddScoped<IStatusDoacaoApp, StatusDoacaoApp>();
+            services.AddScoped<IAptidaoApp, AptidaoApp>();
+            services.AddScoped<IDoacaoApp, DoacaoApp>();
 
             // Commands
             services.AddTransient<UsuarioHandler>();
+            services.AddTransient<DadosAptidaoHandler>();
 
             // Infra - Data
             services.AddScoped<IEstadoRepository, EstadoRepository>();
@@ -37,6 +35,8 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IHistoricoDoacaoRepository, HistoricoDoacaoRepository>();
             services.AddScoped<IOrientacaoDoacaoRepository, OrientacaoDoacaoRepository>();
             services.AddScoped<IStatusDoacaoRepository, StatusDoacaoRepository>();
+            services.AddScoped<IResultadoAptidaoRepository, ResultadoAptidaoRepository>();
+            services.AddScoped<IRespostaAptidaoRepository, RespostaAptidaoRepository>();
             services.AddDbContext<MetaTiContext>();
         }
     }

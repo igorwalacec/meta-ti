@@ -18,7 +18,7 @@ namespace Meta.TI.Domain.Commands
                 new Contract()
                 .Requires()
                 .IsNotNull(DataCadastro, "Data Cadastro", "Por favor, informe a data de cadastro.")
-                .AreNotEquals(IdHemocentro, 0,"Hemocentro", "Por favor, selecione um hemocentro.")                
+                .AreNotEquals(IdHemocentro, 0,"Hemocentro", "Por favor, selecione um hemocentro.")
             );
         }
     }

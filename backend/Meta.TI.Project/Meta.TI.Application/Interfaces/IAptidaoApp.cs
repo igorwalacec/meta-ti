@@ -5,8 +5,10 @@ using Meta.TI.Domain.Commands;
 
 namespace Meta.TI.Application.Interfaces
 {
-    public interface IHistoricoAptidaoApp : IDisposable
+    public interface IAptidaoApp : IDisposable
     {
+        GenericCommandResult ObterQuestoesAptidao();
+        GenericCommandResult CadastrarRespostasAptidao(RespostaAptidaoCommand respostasAptidao);
         GenericCommandResult CalcularDayOff(StatusDoacaoCommand status);
     }
 }

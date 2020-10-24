@@ -9,5 +9,6 @@ namespace Meta.TI.Domain.Interfaces
     public interface IHistoricoAptidaoRepository : IRepository<HistoricoAptidao>
     {
         public HistoricoAptidao CalcularDayOff(Guid usuarioId);
+
     }
 }

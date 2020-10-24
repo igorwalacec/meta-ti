@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Meta.TI.Domain.Models;
 
-namespace Meta.TI.Application.ViewModels
+namespace Meta.TI.Domain.Dto
 {
-    public class HistoricoAptidaoViewModel
+    public class RetornoDayOffDto
     {
         public int DiasAfastados { get; set; }
         public DateTime DataProximaDoacao { get; set; }

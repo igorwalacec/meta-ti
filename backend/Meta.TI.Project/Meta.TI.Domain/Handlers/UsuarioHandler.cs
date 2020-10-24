@@ -6,6 +6,7 @@ using System.Text;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
 using Meta.TI.Domain.Commands.Contracts;
+using Meta.TI.Domain.Dto;
 using Meta.TI.Domain.Extensions;
 using Meta.TI.Domain.Handlers.Contracts;
 using Meta.TI.Domain.Interfaces;
@@ -191,7 +192,7 @@ namespace Meta.TI.Domain.Handlers
             var dataAtual = DateTime.Now;
             var retornoDados = historicoAptidaoRepository.CalcularDayOff(usuarioId.IdUsuario);
 
-            if (retornoDados == null) return new GenericCommandResult(false, "Historico de doação não encontrado!",null);
+            if (retornoDados == null) return new GenericCommandResult(false, "Historico de doação não encontrado!", null);
 
             TimeSpan ts = retornoDados.ResultadoAptidao.DataProximaDoacao.Subtract(dataAtual);
             retornoDados.ResultadoAptidao.DiasAfastados = (int)ts.TotalDays;
@@ -207,14 +208,11 @@ namespace Meta.TI.Domain.Handlers
 
             var status = statusDoacaoRepository.BuscarStatus(retornoDados.ResultadoAptidao.IdStatus);
 
-            var resultado = new
+            var resultado = new RetornoDayOffDto
             {
-                resultado = new
-                {
-                    retornoDados.ResultadoAptidao.DiasAfastados,
-                    retornoDados.ResultadoAptidao.DataProximaDoacao,
-                    status
-                },
+                DiasAfastados = retornoDados.ResultadoAptidao.DiasAfastados,
+                DataProximaDoacao = retornoDados.ResultadoAptidao.DataProximaDoacao,
+                StatusDoacao = status
             };
 
             return new GenericCommandResult(true, resultado);
@@ -237,7 +235,7 @@ namespace Meta.TI.Domain.Handlers
 
             historicoDoacaoRepository.Adicionar(novoHistorico);
 
-            return new GenericCommandResult(true, "Historico de doação adicionado com sucesso", novoHistorico);
+            return new GenericCommandResult(true, "Doação adicionada com sucesso!");
         }
     }
 }
