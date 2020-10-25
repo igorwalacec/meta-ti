@@ -6,6 +6,7 @@ using System.Text;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
 using Meta.TI.Domain.Commands.Contracts;
+using Meta.TI.Domain.Dto;
 using Meta.TI.Domain.Extensions;
 using Meta.TI.Domain.Handlers.Contracts;
 using Meta.TI.Domain.Interfaces;
@@ -25,7 +26,16 @@ namespace Meta.TI.Domain.Handlers
         private readonly IConfiguration configuration;
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IUsuarioRepository usuarioRepository;
-        public UsuarioHandler(IConfiguration _configuration, IEnderecoRepository _enderecoRepository, IUsuarioRepository _usuarioRepository)
+        private readonly IHistoricoAptidaoRepository historicoAptidaoRepository;
+        private readonly IHistoricoDoacaoRepository historicoDoacaoRepository;
+        private readonly IStatusDoacaoRepository statusDoacaoRepository;
+
+        public UsuarioHandler(IConfiguration _configuration,
+                                IEnderecoRepository _enderecoRepository,
+                                IUsuarioRepository _usuarioRepository,
+                                IHistoricoAptidaoRepository _historicoAptidaoRepository,
+                                IHistoricoDoacaoRepository _historicoDoacaoRepository,
+                                IStatusDoacaoRepository _statusDoacaoRepository)
         {
             configuration = _configuration;
 
@@ -38,6 +48,12 @@ namespace Meta.TI.Domain.Handlers
             enderecoRepository = _enderecoRepository;
 
             usuarioRepository = _usuarioRepository;
+
+            historicoAptidaoRepository = _historicoAptidaoRepository;
+
+            historicoDoacaoRepository = _historicoDoacaoRepository;
+
+            statusDoacaoRepository = _statusDoacaoRepository;
         }
         public ICommandResult Handle(CriacaoUsuarioCommand command)
         {
@@ -169,6 +185,57 @@ namespace Meta.TI.Domain.Handlers
 
 
             return new GenericCommandResult(true, "Tipo sanguíneo alterado com sucesso", usuario);
+        }
+
+        public ICommandResult Handle(StatusDoacaoCommand usuarioId)
+        {
+            var dataAtual = DateTime.Now;
+            var retornoDados = historicoAptidaoRepository.CalcularDayOff(usuarioId.IdUsuario);
+
+            if (retornoDados == null) return new GenericCommandResult(false, "Historico de doação não encontrado!", null);
+
+            TimeSpan ts = retornoDados.ResultadoAptidao.DataProximaDoacao.Subtract(dataAtual);
+            retornoDados.ResultadoAptidao.DiasAfastados = (int)ts.TotalDays;
+
+            if (retornoDados.ResultadoAptidao.DiasAfastados > 0)
+            {
+                retornoDados.ResultadoAptidao.IdStatus = 2;
+            }
+            else
+            {
+                retornoDados.ResultadoAptidao.IdStatus = 1;
+            }
+
+            var status = statusDoacaoRepository.BuscarStatus(retornoDados.ResultadoAptidao.IdStatus);
+
+            var resultado = new RetornoDayOffDto
+            {
+                DiasAfastados = retornoDados.ResultadoAptidao.DiasAfastados,
+                DataProximaDoacao = retornoDados.ResultadoAptidao.DataProximaDoacao,
+                StatusDoacao = status
+            };
+
+            return new GenericCommandResult(true, resultado);
+        }
+
+        public ICommandResult Handle(CadastrarNovaDoacaoCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
+            }
+
+            var novoHistorico = new HistoricoDoacao
+            (
+                command.IdUsuario,
+                command.DataCadastro,
+                command.IdHemocentro
+            );
+
+            historicoDoacaoRepository.Adicionar(novoHistorico);
+
+            return new GenericCommandResult(true, "Doação adicionada com sucesso!");
         }
     }
 }

@@ -69,6 +69,7 @@ namespace Meta.TI.Domain.Models
         public TipoSanguineo TipoSanguineo { get; private set; }
         public Endereco Endereco { get; private set; }
         public TipoSexo TipoSexo { get; private set; }
+        public ICollection<HistoricoAptidao> HistoricoAptidao { get; set; }
 
         public void SetarIdEndereco(int idEndereco)
         {
