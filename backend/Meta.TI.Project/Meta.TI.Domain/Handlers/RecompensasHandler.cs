@@ -20,17 +20,20 @@ namespace Meta.TI.Domain.Handlers
                             IHandler<AdicionarRecompensasCommand>,
                             IHandler<DesativarLevelPorIdCommand>,
                             IHandler<DesativarPatrocinadorPorIdCommand>,
-                            IHandler<DesativarRecompensasPorIdCommand>
+                            IHandler<DesativarRecompensasPorIdCommand>,
+                            IHandler<CalcularLevelDoadorCommand>
     {
         private readonly IConfiguration configuration;
         private readonly ILevelRepository levelRepository;
         private readonly IPatrocinadorRepository patrocinadorRepository;
         private readonly IRecompensasRepository recompensasRepository;
+        private readonly IHistoricoDoacaoRepository historicoDoacaoRepository;
 
         public RecompensasHandler(IConfiguration _configuration,
             ILevelRepository _levelRepository,
             IPatrocinadorRepository _patrocinadorRepository,
-            IRecompensasRepository _recompensasRepository)
+            IRecompensasRepository _recompensasRepository,
+            IHistoricoDoacaoRepository _historicoDoacaoRepository)
         {
             configuration = _configuration;
 
@@ -39,6 +42,22 @@ namespace Meta.TI.Domain.Handlers
             patrocinadorRepository = _patrocinadorRepository;
 
             recompensasRepository = _recompensasRepository;
+
+            historicoDoacaoRepository = _historicoDoacaoRepository;
+        }
+
+        public ICommandResult Handle(CalcularLevelDoadorCommand command)
+        {
+            command.Validate();
+            if (command.Invalid)
+            {
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
+            }
+
+            var listarDoacoes = historicoDoacaoRepository.ObterTodos();
+
+
+            return new GenericCommandResult(true, "Level cadastrado com sucesso!", null);
         }
 
         public ICommandResult Handle(AdicionarLevelCommand command)
@@ -46,7 +65,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece que sua resposta est· inv·lida.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
             }
 
             var level = new Level(
@@ -65,7 +84,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece que sua resposta est· inv·lida.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
             }
 
             var patrocinador = new Patrocinador(
@@ -82,7 +101,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece que sua resposta est· inv·lida.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
             }
 
             var recompensas = new Recompensas(
@@ -100,7 +119,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece que sua resposta est· inv·lida.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
             }
 
             var level = levelRepository.ObterPorId(command.IdDesativado);
@@ -116,7 +135,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece que sua resposta est· inv·lida.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
             }
 
             var patrocinador = patrocinadorRepository.ObterPorId(command.IdDesativado);
@@ -132,7 +151,7 @@ namespace Meta.TI.Domain.Handlers
             command.Validate();
             if (command.Invalid)
             {
-                return new GenericCommandResult(false, "Ops, parece que sua resposta est· inv·lida.", command.Notifications);
+                return new GenericCommandResult(false, "Ops, parece que sua resposta est√° inv√°lida.", command.Notifications);
             }
 
             var recompensa = recompensasRepository.ObterPorId(command.IdDesativado);
@@ -141,6 +160,6 @@ namespace Meta.TI.Domain.Handlers
             recompensasRepository.Alterar(recompensa);
 
             return new GenericCommandResult(true, "Level desativado com sucesso!");
-        }
+        }        
     }
 }

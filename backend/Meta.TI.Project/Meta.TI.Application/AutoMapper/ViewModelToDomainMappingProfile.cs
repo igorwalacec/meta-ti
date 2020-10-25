@@ -31,6 +31,12 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c => new StatusDoacao());
             CreateMap<FuncionarioViewModel, Funcionario>()
                 .ConstructUsing(c => new Funcionario());
+            CreateMap<LevelViewModel, Level>()
+                .ConstructUsing(c => new Level());
+            CreateMap<RecompensasViewModel, Recompensas>()
+                .ConstructUsing(c => new Recompensas());
+            CreateMap<PatrocinadorViewModel, Patrocinador>()
+                .ConstructUsing(c => new Patrocinador());
             CreateMap<UsuarioViewModel, Usuario>()
                 .ConstructUsing(c =>
                     new Usuario
