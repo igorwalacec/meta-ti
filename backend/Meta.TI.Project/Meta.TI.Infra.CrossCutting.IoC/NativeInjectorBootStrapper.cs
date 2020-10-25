@@ -17,10 +17,26 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<ICidadeApp, CidadeApp>();
             services.AddScoped<IUsuarioApp, UsuarioApp>();
             services.AddScoped<ITipoSanguineoApp, TipoSanguineoApp>();
+            services.AddScoped<IAgendamentoApp, AgendamentoApp>();
+            services.AddScoped<ICampanhaApp, CampanhaApp>();
+            services.AddScoped<ICompartilhamentoWhatsappApp, CompartilhamentoWhatsappApp>();
+            services.AddScoped<IEnderecoApp, EnderecoApp>();
+            services.AddScoped<IEstoqueSanguineoApp, EstoqueSanguineoApp>();
+            services.AddScoped<IExpedienteApp, ExpedienteApp>();
+            services.AddScoped<IFeedSolicitacaoApp, FeedSolicitacaoApp>();
+            services.AddScoped<IFuncionarioApp, FuncionarioApp>();
+            services.AddScoped<IHemocentroApp, HemocentroApp>();
+            services.AddScoped<ITelefoneApp, TelefoneApp>();
             services.AddScoped<IAptidaoApp, AptidaoApp>();
             services.AddScoped<IDoacaoApp, DoacaoApp>();
 
             // Commands
+            services.AddTransient<AgendamentoHandler>();
+            services.AddTransient<CampanhaHandler>();
+            services.AddTransient<CompartilhamentoWhatsappHandler>();
+            services.AddTransient<FeedSolicitacaoHandler>();
+            services.AddTransient<FuncionarioHandler>();
+            services.AddTransient<HemocentroHandler>();
             services.AddTransient<UsuarioHandler>();
             services.AddTransient<DadosAptidaoHandler>();
 
@@ -30,6 +46,14 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITipoSanguineoRepository, TipoSanguineoRepository>();
+            services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
+            services.AddScoped<ICampanhaRepository, CampanhaRepository>();
+            services.AddScoped<IEstoqueSanguineoRepository, EstoqueSanguineoRepository>();
+            services.AddScoped<IExpedienteRepository, ExpedienteRepository>();
+            services.AddScoped<IFeedSolicitacaoRepository, FeedSolicitacaoRepository>();
+            services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddScoped<IHemocentroRepository, HemocentroRepository>();
+            services.AddScoped<ITelefoneRepository, TelefoneRepository>();
             services.AddScoped<IQuestoesAptidaoRepository, QuestoesAptidaoRepository>();
             services.AddScoped<IHistoricoAptidaoRepository, HistoricoAptidaoRepository>();
             services.AddScoped<IHistoricoDoacaoRepository, HistoricoDoacaoRepository>();

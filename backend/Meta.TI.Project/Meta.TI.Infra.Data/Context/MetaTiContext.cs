@@ -1,10 +1,6 @@
-using Meta.TI.Domain.Models;
-using Meta.TI.Infra.Data.Mappings;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Meta.TI.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Meta.TI.Infra.Data.Context
 {
@@ -24,6 +20,9 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Telefone> Telefone { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Informativo> Informativo { get; set; }
+        public DbSet<FeedSolicitacao> FeedSolicitacao { get; set; }
+        public DbSet<Campanha> Campanha { get; set; }
+        public DbSet<Agendamento> Agendamento { get; set; }
         public DbSet<TipoSexo> TipoSexo { get; set; }
         public DbSet<StatusDoacao> StatusDoacao { get; set; }
         public DbSet<OrientacaoDoacao> OrientacaoDoacao { get; set; }

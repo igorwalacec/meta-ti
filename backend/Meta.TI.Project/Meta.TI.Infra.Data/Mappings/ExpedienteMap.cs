@@ -1,4 +1,4 @@
-﻿using Meta.TI.Domain.Models;
+using Meta.TI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,6 +20,16 @@ namespace Meta.TI.Infra.Data.Mappings
                 .WithMany(e => e.Expedientes)
                 .HasForeignKey(e => e.IdHemocentro)
                 .IsRequired();
+
+            builder.Property(u => u.Inicio)
+               .HasColumnType("datetime")
+               .HasColumnName("Inicio")
+               .IsRequired();
+
+            builder.Property(u => u.Fim)
+               .HasColumnType("datetime")
+               .HasColumnName("Fim")
+               .IsRequired();
         }
     }
 }

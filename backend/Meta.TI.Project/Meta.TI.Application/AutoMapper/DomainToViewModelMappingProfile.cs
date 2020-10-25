@@ -21,6 +21,11 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<HistoricoDoacao, HistoricoDoacaoViewModel>();
             CreateMap<OrientacaoDoacao, OrientacaoDoacaoViewModel>();
             CreateMap<StatusDoacao, HistoricoAptidaoViewModel>();
+            CreateMap<Hemocentro, HemocentroViewModel>();
+            CreateMap<Funcionario, FuncionarioViewModel>();
+            CreateMap<FeedSolicitacao, FeedSolicitacaoViewModel>();
+            CreateMap<Campanha, CampanhaViewModel>();
+            CreateMap<Agendamento, AgendamentoViewModel>();
         }
     }
 }

@@ -19,6 +19,68 @@ namespace Meta.TI.Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.Agendamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataAgendamento")
+                        .HasColumnName("DataAgendamento")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("IdHemocentro")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdHemocentro");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Agendamento");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Campanha", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnName("DataAlteracao")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnName("DataCriacao")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<Guid>("IdHemocentro")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnName("Titulo")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdHemocentro");
+
+                    b.ToTable("Campanha");
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.Cidade", b =>
                 {
                     b.Property<int>("Id")
@@ -33729,6 +33791,14 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.Property<int>("IdTipoSanguineo")
                         .HasColumnType("int");
 
+                    b.Property<int>("QuantidadeBolsas")
+                        .HasColumnName("QtdBolsas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeMinimaBolsas")
+                        .HasColumnName("QtdMinimaBolsas")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdHemocentro");
@@ -33746,11 +33816,19 @@ namespace Meta.TI.Infra.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Fim")
+                        .HasColumnName("Fim")
+                        .HasColumnType("datetime");
+
                     b.Property<int>("IdDiaSemana")
                         .HasColumnType("int");
 
                     b.Property<Guid>("IdHemocentro")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Inicio")
+                        .HasColumnName("Inicio")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -33759,6 +33837,47 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.HasIndex("IdHemocentro");
 
                     b.ToTable("Expediente");
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.FeedSolicitacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnName("DataAlteracao")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnName("DataCriacao")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<Guid>("IdHemocentro")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("IdTipoSanguineo")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdHemocentro");
+
+                    b.HasIndex("IdTipoSanguineo");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("FeedSolicitacao");
                 });
 
             modelBuilder.Entity("Meta.TI.Domain.Models.Funcionario", b =>
@@ -34623,6 +34742,27 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.ToTable("Usuario");
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.Agendamento", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("IdHemocentro")
+                        .IsRequired();
+
+                    b.HasOne("Meta.TI.Domain.Models.Usuario", "Usuario")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("IdUsuario")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Campanha", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
+                        .WithMany("Campanhas")
+                        .HasForeignKey("IdHemocentro")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.Cidade", b =>
                 {
                     b.HasOne("Meta.TI.Domain.Models.Estado", "Estado")
@@ -34662,6 +34802,24 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
                         .WithMany("Expedientes")
                         .HasForeignKey("IdHemocentro")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.FeedSolicitacao", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
+                        .WithMany("FeedSolicitacoes")
+                        .HasForeignKey("IdHemocentro")
+                        .IsRequired();
+
+                    b.HasOne("Meta.TI.Domain.Models.TipoSanguineo", "TipoSanguineo")
+                        .WithMany("FeedSolicitacoes")
+                        .HasForeignKey("IdTipoSanguineo")
+                        .IsRequired();
+
+                    b.HasOne("Meta.TI.Domain.Models.Usuario", "Usuario")
+                        .WithMany("FeedSolicitacoes")
+                        .HasForeignKey("IdUsuario")
                         .IsRequired();
                 });
 

@@ -19,6 +19,17 @@ namespace Meta.TI.Domain.Models
             Cep = cep;
             IdCidade = idCidade;
         }
+
+        public Endereco(int id, string logradouro, string complemento, string numero, string cep, int idCidade)
+        {
+            Id = id;
+            Logradouro = logradouro;
+            Complemento = complemento;
+            Numero = numero;
+            Cep = cep;
+            IdCidade = idCidade;
+        }
+
         [Key]
         public int Id { get; set; }
         public string Logradouro { get; set; }

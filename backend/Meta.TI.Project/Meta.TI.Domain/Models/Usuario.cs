@@ -31,7 +31,7 @@ namespace Meta.TI.Domain.Models
         public Usuario(
             Guid id, string nome, string sobrenome,
             string email, string RG, string CPF,
-            DateTime dataNascimento,int idTipoSexo, int? idTipoSanguineo, Endereco endereco)
+            DateTime dataNascimento, int idTipoSexo, int? idTipoSanguineo, Endereco endereco)
         {
             Id = id;
             Nome = nome;
@@ -51,24 +51,26 @@ namespace Meta.TI.Domain.Models
         }
 
         [Key]
-        public Guid Id { get; private set; }
-        public string Nome { get; private set; }
-        public string Sobrenome { get; private set; }
-        public string Email { get; private set; }
-        public string Senha { get; private set; }
-        public string RG { get; private set; }
-        public string CPF { get; private set; }
-        public DateTime DataNascimento { get; private set; }
-        public bool Ativo { get; private set; }
-        public int IdTipoSexo { get; private set; }
-        public int? IdTipoSanguineo { get; private set; }
-        public int IdEndereco { get; private set; }
-        public DateTime DataCriacao { get; private set; }
-        public DateTime? DataAlteracao { get; private set; }
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
+        public string RG { get; set; }
+        public string CPF { get; set; }
+        public DateTime DataNascimento { get; set; }
+        public bool Ativo { get; set; }
+        public int IdTipoSexo { get; set; }
+        public int? IdTipoSanguineo { get; set; }
+        public int IdEndereco { get; set; }
+        public DateTime DataCriacao { get; set; }
+        public DateTime? DataAlteracao { get; set; }
 
-        public TipoSanguineo TipoSanguineo { get; private set; }
-        public Endereco Endereco { get; private set; }
-        public TipoSexo TipoSexo { get; private set; }
+        public TipoSanguineo TipoSanguineo { get; set; }
+        public TipoSexo TipoSexo { get; set; }
+        public Endereco Endereco { get; set; }
+        public ICollection<FeedSolicitacao> FeedSolicitacoes { get; set; }
+        public ICollection<Agendamento> Agendamentos { get; set; }                
         public ICollection<HistoricoAptidao> HistoricoAptidao { get; set; }
 
         public void SetarIdEndereco(int idEndereco)
