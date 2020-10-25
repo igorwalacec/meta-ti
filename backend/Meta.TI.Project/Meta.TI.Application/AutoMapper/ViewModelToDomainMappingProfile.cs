@@ -32,6 +32,7 @@ namespace Meta.TI.Application.AutoMapper
                         c.RG,
                         c.CPF,
                         c.DataNascimento,
+                        c.IdTipoSexo,
                         c.IdTipoSanguineo,
                         new Endereco
                         {

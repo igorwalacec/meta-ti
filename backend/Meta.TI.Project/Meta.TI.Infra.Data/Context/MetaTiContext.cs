@@ -22,6 +22,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<FeedSolicitacao> FeedSolicitacao { get; set; }
         public DbSet<Campanha> Campanha { get; set; }
         public DbSet<Agendamento> Agendamento { get; set; }
+        public DbSet<TipoSexo> TipoSexo { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

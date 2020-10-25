@@ -74,6 +74,7 @@ namespace Meta.TI.Domain.Handlers
                 command.RG,
                 command.CPF,
                 command.DataNascimento,
+                command.IdTipoSexo,
                 command.IdTipoSanguineo,
                 endereco
             );
@@ -95,6 +96,7 @@ namespace Meta.TI.Domain.Handlers
                 command.RG,
                 command.CPF,
                 command.DataNascimento,
+                command.IdTipoSexo,
                 command.IdTipoSanguineo,
                 endereco
             );
@@ -148,7 +150,7 @@ namespace Meta.TI.Domain.Handlers
             }
             else
             {
-                return new GenericCommandResult(false, "usuário não encontrado");
+                return new GenericCommandResult(false, "Usuário não encontrado", null);
             }
         }
 

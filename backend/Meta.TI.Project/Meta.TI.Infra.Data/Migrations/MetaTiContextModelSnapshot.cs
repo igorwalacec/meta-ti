@@ -34102,6 +34102,41 @@ namespace Meta.TI.Infra.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.TipoSexo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoSexo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descricao = "Masculino"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descricao = "Feminino"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descricao = "Outros"
+                        });
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
@@ -34141,6 +34176,10 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.Property<int?>("IdTipoSanguineo")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdTipoSexo")
+                        .HasColumnName("IdTipoSexo")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnName("Nome")
@@ -34166,9 +34205,9 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.HasIndex("IdEndereco")
                         .IsUnique();
 
-                    b.HasIndex("IdTipoSanguineo")
-                        .IsUnique()
-                        .HasFilter("[IdTipoSanguineo] IS NOT NULL");
+                    b.HasIndex("IdTipoSanguineo");
+
+                    b.HasIndex("IdTipoSexo");
 
                     b.ToTable("Usuario");
                 });
@@ -34298,8 +34337,13 @@ namespace Meta.TI.Infra.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Meta.TI.Domain.Models.TipoSanguineo", "TipoSanguineo")
-                        .WithOne("Usuario")
-                        .HasForeignKey("Meta.TI.Domain.Models.Usuario", "IdTipoSanguineo");
+                        .WithMany("Usuarios")
+                        .HasForeignKey("IdTipoSanguineo");
+
+                    b.HasOne("Meta.TI.Domain.Models.TipoSexo", "TipoSexo")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("IdTipoSexo")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
