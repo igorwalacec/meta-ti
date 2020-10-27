@@ -1,3 +1,4 @@
+import { resolvePlugin } from '@babel/core';
 import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
@@ -13,28 +14,17 @@ import InputMask from '../../components/InputMask';
 import api from '../../services/api';
 import { Container } from './styles';
 
-interface ResponseError {
-    response: {
-        data: GenericCommandResult<any>;
-        status: Number;
-    }
-}
-interface ResponseEstadosDTO {
-    id: number;
-    nome: string;
-    uf: string;
-}
-interface ResponseTipoSanguineoDTO {
-    id: number;
-    nome: string;
-}
-
 interface SubmitFormCadastro {
     nomeCompleto: string;
     email: string;
     senha: string;
     cpf: string;
     idHemocentro: string;
+}
+
+interface ResponseHemocentro {
+    id: string;
+    nome: string;
 }
 
 const CadastroFuncionario: React.FC = () => {
@@ -44,6 +34,28 @@ const CadastroFuncionario: React.FC = () => {
     const sobrenomeRef = useRef<TextInput>(null);
     const emailRef = useRef<TextInput>(null);
     const senhaRef = useRef<TextInput>(null);
+
+    const [hemocentros, setHemocentros] = useState([]);
+
+    useEffect(() => {
+        async function ObterHemocentros() {
+            const response = await api.get<GenericCommandResult<Array<ResponseHemocentro>>>('hemocentro/obter-todos');
+
+            const hemocentrosMap = response.data.data.map((value, index) => {
+                return {
+                    value: index,
+                    label: value.nome,
+                    icon: () => <Icon name="flag" size={18} color="#900" />,
+                    disabled: false,
+                    selected: false
+                }
+            });
+
+            setHemocentros([...hemocentrosMap]);
+        }
+
+        ObterHemocentros();
+    }, []);
 
     const cadastrar = useCallback(async (data: SubmitFormCadastro) => {
         const cadastroRequest =
@@ -55,18 +67,19 @@ const CadastroFuncionario: React.FC = () => {
             idHemocentro: data.idHemocentro
         };
 
+        console.log(cadastroRequest);
 
-        api.post<GenericCommandResult<any>>('Funcionario/criar', cadastroRequest)
-            .then((response) => {
-                Alert.alert("Sucesso!", "Efetue o login.");
-                navigation.navigate("LoginUser");
-            }).catch(({ response }: ResponseError) => {
-                if (response.status == 400) {
-                    Alert.alert("Alerta!", "Preencha todos os campos!");
-                } else {
-                    Alert.alert("Error", "Erro no servidor!");
-                }
-            })
+        // api.post<GenericCommandResult<any>>('Funcionario/criar', cadastroRequest)
+        //     .then((response) => {
+        //         Alert.alert("Sucesso!", "Efetue o login.");
+        //         navigation.navigate("LoginUser");
+        //     }).catch(({ response }: ResponseError) => {
+        //         if (response.status == 400) {
+        //             Alert.alert("Alerta!", "Preencha todos os campos!");
+        //         } else {
+        //             Alert.alert("Error", "Erro no servidor!");
+        //         }
+        //     })
     }, []);
 
     return (
@@ -74,12 +87,12 @@ const CadastroFuncionario: React.FC = () => {
             <Form ref={formRef} onSubmit={cadastrar}>
                 <Input
                     autoCorrect={false}
-                    name="nome"
+                    name="nomeCompleto"
                     icon="user"
                     placeholder="Nome"
                     returnKeyType="next"
                     onSubmitEditing={() => {
-                        sobrenomeRef.current?.focus();
+                        emailRef.current?.focus();
                     }}
                 />
                 <Input
@@ -110,10 +123,19 @@ const CadastroFuncionario: React.FC = () => {
                     icon="alert-circle"
                     placeholder="CPF"
                 />
+                <DropDownList
+                    searchable={true}
+                    placeholder="Selecionar hemocentro..."
+                    searchablePlaceholder="Pesquisar..."
+                    searchablePlaceholderTextColor="gray"
+                    searchableError={() => <Text>Hemocentro não encontrado</Text>}
+                    name="idHemocentro"
+                    items={hemocentros}
+                />
             </Form>
             <Button onPress={() => { formRef.current?.submitForm() }}>
-                Enviar
-                        </Button>
+                Cadastrar
+            </Button>
         </Container>
     );
 };
