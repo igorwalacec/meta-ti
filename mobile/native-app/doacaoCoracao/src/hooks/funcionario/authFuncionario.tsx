@@ -12,10 +12,11 @@ import api from '../../services/api';
 
 interface AuthState {
     token: string;
-    usuario: {
+    funcionario: {
         id: string;
-        nome: string;
+        nomeCompleto: string;
         email: string;
+        idHemocentro: string;
     }
 }
 interface SignCredentials {
@@ -24,22 +25,24 @@ interface SignCredentials {
 }
 
 interface AuthContextData {
-    usuario: {
+    funcionario: {
         id: string;
-        nome: string;
+        nomeCompleto: string;
         email: string;
-    };
+        idHemocentro: string;
+    }
     loading: boolean;
     signIn(credentials: SignCredentials): Promise<void>;
     signOut(): void;
 }
 
 interface ResponseDTO {
-    usuario: {
-        id: string;
-        nome: string;
-        email: string;
-    }
+    funcionario: {
+        id: string,
+        nomeCompleto: string,
+        email: string,
+        idHemocentro: string
+    },
     token: string;
 }
 interface ResponseError {
@@ -60,13 +63,13 @@ const AuthProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         async function loadStoragedData(): Promise<void> {
-            const [token, usuario] = await AsyncStorage.multiGet([
+            const [token, funcionario] = await AsyncStorage.multiGet([
                 '@MetaTi:token',
-                '@MetaTi:usuario',
+                '@MetaTi:funcionario',
             ]);
 
-            if (token[1] && usuario[1]) {
-                setData({ token: token[1], usuario: JSON.parse(usuario[1]) });
+            if (token[1] && funcionario[1]) {
+                setData({ token: token[1], funcionario: JSON.parse(funcionario[1]) });
             }
 
             setLoading(false);
@@ -76,21 +79,23 @@ const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     const signIn = useCallback(async ({ email, senha }) => {
+        console.log(email)
+        console.log(senha)
         api.post<GenericCommandResult<ResponseDTO>>(
-            'Usuario/get-token',
+            'Funcionario/get-token',
             {
                 email: email,
                 senha: senha,
             },
         ).then((response) => {
             console.log(response)
-            const { token, usuario } = response.data.data;
+            const { token, funcionario } = response.data.data;
 
             AsyncStorage.multiSet([
                 ['@MetaTi:token', token],
-                ['@MetaTi:usuario', JSON.stringify(usuario)],
+                ['@MetaTi:funcionario', JSON.stringify(funcionario)],
             ]).then(() => {
-                setData({ token, usuario });
+                setData({ token, funcionario });
             });
         }).catch(({ response }: ResponseError) => {
             if (response.status == 400) {
@@ -99,28 +104,22 @@ const AuthProvider: React.FC = ({ children }) => {
                 Alert.alert("Error", "Erro no servidor!");
             }
         });
-
-
-
-
-
-
     }, []);
 
     const signOut = useCallback(async () => {
-        await AsyncStorage.multiRemove(['@MetaTi:token', '@MetaTi:usuario']);
+        await AsyncStorage.multiRemove(['@MetaTi:token', '@MetaTi:funcionario']);
 
         setData({} as AuthState);
     }, []);
 
     return (
-        <AuthContext.Provider value={{ usuario: data.usuario, loading, signIn, signOut }}>
+        <AuthContext.Provider value={{ funcionario: data.funcionario, loading, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-function useAuth(): AuthContextData {
+function useAuthFuncionario(): AuthContextData {
     const context = useContext(AuthContext);
 
     if (!context) {
@@ -130,4 +129,4 @@ function useAuth(): AuthContextData {
     return context;
 }
 
-export { AuthProvider, useAuth };
+export { AuthProvider, useAuthFuncionario };

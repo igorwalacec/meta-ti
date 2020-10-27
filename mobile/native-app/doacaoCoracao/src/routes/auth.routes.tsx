@@ -3,8 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SwitchLogin from '../pages/SwitchLogin';
 import LoginUser from '../pages/LoginUser';
 import CadastroUsuario from '../pages/CadastroUsuario';
-import LoginFuncionario from '../pages/LoginFuncionario';
 import CadastroFuncionario from '../pages/CadastroFuncionario';
+import LoginFuncionario from '../pages/LoginFuncionario';
 
 const Auth = createStackNavigator();
 

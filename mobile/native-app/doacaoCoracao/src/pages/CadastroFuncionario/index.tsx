@@ -41,9 +41,9 @@ const CadastroFuncionario: React.FC = () => {
         async function ObterHemocentros() {
             const response = await api.get<GenericCommandResult<Array<ResponseHemocentro>>>('hemocentro/obter-todos');
 
-            const hemocentrosMap = response.data.data.map((value, index) => {
+            const hemocentrosMap = response.data.data.map((value) => {
                 return {
-                    value: index,
+                    value: value.id,
                     label: value.nome,
                     icon: () => <Icon name="flag" size={18} color="#900" />,
                     disabled: false,
@@ -69,17 +69,17 @@ const CadastroFuncionario: React.FC = () => {
 
         console.log(cadastroRequest);
 
-        // api.post<GenericCommandResult<any>>('Funcionario/criar', cadastroRequest)
-        //     .then((response) => {
-        //         Alert.alert("Sucesso!", "Efetue o login.");
-        //         navigation.navigate("LoginUser");
-        //     }).catch(({ response }: ResponseError) => {
-        //         if (response.status == 400) {
-        //             Alert.alert("Alerta!", "Preencha todos os campos!");
-        //         } else {
-        //             Alert.alert("Error", "Erro no servidor!");
-        //         }
-        //     })
+        api.post<GenericCommandResult<any>>('/funcionario/criar', cadastroRequest)
+            .then((response) => {
+                Alert.alert("Sucesso!", "Efetue o login.");
+                navigation.navigate("LoginFuncionario");
+            }).catch(({ response }) => {
+                if (response.status == 400) {
+                    Alert.alert("Alerta!", "Preencha todos os campos!");
+                } else {
+                    Alert.alert("Error", "Erro no servidor!");
+                }
+            })
     }, []);
 
     return (
