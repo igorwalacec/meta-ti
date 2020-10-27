@@ -12,13 +12,17 @@ const SwitchLogin: React.FC = () => {
     navigation.navigate('LoginUser');
   }, []);
 
+  const acessarLoginFuncionario = useCallback(() => {
+    navigation.navigate('LoginFuncionario');
+  }, []);
+
   return (
     <Container>
       <Logo source={logoImg} />
       <Titulo>Bem vindo!</Titulo>
       <Descricao>Se identifique para começar.</Descricao>
       <Button onPress={acessarLoginUsuario}>DOADOR</Button>
-      <Button>CENTRO DE COLETA</Button>
+      <Button onPress={acessarLoginFuncionario}>CENTRO DE COLETA</Button>
     </Container>
   );
 };
