@@ -31,5 +31,13 @@ namespace Meta.TI.API.Controllers
         {
             return Response(hemocentroApp.AlterarStatusHemocentro(ativoHemocentro));
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("obter-todos")]
+        public IActionResult ObterHemocentros()
+        {
+            return Response(hemocentroApp.ObterTodosHemocentros());
+        }
     }
 }

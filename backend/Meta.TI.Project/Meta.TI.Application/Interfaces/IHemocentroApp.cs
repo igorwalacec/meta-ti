@@ -7,5 +7,6 @@ namespace Meta.TI.Application.Interfaces
     {
         GenericCommandResult CriarHemocentro(CriacaoHemocentroCommand comando);
         GenericCommandResult AlterarStatusHemocentro(AlterarAtivoHemocentroCommand comando);
+        GenericCommandResult ObterTodosHemocentros();
     }
 }

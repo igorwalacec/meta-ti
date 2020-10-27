@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections.Generic;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
@@ -36,6 +36,13 @@ namespace Meta.TI.Domain.Handlers
             telefoneRepository = _telefoneRepository;
             estoqueSanquineoRepository = _estoqueSanquineoRepository;
             expedienteRepository = _expedienteRepository;
+        }
+
+        public ICommandResult Handle()
+        {
+            var todosHemocentro = hemocentroRepository.ObterTodosHemocentro();
+
+            return new GenericCommandResult(true, todosHemocentro);
         }
 
         public ICommandResult Handle(CriacaoHemocentroCommand command)
@@ -109,18 +116,17 @@ namespace Meta.TI.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
             }
 
-            var hemocentro = hemocentroRepository.ObterPorId(command.IdHemocentro);
+            var hemocentro = hemocentroRepository.ObterHemocentroPorId(command.IdHemocentro);
 
-            var endereco = new Endereco(
-               hemocentro.Endereco.Id,
-               command.DadosEndereco.Logradouro,
-               command.DadosEndereco.Complemento,
-               command.DadosEndereco.Numero,
-               command.DadosEndereco.Cep,
-               command.DadosEndereco.IdCidade
-           );
+            hemocentro.Endereco.Logradouro = command.DadosEndereco.Logradouro;
+            hemocentro.Endereco.Complemento = command.DadosEndereco.Complemento;
+            hemocentro.Endereco.Numero= command.DadosEndereco.Numero;
+            hemocentro.Endereco.Cep = command.DadosEndereco.Cep;
+            hemocentro.Endereco.IdCidade = command.DadosEndereco.IdCidade;
+            hemocentro.Endereco.Latitude = command.DadosEndereco.Latitude;
+            hemocentro.Endereco.Longitude = command.DadosEndereco.Longitude;
 
-            enderecoRepository.Alterar(endereco);
+            enderecoRepository.Alterar(hemocentro.Endereco);
 
             return new GenericCommandResult(true, "Endereço alterado com sucesso", hemocentro);
         }
@@ -170,10 +176,21 @@ namespace Meta.TI.Domain.Handlers
             foreach (var item in command.DadosEstoqueSanguineo)
             {
                 var estoqueSanguineo = estoqueSanquineoRepository.ObterEstoqueSanquineoPorTipo(item.IdHemocentro, item.IdTipoSanguineo);
+                EstoqueSanguineo estoque = new EstoqueSanguineo
+                {
+                    IdTipoSanguineo = item.IdTipoSanguineo,
+                    IdHemocentro = item.IdHemocentro,
+                    QuantidadeBolsas = item.QuantidadeBolsas,
+                    QuantidadeMinimaBolsas = item.QuantidadeMinimaBolsas
+                };
+
                 if (estoqueSanguineo != null)
-                    estoqueSanquineoRepository.Alterar(item);
+                    estoqueSanquineoRepository.Alterar(estoque);
                 else
-                    estoqueSanquineoRepository.Adicionar(item);
+                {
+                    estoque.Id = estoqueSanguineo.Id;
+                    estoqueSanquineoRepository.Adicionar(estoque);
+                }
             };
 
             return new GenericCommandResult(true, "Estoques Sanguineos alterados com sucesso");
