@@ -35,6 +35,7 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c =>
                     new Usuario
                     (
+                        c.Id,
                         c.Nome,
                         c.Sobrenome,
                         c.Email,
@@ -56,6 +57,7 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c =>
                     new Hemocentro
                     (
+                        c.Id,
                         c.Nome,
                         c.CNPJ,
                         new Endereco

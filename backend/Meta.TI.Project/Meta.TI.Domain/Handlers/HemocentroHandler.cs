@@ -63,7 +63,9 @@ namespace Meta.TI.Domain.Handlers
                 command.Complemento,
                 command.Numero,
                 command.Cep,
-                command.IdCidade
+                command.IdCidade,
+                command.Latitude,
+                command.Longitude
             );
 
             var hemocentro = new Hemocentro(
@@ -120,7 +122,7 @@ namespace Meta.TI.Domain.Handlers
 
             hemocentro.Endereco.Logradouro = command.DadosEndereco.Logradouro;
             hemocentro.Endereco.Complemento = command.DadosEndereco.Complemento;
-            hemocentro.Endereco.Numero= command.DadosEndereco.Numero;
+            hemocentro.Endereco.Numero = command.DadosEndereco.Numero;
             hemocentro.Endereco.Cep = command.DadosEndereco.Cep;
             hemocentro.Endereco.IdCidade = command.DadosEndereco.IdCidade;
             hemocentro.Endereco.Latitude = command.DadosEndereco.Latitude;
@@ -176,19 +178,25 @@ namespace Meta.TI.Domain.Handlers
             foreach (var item in command.DadosEstoqueSanguineo)
             {
                 var estoqueSanguineo = estoqueSanquineoRepository.ObterEstoqueSanquineoPorTipo(item.IdHemocentro, item.IdTipoSanguineo);
-                EstoqueSanguineo estoque = new EstoqueSanguineo
-                {
-                    IdTipoSanguineo = item.IdTipoSanguineo,
-                    IdHemocentro = item.IdHemocentro,
-                    QuantidadeBolsas = item.QuantidadeBolsas,
-                    QuantidadeMinimaBolsas = item.QuantidadeMinimaBolsas
-                };
+               
 
                 if (estoqueSanguineo != null)
-                    estoqueSanquineoRepository.Alterar(estoque);
+                {
+                    estoqueSanguineo.QuantidadeBolsas = item.QuantidadeBolsas;
+                    estoqueSanguineo.QuantidadeMinimaBolsas = item.QuantidadeMinimaBolsas;
+
+                    estoqueSanquineoRepository.Alterar(estoqueSanguineo);
+                }
                 else
                 {
-                    estoque.Id = estoqueSanguineo.Id;
+                    EstoqueSanguineo estoque = new EstoqueSanguineo
+                    {
+                        IdTipoSanguineo = item.IdTipoSanguineo,
+                        IdHemocentro = item.IdHemocentro,
+                        QuantidadeBolsas = item.QuantidadeBolsas,
+                        QuantidadeMinimaBolsas = item.QuantidadeMinimaBolsas
+                    };
+
                     estoqueSanquineoRepository.Adicionar(estoque);
                 }
             };

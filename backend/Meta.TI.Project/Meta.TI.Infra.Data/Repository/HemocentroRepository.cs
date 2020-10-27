@@ -18,7 +18,9 @@ namespace Meta.TI.Infra.Data.Repository
 
         public List<Hemocentro> ObterTodosHemocentro()
         {
-            return DbSet.Where(x => x.Ativo == true).ToList();
+            return DbSet.Where(x => x.Ativo == true)
+                .Include(x => x.Endereco)
+                .ToList();
         }
 
         public Hemocentro ObterHemocentroPorId(Guid guid)

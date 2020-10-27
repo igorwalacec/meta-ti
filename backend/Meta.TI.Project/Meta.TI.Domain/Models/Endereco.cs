@@ -11,6 +11,17 @@ namespace Meta.TI.Domain.Models
         {
 
         }
+        public Endereco(string logradouro, string complemento, string numero, string cep, int idCidade, string latitude, string longitude)
+        {
+            Logradouro = logradouro;
+            Complemento = complemento;
+            Numero = numero;
+            Cep = cep;
+            IdCidade = idCidade;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
         public Endereco(string logradouro, string complemento, string numero, string cep, int idCidade)
         {
             Logradouro = logradouro;
@@ -20,6 +31,18 @@ namespace Meta.TI.Domain.Models
             IdCidade = idCidade;
         }
 
+        public Endereco(int id, string logradouro, string complemento, string numero, string cep, int idCidade, string latitude, string longitude)
+        {
+            Id = id;
+            Logradouro = logradouro;
+            Complemento = complemento;
+            Numero = numero;
+            Cep = cep;
+            IdCidade = idCidade;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+               
         public Endereco(int id, string logradouro, string complemento, string numero, string cep, int idCidade)
         {
             Id = id;
