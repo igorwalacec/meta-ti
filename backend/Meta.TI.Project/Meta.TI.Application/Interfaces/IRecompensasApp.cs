@@ -7,6 +7,7 @@ namespace Meta.TI.Application.Interfaces
 {
     public interface IRecompensasApp : IDisposable
     {
+        GenericCommandResult CalcularLevelDoador(CalcularLevelDoadorCommand comando);
         GenericCommandResult ListarPatrocinador();
         GenericCommandResult AdicionarPatrocinador(AdicionarPatrocinadorCommand comando);
         GenericCommandResult DesativarPatrocinadorPorId(DesativarPatrocinadorPorIdCommand comando);
