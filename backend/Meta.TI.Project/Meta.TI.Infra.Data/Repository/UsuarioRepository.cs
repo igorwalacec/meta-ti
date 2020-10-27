@@ -6,6 +6,7 @@ using System.Text;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
 using Meta.TI.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Meta.TI.Infra.Data.Repository
 {
@@ -37,7 +38,9 @@ namespace Meta.TI.Infra.Data.Repository
 
         public Usuario ObterUsuarioPorId(Guid id)
         {
-            return DbSet.FirstOrDefault(x => x.Id == id);
+            return DbSet.Where(x => x.Id == id)
+                .Include(y => y.Endereco)
+                .FirstOrDefault();
         }
     }
 }

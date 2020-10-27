@@ -20,6 +20,17 @@ namespace Meta.TI.Application.App
             mapper = _mapper;
         }
 
+        public GenericCommandResult ObterTodosHemocentros()
+        {
+            var result = (GenericCommandResult)handler.Handle();
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<List<HemocentroViewModel>>(result.Data);
+            }
+            return result;
+        }
+
         public GenericCommandResult CriarHemocentro(CriacaoHemocentroCommand comando)
         {
             var result = (GenericCommandResult)handler.Handle(comando);
