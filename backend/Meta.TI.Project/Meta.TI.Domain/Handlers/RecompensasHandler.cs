@@ -54,10 +54,12 @@ namespace Meta.TI.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, parece que sua resposta está inválida.", command.Notifications);
             }
 
-            var listarDoacoes = historicoDoacaoRepository.ObterTodos();
+            var listarDoacoes = historicoDoacaoRepository.ObterDoacaoPorId(command.IdUsuario);
+            var countDoacoes = listarDoacoes.Count();
 
+            var consulta = levelRepository.CalcularLevel(countDoacoes);
 
-            return new GenericCommandResult(true, "Level cadastrado com sucesso!", null);
+            return new GenericCommandResult(true, "Level atual do Usuario:", consulta);
         }
 
         public ICommandResult Handle(AdicionarLevelCommand command)

@@ -24,7 +24,7 @@ namespace Meta.TI.API.Controllers
         [Authorize(Roles = "doador")]
         public IActionResult CalcularLevelDoador([FromBody] CalcularLevelDoadorCommand CalcularLevel)
         {
-            return Response(recompensaApp.AdicionarLevel(CalcularLevel));
+            return Response(recompensaApp.CalcularLevelDoador(CalcularLevel));
         }
 
         [HttpPost]
