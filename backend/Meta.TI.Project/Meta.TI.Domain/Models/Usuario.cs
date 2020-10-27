@@ -70,7 +70,8 @@ namespace Meta.TI.Domain.Models
         public TipoSexo TipoSexo { get; set; }
         public Endereco Endereco { get; set; }
         public ICollection<FeedSolicitacao> FeedSolicitacoes { get; set; }
-        public ICollection<Agendamento> Agendamentos { get; set; }
+        public ICollection<Agendamento> Agendamentos { get; set; }                
+        public ICollection<HistoricoAptidao> HistoricoAptidao { get; set; }
 
         public void SetarIdEndereco(int idEndereco)
         {

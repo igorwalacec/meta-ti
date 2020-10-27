@@ -45,6 +45,7 @@ namespace Meta.TI.Domain.Models
         public ICollection<Funcionario> Funcionarios { get; set; }
         public ICollection<FuncionarioAdmin> FuncionariosAdmin { get; set; }
         public ICollection<FeedSolicitacao> FeedSolicitacoes { get; set; }
+        public ICollection<HistoricoDoacao> HistoricoDoacao { get; set; }
         public ICollection<Campanha> Campanhas { get; set; }
         public ICollection<Agendamento> Agendamentos { get; set; }
 

@@ -16,6 +16,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Hemocentro> Hemocentro { get; set; }
         public DbSet<EstoqueSanguineo> EstoqueSanguineo { get; set; }
         public DbSet<Expediente> Expediente { get; set; }
+        public DbSet<QuestoesAptidao> QuestoesAptidao { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
         public DbSet<Funcionario> Funcionario { get; set; }
         public DbSet<Informativo> Informativo { get; set; }
@@ -23,6 +24,12 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Campanha> Campanha { get; set; }
         public DbSet<Agendamento> Agendamento { get; set; }
         public DbSet<TipoSexo> TipoSexo { get; set; }
+        public DbSet<StatusDoacao> StatusDoacao { get; set; }
+        public DbSet<OrientacaoDoacao> OrientacaoDoacao { get; set; }
+        public DbSet<Patrocinador> Patrocinador { get; set; }
+        public DbSet<Recompensas> Recompensas { get; set; }
+        public DbSet<Level> Level { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
