@@ -145,12 +145,29 @@ namespace Meta.TI.Domain.Handlers
             {
                 var telefone = telefoneRepository.ObterTelefone(item.Id);
                 if (telefone != null)
-                    telefoneRepository.Alterar(item);
+                {
+                    telefone.Numero = item.Numero;
+                    telefoneRepository.Alterar(telefone);
+                }
                 else
-                    telefoneRepository.Adicionar(item);
+                {
+                    Telefone novoTelefone = new Telefone()
+                    {
+                        Numero = item.Numero,
+                        IdHemocentro = item.IdHemocentro
+                    };
+                    telefoneRepository.Adicionar(novoTelefone);
+                }
             };
 
             return new GenericCommandResult(true, "Telefones alterados com sucesso");
+        }
+
+        public ICommandResult Handle(ConsultarTelefoneHemocentroCommand command)
+        {
+            var telefone = telefoneRepository.ObterTelefonesPorHemocentro(command.IdHemocentro);
+
+            return new GenericCommandResult(true, telefone);
         }
 
         public ICommandResult Handle(ConsultarEstoqueSanguineoPorHemocentroCommand command)
@@ -214,11 +231,27 @@ namespace Meta.TI.Domain.Handlers
 
             foreach (var item in command.DadosExpediente)
             {
-                var expediente = expedienteRepository.ObterExpediente(item.Id);
+                var expediente = expedienteRepository.ObterExpediente(item.IdHemocentro, item.IdDiaSemana);
+
                 if (expediente != null)
-                    expedienteRepository.Alterar(item);
+                {
+                    expediente.Inicio = item.Inicio;
+                    expediente.Fim = item.Fim;
+                    
+                    expedienteRepository.Alterar(expediente);
+                }
                 else
-                    expedienteRepository.Adicionar(item);
+                {
+                    var novoExpediente = new Expediente
+                    {
+                        IdHemocentro = item.IdHemocentro,
+                        IdDiaSemana = item.IdDiaSemana,
+                        Inicio = item.Inicio,
+                        Fim = item.Fim
+                    };
+
+                    expedienteRepository.Adicionar(novoExpediente);
+                }
             };
 
             return new GenericCommandResult(true, "Expedientes alterados com sucesso");

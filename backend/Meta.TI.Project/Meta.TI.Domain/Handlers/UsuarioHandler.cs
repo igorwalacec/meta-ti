@@ -109,6 +109,7 @@ namespace Meta.TI.Domain.Handlers
                 command.Nome,
                 command.Sobrenome,
                 command.Email,
+                command.Senha,
                 command.RG,
                 command.CPF,
                 command.DataNascimento,
