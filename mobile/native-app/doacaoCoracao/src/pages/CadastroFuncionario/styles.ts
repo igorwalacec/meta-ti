@@ -7,3 +7,11 @@ export const Container = styled.View`
     justify-content: center;
     background-color: #FFF;
 `;
+
+export const CadastrarHemocentro = styled.TouchableOpacity`
+    
+`;
+export const CadastrarHemocentroText = styled.Text`
+    text-align: center;
+    color: #C4284D;
+`;

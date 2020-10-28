@@ -12,7 +12,7 @@ import DropDownList from '../../components/DropDownList';
 import Input from '../../components/Input';
 import InputMask from '../../components/InputMask';
 import api from '../../services/api';
-import { Container } from './styles';
+import { CadastrarHemocentro, CadastrarHemocentroText, Container } from './styles';
 
 interface SubmitFormCadastro {
     nomeCompleto: string;
@@ -34,6 +34,10 @@ const CadastroFuncionario: React.FC = () => {
     const sobrenomeRef = useRef<TextInput>(null);
     const emailRef = useRef<TextInput>(null);
     const senhaRef = useRef<TextInput>(null);
+
+    const navegarCadastroHemocentro = useCallback(() => {
+        navigation.navigate("CadastroHemocentro");
+    }, [navigation])
 
     const [hemocentros, setHemocentros] = useState([]);
 
@@ -132,6 +136,11 @@ const CadastroFuncionario: React.FC = () => {
                     name="idHemocentro"
                     items={hemocentros}
                 />
+                <CadastrarHemocentro onPress={navegarCadastroHemocentro}>
+                    <CadastrarHemocentroText>
+                        Não encontrou seu hemocentro? Clique aqui!
+                    </CadastrarHemocentroText>
+                </CadastrarHemocentro>
             </Form>
             <Button onPress={() => { formRef.current?.submitForm() }}>
                 Cadastrar

@@ -5,6 +5,7 @@ import LoginUser from '../pages/LoginUser';
 import CadastroUsuario from '../pages/CadastroUsuario';
 import CadastroFuncionario from '../pages/CadastroFuncionario';
 import LoginFuncionario from '../pages/LoginFuncionario';
+import CadastroHemocentro from '../pages/CadastroHemocentro/ParteUm';
 
 const Auth = createStackNavigator();
 
@@ -18,6 +19,11 @@ const AuthRoutes: React.FC = () => (
         }} />
         <Auth.Screen name="CadastroFuncionario" component={CadastroFuncionario} options={{
             title: "Cadastro Funcionário",
+            headerTintColor: '#C4284D',
+            headerStyle: { backgroundColor: '#fff', elevation: 0 }
+        }} />
+        <Auth.Screen name="CadastroHemocentro" component={CadastroHemocentro} options={{
+            title: "Cadastro Hemocentro",
             headerTintColor: '#C4284D',
             headerStyle: { backgroundColor: '#fff', elevation: 0 }
         }} />

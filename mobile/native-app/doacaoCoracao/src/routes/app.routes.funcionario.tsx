@@ -1,6 +1,6 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeFuncionario from '../pages/HomeFuncionario';
+import { createStackNavigator } from '@react-navigation/stack'; 
+import HomeFuncionario from '../pages/_Funcionario/HomeFuncionario';
 
 const App = createStackNavigator();
 
