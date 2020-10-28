@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import { Container } from './styles';
 
 import MapView, { Marker } from 'react-native-maps';
@@ -7,6 +7,7 @@ import Geolocation from '@react-native-community/geolocation';
 
 const CadastroHemocentro: React.FC = () => {
     const [minhaLocalizacao, setMinhaLocalizacao] = useState({})
+    const [loading, setLoading] = useState(true);
     // "nome": "string",
     // "cnpj": "string",
     // "aprovado": true,
@@ -24,7 +25,6 @@ const CadastroHemocentro: React.FC = () => {
         Geolocation.getCurrentPosition(info => {
             const { coords } = info;
 
-            console.log(coords);
 
             setMinhaLocalizacao({
                 latitude: coords.latitude,
@@ -32,30 +32,38 @@ const CadastroHemocentro: React.FC = () => {
                 latitudeDelta: 0.04,
                 longitudeDelta: 0.05,
             })
+            setLoading(false);
         });
     }, [])
 
-    return (
-        <Container>
-            <MapView
-                style={styles.mapStyle}
-                initialRegion={minhaLocalizacao}
-                customMapStyle={mapStyle}>
-                <Marker
-                    draggable
-                    coordinate={{
-                        latitude: -23.489636,
-                        longitude: -46.598482,
-                    }}
-                    onDragEnd={
-                        (e) => Alert.alert(JSON.stringify(e.nativeEvent.coordinate))
-                    }
-                    title={'Test Marker'}
-                    description={'This is a description of the marker'}
-                />
-            </MapView>
-        </Container>
-    );
+    if (loading) {
+        return (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#999" />
+        </View>);
+    } else {
+        return (
+            <Container>
+                <MapView
+                    style={styles.mapStyle}
+                    initialRegion={minhaLocalizacao}
+                    customMapStyle={mapStyle}>
+                    <Marker
+                        draggable
+                        coordinate={{
+                            latitude: -23.489636,
+                            longitude: -46.598482,
+                        }}
+                        onDragEnd={
+                            (e) => Alert.alert(JSON.stringify(e.nativeEvent.coordinate))
+                        }
+                        title={'Test Marker'}
+                        description={'This is a description of the marker'}
+                    />
+                </MapView>
+            </Container>
+        );
+    }
+
 }
 export default CadastroHemocentro;
 
