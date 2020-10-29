@@ -1,13 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import { Container } from './styles';
 
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
+import Input from '../../../components/Input';
+import geoApi from '../../../services/geoapi';
+import { KEY_GEO_API } from '@env';
+import { ResponseGeoApi } from '../../../@types/ResponseGeoApi';
 
+interface SubmitForm {
+    endereco: string;
+}
+interface MapProps {
+    latitude: number,
+    longitude: number,
+    latitudeDelta: 0.04,
+    longitudeDelta: 0.05,
+}
 const CadastroHemocentro: React.FC = () => {
-    const [minhaLocalizacao, setMinhaLocalizacao] = useState({})
+    const formRef = useRef<FormHandles>(null);
+    const [position, setPosition] = useState({
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    });
     const [loading, setLoading] = useState(true);
+
+    const buscarEndereco = useCallback(async (data: SubmitForm) => {
+        const { endereco } = data;
+        const enderecoEncode = encodeURIComponent(endereco);
+        const response = await geoApi.get<ResponseGeoApi>(`search?text=${enderecoEncode}&apikey=${KEY_GEO_API}`);
+
+        const longitudeResponse = response.data.features[0].geometry.coordinates[0];
+        const latitudeResponse = response.data.features[0].geometry.coordinates[1];
+
+        setPosition({
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+            latitude: latitudeResponse,
+            longitude: longitudeResponse,
+        });
+
+    }, [position, setPosition]);
     // "nome": "string",
     // "cnpj": "string",
     // "aprovado": true,
@@ -24,13 +62,11 @@ const CadastroHemocentro: React.FC = () => {
     useEffect(() => {
         Geolocation.getCurrentPosition(info => {
             const { coords } = info;
-
-
-            setMinhaLocalizacao({
+            setPosition({
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
                 latitude: coords.latitude,
-                longitude: coords.longitude,
-                latitudeDelta: 0.04,
-                longitudeDelta: 0.05,
+                longitude: coords.longitude
             })
             setLoading(false);
         });
@@ -42,25 +78,37 @@ const CadastroHemocentro: React.FC = () => {
         </View>);
     } else {
         return (
-            <Container>
-                <MapView
-                    style={styles.mapStyle}
-                    initialRegion={minhaLocalizacao}
-                    customMapStyle={mapStyle}>
-                    <Marker
-                        draggable
-                        coordinate={{
-                            latitude: -23.489636,
-                            longitude: -46.598482,
+            <>
+                <Container>
+                    <MapView
+                        style={styles.mapStyle}
+                        initialRegion={position}
+                        region={position}
+                        showsUserLocation={true}
+                        followsUserLocation={true}
+                        customMapStyle={mapStyle}>
+                        <Marker
+                            draggable
+                            coordinate={position}
+                            onDragEnd={
+                                (e) => Alert.alert(JSON.stringify(e.nativeEvent.coordinate))
+                            }
+                            title={'Test Marker'}
+                            description={'This is a description of the marker'}
+                        />
+                    </MapView>
+                </Container>
+                <Form ref={formRef} onSubmit={buscarEndereco}>
+                    <Input
+                        name="endereco"
+                        icon="mail"
+                        returnKeyType="send"
+                        onSubmitEditing={() => {
+                            formRef.current?.submitForm();
                         }}
-                        onDragEnd={
-                            (e) => Alert.alert(JSON.stringify(e.nativeEvent.coordinate))
-                        }
-                        title={'Test Marker'}
-                        description={'This is a description of the marker'}
                     />
-                </MapView>
-            </Container>
+                </Form>
+            </>
         );
     }
 
@@ -147,17 +195,7 @@ const mapStyle = [
         stylers: [{ color: '#17263c' }],
     },
 ];
-
 const styles = StyleSheet.create({
-    container: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
     mapStyle: {
         position: 'absolute',
         top: 0,
