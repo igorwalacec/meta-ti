@@ -10,6 +10,8 @@ import Input from '../../../components/Input';
 import geoApi from '../../../services/geoapi';
 import { KEY_GEO_API } from '@env';
 import { ResponseGeoApi } from '../../../@types/ResponseGeoApi';
+import FloatButton from '../../../components/FloatButton';
+import { useNavigation } from '@react-navigation/native';
 
 interface SubmitForm {
     endereco: string;
@@ -17,59 +19,101 @@ interface SubmitForm {
 interface MapProps {
     latitude: number,
     longitude: number,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.05,
+    latitudeDelta: number,
+    longitudeDelta: number,
 }
-const CadastroHemocentro: React.FC = () => {
+
+interface EnderecoProps {
+    endereco: string;
+    numero: string;
+    latitude: number;
+    longitude: number;
+}
+
+
+const CadastroHemocentroParteUm: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
-    const [position, setPosition] = useState({
+    const [position, setPosition] = useState<MapProps>({
         latitude: 0,
         longitude: 0,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.04,
+        longitudeDelta: 0.04,
     });
+
+    const [enderecoProp, setEnderecoProp] = useState<EnderecoProps>({} as EnderecoProps);
     const [loading, setLoading] = useState(true);
 
+    const navigation = useNavigation();
+    const IrParteDois = useCallback(() => {
+        Alert.alert("Aviso",
+            "Essa será sua posição no mapa",
+            [
+                {
+                    text: "Cancelar"
+                }, {
+                    text: "OK",
+                    onPress: () => {
+                        navigation.navigate("CadastroHemocentroParteDois", enderecoProp);
+                    }
+                }
+            ]);
+    }, [navigation, enderecoProp]);
+
     const buscarEndereco = useCallback(async (data: SubmitForm) => {
+        setLoading(true);
         const { endereco } = data;
         const enderecoEncode = encodeURIComponent(endereco);
-        const response = await geoApi.get<ResponseGeoApi>(`search?text=${enderecoEncode}&apikey=${KEY_GEO_API}`);
 
-        const longitudeResponse = response.data.features[0].geometry.coordinates[0];
-        const latitudeResponse = response.data.features[0].geometry.coordinates[1];
+        geoApi.get<ResponseGeoApi>(`search?text=${enderecoEncode}&apikey=${KEY_GEO_API}`)
+            .then((response) => {
+                const longitudeResponse = response.data.features[0].geometry.coordinates[0];
+                const latitudeResponse = response.data.features[0].geometry.coordinates[1];
 
-        setPosition({
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-            latitude: latitudeResponse,
-            longitude: longitudeResponse,
-        });
-
-    }, [position, setPosition]);
-    // "nome": "string",
-    // "cnpj": "string",
-    // "aprovado": true,
-    // "ativo": true,
-    // "dataCriacao": "2020-10-28T03:30:56.314Z",
-    // "dataAlteracao": "2020-10-28T03:30:56.314Z",
-    // "logradouro": "string",
-    // "complemento": "string",
-    // "numero": "string",
-    // "cep": "string",
-    // "latitude": "string",
-    // "longitude": "string",
-    // "idCidade": 0
-    useEffect(() => {
-        Geolocation.getCurrentPosition(info => {
-            const { coords } = info;
-            setPosition({
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-                latitude: coords.latitude,
-                longitude: coords.longitude
+                setEnderecoProp({
+                    endereco: response.data.features[0].properties.street,
+                    numero: response.data.features[0].properties.housenumber,
+                    latitude: latitudeResponse,
+                    longitude: longitudeResponse
+                });
+                setPosition({
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                    latitude: latitudeResponse,
+                    longitude: longitudeResponse,
+                });
+                setLoading(false);
             })
-            setLoading(false);
-        });
+            .catch((error) => {
+                Alert.alert("Digite seu endereço com mais detalhes");
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        async function getLocationUser() {
+            await Geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords;
+                    setPosition({
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                        latitude: latitude,
+                        longitude: longitude
+                    });
+                    setLoading(false);
+                },
+                error => {
+                    setPosition({
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                        latitude: 0,
+                        longitude: 0
+                    });
+                    setLoading(true);
+                },
+            );
+        };
+        getLocationUser();
     }, [])
 
     if (loading) {
@@ -86,115 +130,46 @@ const CadastroHemocentro: React.FC = () => {
                         region={position}
                         showsUserLocation={true}
                         followsUserLocation={true}
-                        customMapStyle={mapStyle}>
+                    >
                         <Marker
                             draggable
+                            onDragEnd={(e) => {
+                                setPosition({
+                                    ...position,
+                                    latitude: e.nativeEvent.coordinate.latitude,
+                                    longitude: e.nativeEvent.coordinate.longitude,
+                                })
+                            }}
                             coordinate={position}
-                            onDragEnd={
-                                (e) => Alert.alert(JSON.stringify(e.nativeEvent.coordinate))
-                            }
-                            title={'Test Marker'}
-                            description={'This is a description of the marker'}
+                            title={`${enderecoProp.endereco},${enderecoProp.numero}`}
+                            description={'Este será o local do seu hemocentro!'}
                         />
                     </MapView>
                 </Container>
                 <Form ref={formRef} onSubmit={buscarEndereco}>
                     <Input
                         name="endereco"
-                        icon="mail"
+                        icon="map-pin"
                         returnKeyType="send"
                         onSubmitEditing={() => {
                             formRef.current?.submitForm();
                         }}
                     />
                 </Form>
+                <FloatButton position={{
+                    bottom: 80,
+                    right: 10,
+                    top: 0,
+                    left: 0
+                }} icon="arrow-right"
+                    onPress={IrParteDois} />
             </>
         );
     }
 
 }
-export default CadastroHemocentro;
+export default CadastroHemocentroParteUm;
 
-const mapStyle = [
-    { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
-    { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
-    { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
-    {
-        featureType: 'administrative.locality',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }],
-    },
-    {
-        featureType: 'poi',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }],
-    },
-    {
-        featureType: 'poi.park',
-        elementType: 'geometry',
-        stylers: [{ color: '#263c3f' }],
-    },
-    {
-        featureType: 'poi.park',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#6b9a76' }],
-    },
-    {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{ color: '#38414e' }],
-    },
-    {
-        featureType: 'road',
-        elementType: 'geometry.stroke',
-        stylers: [{ color: '#212a37' }],
-    },
-    {
-        featureType: 'road',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#9ca5b3' }],
-    },
-    {
-        featureType: 'road.highway',
-        elementType: 'geometry',
-        stylers: [{ color: '#746855' }],
-    },
-    {
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [{ color: '#1f2835' }],
-    },
-    {
-        featureType: 'road.highway',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#f3d19c' }],
-    },
-    {
-        featureType: 'transit',
-        elementType: 'geometry',
-        stylers: [{ color: '#2f3948' }],
-    },
-    {
-        featureType: 'transit.station',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }],
-    },
-    {
-        featureType: 'water',
-        elementType: 'geometry',
-        stylers: [{ color: '#17263c' }],
-    },
-    {
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#515c6d' }],
-    },
-    {
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#17263c' }],
-    },
-];
 const styles = StyleSheet.create({
     mapStyle: {
         position: 'absolute',

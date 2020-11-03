@@ -30,8 +30,7 @@ interface ResponseHemocentro {
 const CadastroFuncionario: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const navigation = useNavigation();
-    //Ref de inputs
-    const sobrenomeRef = useRef<TextInput>(null);
+    //Ref de inputs    
     const emailRef = useRef<TextInput>(null);
     const senhaRef = useRef<TextInput>(null);
 
@@ -69,9 +68,7 @@ const CadastroFuncionario: React.FC = () => {
             senha: data.senha,
             cpf: data.cpf,
             idHemocentro: data.idHemocentro
-        };
-
-        console.log(cadastroRequest);
+        };        
 
         api.post<GenericCommandResult<any>>('/funcionario/criar', cadastroRequest)
             .then((response) => {
