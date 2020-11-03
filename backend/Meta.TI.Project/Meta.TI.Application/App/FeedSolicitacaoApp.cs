@@ -41,6 +41,17 @@ namespace Meta.TI.Application.App
             return result;
         }
 
+        public GenericCommandResult ObterFeedSolicitacaoPorTipoSanguineo(ConsultarFeedSolicitacaoPorTipoSanguineoCommand command)
+        {
+            var result = (GenericCommandResult)handler.Handle(command);
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<List<FeedSolicitacaoViewModel>>(result.Data);
+            }
+            return result;
+        }
+
         public GenericCommandResult CriacaoFeedSolicitacao(CriacaoFeedSolicitacaoCommand command)
         {
             var result = (GenericCommandResult)handler.Handle(command);

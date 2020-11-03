@@ -47,6 +47,13 @@ namespace Meta.TI.Domain.Handlers
             return new GenericCommandResult(true, feedSolicitacoes);
         }
 
+        public ICommandResult Handle(ConsultarFeedSolicitacaoPorTipoSanguineoCommand command)
+        {
+            var feedSolicitacoes = feedSolicitacaoRepository.ObterFeedSolicitacaoPorTipoSanguineo(command.DataAtual, command.IdTipoSanguineo);
+
+            return new GenericCommandResult(true, feedSolicitacoes);
+        }
+
         public ICommandResult Handle(CriacaoFeedSolicitacaoCommand command)
         {
             var hemocentro = hemocentroRepository.ObterPorId(command.IdHemocentro);
