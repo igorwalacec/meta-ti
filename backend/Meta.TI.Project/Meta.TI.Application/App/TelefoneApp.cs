@@ -26,5 +26,10 @@ namespace Meta.TI.Application.App
         {
             return (GenericCommandResult)handler.Handle(comando);
         }
+
+        public GenericCommandResult ConsultarTelefoneHemocentro(ConsultarTelefoneHemocentroCommand comando)
+        {
+            return (GenericCommandResult)handler.Handle(comando);
+        }
     }
 }

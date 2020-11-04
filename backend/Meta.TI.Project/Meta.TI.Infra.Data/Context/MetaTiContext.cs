@@ -29,6 +29,7 @@ namespace Meta.TI.Infra.Data.Context
         public DbSet<Patrocinador> Patrocinador { get; set; }
         public DbSet<Recompensas> Recompensas { get; set; }
         public DbSet<Level> Level { get; set; }
+        public DbSet<Notificacoes> Notificacoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

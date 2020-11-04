@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Meta.TI.Application.Interfaces;
 using Meta.TI.Application.ViewModels;
@@ -24,7 +25,7 @@ namespace Meta.TI.Application.App
 
             if (result.Sucess)
             {
-                result.Data = mapper.Map<FeedSolicitacaoViewModel>(result.Data);
+                result.Data = mapper.Map<List<FeedSolicitacaoViewModel>>(result.Data);
             }
             return result;
         }
@@ -35,7 +36,18 @@ namespace Meta.TI.Application.App
 
             if (result.Sucess)
             {
-                result.Data = mapper.Map<FeedSolicitacaoViewModel>(result.Data);
+                result.Data = mapper.Map<List<FeedSolicitacaoViewModel>>(result.Data);
+            }
+            return result;
+        }
+
+        public GenericCommandResult ObterFeedSolicitacaoPorTipoSanguineo(ConsultarFeedSolicitacaoPorTipoSanguineoCommand command)
+        {
+            var result = (GenericCommandResult)handler.Handle(command);
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<List<FeedSolicitacaoViewModel>>(result.Data);
             }
             return result;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
@@ -10,9 +11,9 @@ namespace Meta.TI.Infra.Data.Repository
         public ExpedienteRepository(MetaTiContext context) : base(context)
         {
         }
-        public Expediente ObterExpediente(int Id)
+        public Expediente ObterExpediente(Guid idHemocentro, int idDiaSemana)
         {
-            return DbSet.FirstOrDefault(x => x.Id == Id);
+            return DbSet.FirstOrDefault(x => x.IdHemocentro == idHemocentro && x.IdDiaSemana == idDiaSemana);
         }
     }
 }

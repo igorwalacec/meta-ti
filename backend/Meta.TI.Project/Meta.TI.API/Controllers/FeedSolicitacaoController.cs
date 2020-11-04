@@ -42,6 +42,16 @@ namespace Meta.TI.API.Controllers
             return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorHemocentro(comando));
         }
 
+        [HttpGet("{idTipoSanguineo}")]
+        public IActionResult ObterFeedSolicitacaoPorTipoSanguineo([FromRoute] int idTipoSanguineo)
+        {
+            ConsultarFeedSolicitacaoPorTipoSanguineoCommand comando = new ConsultarFeedSolicitacaoPorTipoSanguineoCommand();
+            comando.IdTipoSanguineo = idTipoSanguineo;
+            comando.DataAtual = DateTime.Now;
+
+            return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorTipoSanguineo(comando));
+        }
+
         [HttpPost("criar")]
         public IActionResult CriacaoFeedSolicitacao([FromBody] CriacaoFeedSolicitacaoCommand comando)
         {

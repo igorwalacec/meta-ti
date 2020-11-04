@@ -73,6 +73,7 @@ namespace Meta.TI.Domain.Models
         public ICollection<FeedSolicitacao> FeedSolicitacoes { get; set; }
         public ICollection<Agendamento> Agendamentos { get; set; }                
         public ICollection<HistoricoAptidao> HistoricoAptidao { get; set; }
+        public ICollection<Notificacoes> Notificacoes { get; set; }
 
         public void SetarIdEndereco(int idEndereco)
         {

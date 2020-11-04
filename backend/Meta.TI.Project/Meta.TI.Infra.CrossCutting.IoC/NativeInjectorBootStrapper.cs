@@ -29,6 +29,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<ITelefoneApp, TelefoneApp>();
             services.AddScoped<IAptidaoApp, AptidaoApp>();
             services.AddScoped<IDoacaoApp, DoacaoApp>();
+            services.AddScoped<INotificacoesApp, NotificacoesApp>();
 
             // Commands
             services.AddTransient<AgendamentoHandler>();
@@ -39,6 +40,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddTransient<HemocentroHandler>();
             services.AddTransient<UsuarioHandler>();
             services.AddTransient<DadosAptidaoHandler>();
+            services.AddTransient<NotificacoesHandler>();
 
             // Infra - Data
             services.AddScoped<IEstadoRepository, EstadoRepository>();
@@ -61,6 +63,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IStatusDoacaoRepository, StatusDoacaoRepository>();
             services.AddScoped<IResultadoAptidaoRepository, ResultadoAptidaoRepository>();
             services.AddScoped<IRespostaAptidaoRepository, RespostaAptidaoRepository>();
+            services.AddScoped<INotificacoesRepository, NotificacoesRepository>();
             services.AddDbContext<MetaTiContext>();
         }
     }
