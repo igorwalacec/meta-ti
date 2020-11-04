@@ -120,7 +120,7 @@ const Feed: React.FC = () => {
                     renderItem={renderPost}
                     onRefresh={ObterFeed}
                     refreshing={loading}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.id.toString()}
                 />
             </Container>
             <FloatButton
