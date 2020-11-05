@@ -197,6 +197,13 @@ namespace Meta.TI.Domain.Handlers
             };
 
             return new GenericCommandResult(true, "Expedientes alterados com sucesso");
+        }        
+
+        public ICommandResult Handle(ObterHemocentroPorIdCommand command)
+        {
+            var hemocentro = hemocentroRepository.ObterHemocentroPorId(command.IdHemocentro);
+
+            return new GenericCommandResult(true, hemocentro);
         }
     }
 }

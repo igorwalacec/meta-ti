@@ -40,12 +40,22 @@ namespace Meta.TI.Application.App
                 result.Data = mapper.Map<HemocentroViewModel>(result.Data);
             }
             return result;
+        }
 
+        public GenericCommandResult ObterHemocentroPorId(ObterHemocentroPorIdCommand comando)
+        {
+            var result = (GenericCommandResult)handler.Handle(comando);
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<HemocentroViewModel>(result.Data);
+            }
+            return result;
         }
 
         public void Dispose()
         {
             GC.SuppressFinalize(this);
-        }
+        }        
     }
 }

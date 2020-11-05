@@ -261,5 +261,12 @@ namespace Meta.TI.Domain.Handlers
 
             return new GenericCommandResult(true, "Endereço alterado com sucesso", usuario);
         }
+
+        public ICommandResult Handle(ObterUsuarioPorIdCommand command)
+        {
+            var usuario = usuarioRepository.ObterUsuarioPorId(command.IdUsuario);
+
+            return new GenericCommandResult(true, usuario);
+        }
     }
 }
