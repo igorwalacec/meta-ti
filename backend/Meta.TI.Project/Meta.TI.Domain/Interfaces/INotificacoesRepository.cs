@@ -6,6 +6,7 @@ namespace Meta.TI.Domain.Interfaces
 {
     public interface INotificacoesRepository : IRepository<Notificacoes>
     {
-        List<Notificacoes> ObterFeedSolicitacaoPorUsuario(Guid idUsuario);
+        List<Notificacoes> ObterNotificacoesPorUsuario(Guid idUsuario);
+        void RemoverNotificacoesPorUsuario(Guid idUsuario);
     }
 }

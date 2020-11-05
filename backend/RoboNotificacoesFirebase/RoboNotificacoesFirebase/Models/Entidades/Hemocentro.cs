@@ -9,6 +9,7 @@ namespace RoboNotificacoesFirebase.Model.Entidades
         {
             Campanha = new HashSet<Campanha>();
             EstoqueSanguineo = new HashSet<EstoqueSanguineo>();
+            Notificacoes = new HashSet<Notificacoes>();
         }
 
         public Guid Id { get; set; }
@@ -20,7 +21,9 @@ namespace RoboNotificacoesFirebase.Model.Entidades
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
 
+        public virtual Endereco IdEnderecoNavigation { get; set; }
         public virtual ICollection<Campanha> Campanha { get; set; }
         public virtual ICollection<EstoqueSanguineo> EstoqueSanguineo { get; set; }
+        public virtual ICollection<Notificacoes> Notificacoes { get; set; }
     }
 }

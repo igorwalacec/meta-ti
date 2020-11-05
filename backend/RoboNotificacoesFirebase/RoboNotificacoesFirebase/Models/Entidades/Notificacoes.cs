@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RoboNotificacoesFirebase.Model.Entidades
 {
@@ -10,7 +9,9 @@ namespace RoboNotificacoesFirebase.Model.Entidades
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public DateTime DataCriacao { get; set; }
+        public Guid IdHemocentro { get; set; }
 
+        public virtual Hemocentro IdHemocentroNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }
     }
 }
