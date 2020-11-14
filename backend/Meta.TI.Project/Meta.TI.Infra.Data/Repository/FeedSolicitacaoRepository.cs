@@ -19,6 +19,7 @@ namespace Meta.TI.Infra.Data.Repository
             return DbSet.Where(x => (x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao) >= dataAtual.AddDays(-90))
                 .Include(y => y.Hemocentro)
                 .Include(z => z.Usuario)
+                .Include(t => t.TipoSanguineo)
                 .OrderByDescending(x => x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao)
                 .ToList();
         }
