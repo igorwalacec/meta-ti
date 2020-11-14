@@ -146,6 +146,11 @@ namespace Meta.TI.Application.AutoMapper
                            CPF = c.Usuario.CPF,
                            DataNascimento = c.Usuario.DataNascimento,
                            IdTipoSanguineo = c.Usuario.IdTipoSanguineo,
+                       },
+                       new Hemocentro
+                       {
+                           Nome = c.Hemocentro.Nome,
+                           CNPJ = c.Hemocentro.CNPJ,
                        }));
         }
     }

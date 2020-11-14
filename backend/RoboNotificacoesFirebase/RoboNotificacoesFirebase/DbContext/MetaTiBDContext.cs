@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using RoboNotificacoesFirebase.Model.Entidades;
 
-namespace RoboNotificacoesFirebase
+namespace scaffold
 {
     public partial class MetaTiBDContext : DbContext
     {
@@ -18,17 +18,18 @@ namespace RoboNotificacoesFirebase
         }
 
         public virtual DbSet<Campanha> Campanha { get; set; }
+        public virtual DbSet<Cidade> Cidade { get; set; }
+        public virtual DbSet<Endereco> Endereco { get; set; }
         public virtual DbSet<EstoqueSanguineo> EstoqueSanguineo { get; set; }
         public virtual DbSet<Hemocentro> Hemocentro { get; set; }
         public virtual DbSet<Notificacoes> Notificacoes { get; set; }
-        public virtual DbSet<StatusDoacao> StatusDoacao { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["MetaTi"].ConnectionString);
+                optionsBuilder.UseSqlServer("Server = LAPTOP - BPLM2B59\\SQLEXPRESS; Initial Catalog = MetaTiBD; persist security info = True; Integrated Security = SSPI;");
             }
         }
 
@@ -55,6 +56,53 @@ namespace RoboNotificacoesFirebase
                 entity.HasOne(d => d.IdHemocentroNavigation)
                     .WithMany(p => p.Campanha)
                     .HasForeignKey(d => d.IdHemocentro)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<Cidade>(entity =>
+            {
+                entity.HasIndex(e => e.IdEstado);
+
+                entity.Property(e => e.Nome)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Endereco>(entity =>
+            {
+                entity.HasIndex(e => e.IdCidade);
+
+                entity.Property(e => e.Cep)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Complemento)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Latitude)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Logradouro)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Longitude)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Numero)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdCidadeNavigation)
+                    .WithMany(p => p.Endereco)
+                    .HasForeignKey(d => d.IdCidade)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
@@ -90,10 +138,17 @@ namespace RoboNotificacoesFirebase
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdEnderecoNavigation)
+                    .WithOne(p => p.Hemocentro)
+                    .HasForeignKey<Hemocentro>(d => d.IdEndereco)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Notificacoes>(entity =>
             {
+                entity.HasIndex(e => e.IdHemocentro);
+
                 entity.HasIndex(e => e.IdUsuario);
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -110,18 +165,15 @@ namespace RoboNotificacoesFirebase
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.HasOne(d => d.IdHemocentroNavigation)
+                    .WithMany(p => p.Notificacoes)
+                    .HasForeignKey(d => d.IdHemocentro)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
                 entity.HasOne(d => d.IdUsuarioNavigation)
                     .WithMany(p => p.Notificacoes)
                     .HasForeignKey(d => d.IdUsuario)
                     .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
-            modelBuilder.Entity<StatusDoacao>(entity =>
-            {
-                entity.Property(e => e.Descricao)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Usuario>(entity =>
@@ -175,6 +227,11 @@ namespace RoboNotificacoesFirebase
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdEnderecoNavigation)
+                    .WithOne(p => p.Usuario)
+                    .HasForeignKey<Usuario>(d => d.IdEndereco)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             OnModelCreatingPartial(modelBuilder);

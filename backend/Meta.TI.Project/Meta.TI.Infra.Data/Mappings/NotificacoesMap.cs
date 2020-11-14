@@ -20,6 +20,11 @@ namespace Meta.TI.Infra.Data.Mappings
                 .HasForeignKey(e => e.IdUsuario)
                 .IsRequired();
 
+            builder.HasOne(e => e.Hemocentro)
+                .WithMany(e => e.Notificacoes)
+                .HasForeignKey(e => e.IdHemocentro)
+                .IsRequired();
+
             builder.Property(u => u.Descricao)
              .HasColumnType("varchar(200)")
              .HasColumnName("Descricao")

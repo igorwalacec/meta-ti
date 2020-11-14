@@ -56,5 +56,16 @@ namespace Meta.TI.Infra.Data.Repository
                .OrderByDescending(x => x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao)
                .ToList();
         }
+
+        public List<FeedSolicitacao> ExtracaoFeedSolicitacaoParaNotificacoes(Guid idusuario, int idCidade, int? idTipoSanguineo)
+        {
+            return DbSet.Where(x => x.Hemocentro.Endereco.IdCidade == idCidade
+                                    && x.DataCriacao.Date >= DateTime.Today.AddDays(-1)
+                                    && x.IdUsuario != idusuario
+                                    && (idTipoSanguineo != null ? x.IdTipoSanguineo == idTipoSanguineo : 0 == 0))
+               .Include(y => y.Hemocentro)
+               .Include(z => z.TipoSanguineo)
+               .ToList();
+        }
     }
 }

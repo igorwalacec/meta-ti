@@ -25,6 +25,7 @@ namespace RoboNotificacoesFirebase.Model.Entidades
         public string Nome { get; set; }
         public int IdTipoSexo { get; set; }
 
+        public virtual Endereco IdEnderecoNavigation { get; set; }
         public virtual ICollection<Notificacoes> Notificacoes { get; set; }
     }
 }
