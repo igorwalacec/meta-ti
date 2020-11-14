@@ -25,9 +25,11 @@ namespace Meta.TI.Infra.Data.Repository
 
         public void RemoverNotificacoesPorUsuario(Guid idUsuario)
         {
-            var notificacoes = DbSet.Where(x => x.IdUsuario == idUsuario);
+            var notificacoes = DbSet.Where(x => x.IdUsuario == idUsuario).ToList();
 
             DbSet.RemoveRange(notificacoes);
+
+            this.Salvar();
         }
 
     }
