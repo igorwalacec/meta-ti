@@ -30,13 +30,14 @@ namespace Meta.TI.Domain.Models
         }
         public Usuario(
             Guid id, string nome, string sobrenome,
-            string email, string RG, string CPF,
+            string email, string senha, string RG, string CPF,
             DateTime dataNascimento, int idTipoSexo, int? idTipoSanguineo, Endereco endereco)
         {
             Id = id;
             Nome = nome;
             Sobrenome = sobrenome;
             Email = email;
+            Senha = senha;
             this.RG = RG;
             this.CPF = CPF;
             DataNascimento = dataNascimento;
@@ -72,6 +73,7 @@ namespace Meta.TI.Domain.Models
         public ICollection<FeedSolicitacao> FeedSolicitacoes { get; set; }
         public ICollection<Agendamento> Agendamentos { get; set; }                
         public ICollection<HistoricoAptidao> HistoricoAptidao { get; set; }
+        public ICollection<Notificacoes> Notificacoes { get; set; }
 
         public void SetarIdEndereco(int idEndereco)
         {

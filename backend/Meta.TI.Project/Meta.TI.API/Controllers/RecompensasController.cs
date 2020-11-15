@@ -29,7 +29,7 @@ namespace Meta.TI.API.Controllers
 
         [HttpPost]
         [Route("cadastrar-level")]
-        [Authorize(Roles = "doador")]
+        [Authorize(Roles = "doador")] 
         public IActionResult AdicionarLevel([FromBody] AdicionarLevelCommand levelCommand)
         {
             return Response(recompensaApp.AdicionarLevel(levelCommand));

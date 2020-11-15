@@ -32,5 +32,17 @@ namespace Meta.TI.API.Controllers
 
             return Response(telefoneApp.AlterarTelefoneHemocentro(comando));
         }
+
+        [HttpGet]
+        public IActionResult ObterTelefonesPorHemocentro()
+        {
+            var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
+                   .Select(c => c.Value).SingleOrDefault());
+
+            ConsultarTelefoneHemocentroCommand comando = new ConsultarTelefoneHemocentroCommand();
+            comando.IdHemocentro = idHemocentro;
+
+            return Response(telefoneApp.ConsultarTelefoneHemocentro(comando));
+        }
     }
 }

@@ -48,6 +48,7 @@ namespace Meta.TI.Domain.Models
         public ICollection<HistoricoDoacao> HistoricoDoacao { get; set; }
         public ICollection<Campanha> Campanhas { get; set; }
         public ICollection<Agendamento> Agendamentos { get; set; }
+        public ICollection<Notificacoes> Notificacoes { get; set; }
 
         public void SetarIdEndereco(int idEndereco)
         {

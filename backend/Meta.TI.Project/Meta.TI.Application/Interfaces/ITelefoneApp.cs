@@ -8,5 +8,6 @@ namespace Meta.TI.Application.Interfaces
     public interface ITelefoneApp
     {
         GenericCommandResult AlterarTelefoneHemocentro(AlterarTelefoneHemocentroCommand comando);
+        GenericCommandResult ConsultarTelefoneHemocentro(ConsultarTelefoneHemocentroCommand comando);
     }
 }

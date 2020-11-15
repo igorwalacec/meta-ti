@@ -49,5 +49,11 @@ namespace Meta.TI.Domain.Models
         {
             DataAlteracao = data;
         }
+        public void AlterarFeedSolicitacao(string descricao, int idTipoSanguineo, Guid idHemocentro)
+        {
+            Descricao = descricao;
+            IdTipoSanguineo = idTipoSanguineo;
+            IdHemocentro = idHemocentro;
+        }
     }
 }

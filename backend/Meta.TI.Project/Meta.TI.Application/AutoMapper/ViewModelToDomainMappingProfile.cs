@@ -41,6 +41,7 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c =>
                     new Usuario
                     (
+                        c.Id,
                         c.Nome,
                         c.Sobrenome,
                         c.Email,
@@ -62,6 +63,7 @@ namespace Meta.TI.Application.AutoMapper
                 .ConstructUsing(c =>
                     new Hemocentro
                     (
+                        c.Id,
                         c.Nome,
                         c.CNPJ,
                         new Endereco
@@ -133,22 +135,29 @@ namespace Meta.TI.Application.AutoMapper
                            CNPJ = c.Hemocentro.CNPJ,
                        },
                        c.DataAgendamento));
-            //CreateMap<EstoqueSanguineoViewModel, EstoqueSanguineo>()
-            //    .ConstructUsing(c =>
-            //        new EstoqueSanguineo
-            //        (                        
-            //            c.QuantidadeBolsas,
-            //            c.QuantidadeMinimaBolsas,
-            //            new TipoSanguineo
-            //            {
-            //                Id = c.TipoSanguineo.Id,
-            //                Nome = c.TipoSanguineo.Nome,
-            //            },
-            //            new Hemocentro
-            //            {
-            //                Nome = c.Hemocentro.Nome,
-            //                CNPJ = c.Hemocentro.CNPJ,
-            //            }));
+            CreateMap<NotificacoesViewModel, Notificacoes>()
+               .ConstructUsing(c =>
+                   new Notificacoes
+                   (
+                       c.Id,
+                       c.Titulo,
+                       c.Descricao,
+                       new Usuario
+                       {
+                           Nome = c.Usuario.Nome,
+                           Sobrenome = c.Usuario.Sobrenome,
+                           Email = c.Usuario.Email,
+                           Senha = c.Usuario.Senha,
+                           RG = c.Usuario.RG,
+                           CPF = c.Usuario.CPF,
+                           DataNascimento = c.Usuario.DataNascimento,
+                           IdTipoSanguineo = c.Usuario.IdTipoSanguineo,
+                       },
+                       new Hemocentro
+                       {
+                           Nome = c.Hemocentro.Nome,
+                           CNPJ = c.Hemocentro.CNPJ,
+                       }));
         }
     }
 }

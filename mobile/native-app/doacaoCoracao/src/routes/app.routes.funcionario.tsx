@@ -1,6 +1,6 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../pages/Home';
+import { createStackNavigator } from '@react-navigation/stack'; 
+import HomeFuncionario from '../pages/_Funcionario/HomeFuncionario';
 
 const App = createStackNavigator();
 
@@ -10,7 +10,7 @@ const AuthRoutes: React.FC = () => (
             // headerShown: false,            
         }}
     >
-        <App.Screen name="Home" component={Home} />
+        <App.Screen name="Home" component={HomeFuncionario} />
     </App.Navigator>
 );
 

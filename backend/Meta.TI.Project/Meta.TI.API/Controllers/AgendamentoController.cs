@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Meta.TI.Application.Interfaces;
 using Meta.TI.Domain.Commands;
 using Microsoft.AspNetCore.Mvc;

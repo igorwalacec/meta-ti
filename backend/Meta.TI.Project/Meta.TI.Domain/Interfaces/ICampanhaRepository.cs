@@ -9,6 +9,7 @@ namespace Meta.TI.Domain.Interfaces
     {
         List<Campanha> ObterTodasCampanhas(DateTime dataAtual);
         List<Campanha> ObterCampanhaPorHemocentro(DateTime dataAtual, Guid idHemocentro);
+        List<Campanha> ExtracaoCampanhasParaNotificacoes(int idCidade);
         Campanha ObterCampanhaPorId(int id);
         Campanha ObterCampanhaCriada(Guid idHemocentro);
     }
