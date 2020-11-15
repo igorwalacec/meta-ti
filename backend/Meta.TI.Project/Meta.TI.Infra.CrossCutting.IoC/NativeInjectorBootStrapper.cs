@@ -30,6 +30,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IAptidaoApp, AptidaoApp>();
             services.AddScoped<IDoacaoApp, DoacaoApp>();
             services.AddScoped<INotificacoesApp, NotificacoesApp>();
+            services.AddScoped<IRecompensasApp, RecompensasApp>();
 
             // Commands
             services.AddTransient<AgendamentoHandler>();
@@ -41,6 +42,7 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddTransient<UsuarioHandler>();
             services.AddTransient<DadosAptidaoHandler>();
             services.AddTransient<NotificacoesHandler>();
+            services.AddTransient<RecompensasHandler>();
 
             // Infra - Data
             services.AddScoped<IEstadoRepository, EstadoRepository>();
@@ -63,6 +65,9 @@ namespace Meta.TI.Infra.CrossCutting.IoC
             services.AddScoped<IStatusDoacaoRepository, StatusDoacaoRepository>();
             services.AddScoped<IResultadoAptidaoRepository, ResultadoAptidaoRepository>();
             services.AddScoped<IRespostaAptidaoRepository, RespostaAptidaoRepository>();
+            services.AddScoped<ILevelRepository, LevelRepository>();
+            services.AddScoped<IRecompensasRepository, RecompensasRepository>();
+            services.AddScoped<IPatrocinadorRepository, PatrocinadorRepository>();
             services.AddScoped<INotificacoesRepository, NotificacoesRepository>();
             services.AddDbContext<MetaTiContext>();
         }

@@ -20,6 +20,14 @@ namespace Meta.TI.API.Controllers
         }
 
         [HttpPost]
+        [Route("calcular-level-doador")]
+        [Authorize(Roles = "doador")]
+        public IActionResult CalcularLevelDoador([FromBody] CalcularLevelDoadorCommand CalcularLevel)
+        {
+            return Response(recompensaApp.CalcularLevelDoador(CalcularLevel));
+        }
+
+        [HttpPost]
         [Route("cadastrar-level")]
         [Authorize(Roles = "doador")] 
         public IActionResult AdicionarLevel([FromBody] AdicionarLevelCommand levelCommand)

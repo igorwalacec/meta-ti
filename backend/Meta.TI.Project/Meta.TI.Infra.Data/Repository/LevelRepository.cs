@@ -14,5 +14,18 @@ namespace Meta.TI.Infra.Data.Repository
         public LevelRepository(MetaTiContext context) : base(context)
         {
         }
+
+        public int CalcularLevel(int countDoacao)
+        {
+            var primeiraDoacao = DbSet.Where(x => x.Ativo == true).First().QuantidadeDoacao;
+
+            var retorno = DbSet.Where(x => x.QuantidadeDoacao >= primeiraDoacao
+            && x.QuantidadeDoacao <= countDoacao
+            && x.Ativo == true)
+                .OrderByDescending(x => x.QuantidadeDoacao)
+                .FirstOrDefault().Nivel;
+
+            return retorno;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Meta.TI.Domain.Interfaces
 {
     public interface ILevelRepository : IRepository<Level>
     {
+        public int CalcularLevel(int countDoacao);
     }
 }

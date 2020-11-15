@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -30,6 +31,13 @@ namespace Meta.TI.Application.App
             recompensasRepository = _recompensasRepository;
             patrocinadorRepository = _patrocinadorRepository;
             recompensasHandler = _recompensasHandler;
+        }
+
+        public GenericCommandResult CalcularLevelDoador(CalcularLevelDoadorCommand command)
+        {
+            var result = (GenericCommandResult)recompensasHandler.Handle(command);
+
+            return result;
         }
 
         public GenericCommandResult AdicionarLevel(AdicionarLevelCommand comando)
@@ -76,17 +84,17 @@ namespace Meta.TI.Application.App
 
         public GenericCommandResult ListarLevel()
         {
-            return new GenericCommandResult(true, levelRepository.ObterTodos().ProjectTo<LevelViewModel>(mapper.ConfigurationProvider));
+            return new GenericCommandResult(true, levelRepository.ObterTodos().Where(x => x.Ativo == true).ProjectTo<LevelViewModel>(mapper.ConfigurationProvider));
         }
 
         public GenericCommandResult ListarPatrocinador()
         {
-            return new GenericCommandResult(true, patrocinadorRepository.ObterTodos().ProjectTo<PatrocinadorViewModel>(mapper.ConfigurationProvider));
+            return new GenericCommandResult(true, patrocinadorRepository.ObterTodos().Where(x => x.Ativo == true).ProjectTo<PatrocinadorViewModel>(mapper.ConfigurationProvider));
         }
 
         public GenericCommandResult ListarRecompensas()
         {
-            return new GenericCommandResult(true, recompensasRepository.ObterTodos().ProjectTo<RecompensasViewModel>(mapper.ConfigurationProvider));
+            return new GenericCommandResult(true, recompensasRepository.ObterTodos().Where(x => x.Ativo == true).ProjectTo<RecompensasViewModel>(mapper.ConfigurationProvider));
         }
 
         public void Dispose()

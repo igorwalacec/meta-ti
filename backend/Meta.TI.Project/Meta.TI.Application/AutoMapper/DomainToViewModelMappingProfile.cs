@@ -26,6 +26,9 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<FeedSolicitacao, FeedSolicitacaoViewModel>();
             CreateMap<Campanha, CampanhaViewModel>();
             CreateMap<Agendamento, AgendamentoViewModel>();
+            CreateMap<Level, LevelViewModel>();
+            CreateMap<Patrocinador, PatrocinadorViewModel>();
+            CreateMap<Recompensas, RecompensasViewModel>();
             CreateMap<Notificacoes, NotificacoesViewModel>();
         }
     }
