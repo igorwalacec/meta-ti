@@ -16,6 +16,7 @@ import {
     DescricaoSemNotificacao
 } from './styles';
 import Icon from 'react-native-vector-icons/Feather';
+import { useIsFocused } from '@react-navigation/native';
 
 interface NotificacaoResponse {
     id: string;
@@ -28,6 +29,8 @@ interface NotificacaoResponse {
 const Notificacoes: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [notificacoes, setNotificacoes] = useState([] as NotificacaoResponse[]);
+
+    const isFocused = useIsFocused();
 
     async function ObterNotificacoes() {
         setLoading(true);
@@ -46,8 +49,10 @@ const Notificacoes: React.FC = () => {
     }
 
     useEffect(() => {
-        ObterNotificacoes();
-    }, []);
+        if (isFocused) {
+            ObterNotificacoes();
+        }
+    }, [isFocused]);
 
     const renderNotification = ({ item: notificacao }) => {
         if (notificacao.hemocentro == null) {

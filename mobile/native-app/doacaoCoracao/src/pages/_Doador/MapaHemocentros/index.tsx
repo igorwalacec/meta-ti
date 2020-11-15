@@ -16,7 +16,7 @@ import api from '../../../services/api';
 import { GenericCommandResult } from '../../../@types/GenericCommandResult';
 import Hemocentro from '../Hemocentros';
 import Icon from 'react-native-vector-icons/Feather';
-import { event } from 'react-native-reanimated';
+import { useIsFocused } from "@react-navigation/native";
 
 interface MapProps {
     latitude: number,
@@ -54,14 +54,16 @@ const MapaHemocentros: React.FC = () => {
 
     const navigation = useNavigation();
 
+    const isFocused = useIsFocused();
 
-    async function ObterHemocentros() {
+
+    const ObterHemocentros = async () => {
         const response = await api.get<GenericCommandResult<HemocentroResponse[]>>("/hemocentro/obter-todos");
 
         setHemocentros([...response.data.data]);
     }
 
-    async function getLocationUser() {
+    const getLocationUser = async () => {
         await Geolocation.getCurrentPosition(
             position => {
                 const { latitude, longitude } = position.coords;
@@ -85,12 +87,15 @@ const MapaHemocentros: React.FC = () => {
         );
     };
     useEffect(() => {
-        getLocationUser();
-        ObterHemocentros();
-    }, [])
+        if (isFocused) {
+            getLocationUser();
+            ObterHemocentros();
+        }
+    }, [isFocused])
 
     const selecionarHemocentro = useCallback(async (event) => {
         const idHemocentro = event.nativeEvent.id;
+
         const response = await api.get<GenericCommandResult<HemocentroResponse[]>>("/hemocentro/obter-todos");
         const hemocentroSelecionado = response.data.data.find(x => x.id == idHemocentro);
         if (hemocentroSelecionado) {

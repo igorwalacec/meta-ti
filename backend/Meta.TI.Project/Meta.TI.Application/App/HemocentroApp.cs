@@ -37,7 +37,7 @@ namespace Meta.TI.Application.App
 
             if (result.Sucess)
             {
-                result.Data = mapper.Map<List<HemocentroViewModel>>(result.Data);
+                result.Data = mapper.Map<HemocentroViewModel>(result.Data);
             }
             return result;
         }
