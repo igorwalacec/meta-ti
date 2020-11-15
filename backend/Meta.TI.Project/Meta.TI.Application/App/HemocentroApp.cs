@@ -31,6 +31,17 @@ namespace Meta.TI.Application.App
             return result;
         }
 
+        public GenericCommandResult ObterHemocentroPorId(Guid id)
+        {
+            var result = (GenericCommandResult)handler.Handle(id);
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<List<HemocentroViewModel>>(result.Data);
+            }
+            return result;
+        }
+
         public GenericCommandResult CriarHemocentro(CriacaoHemocentroCommand comando)
         {
             var result = (GenericCommandResult)handler.Handle(comando);
@@ -58,5 +69,6 @@ namespace Meta.TI.Application.App
         {
             GC.SuppressFinalize(this);
         }
+
     }
 }

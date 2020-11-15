@@ -14,7 +14,7 @@ services:
             - db
   db:
     image: microsoft/mssql-server-linux:2017-latest
-    environment: 
+    env: 
       - ACCEPT_EULA=Y    
       - SA_PASSWORD=Metatiadmin%%%%
       - MSSQL_PID=Express

@@ -44,6 +44,12 @@ namespace Meta.TI.Domain.Handlers
 
             return new GenericCommandResult(true, todosHemocentro);
         }
+        public ICommandResult Handle(Guid idHemocentro)
+        {
+            var hemocentro= hemocentroRepository.ObterHemocentroPorId(idHemocentro);
+
+            return new GenericCommandResult(true, hemocentro);
+        }
 
         public ICommandResult Handle(CriacaoHemocentroCommand command)
         {

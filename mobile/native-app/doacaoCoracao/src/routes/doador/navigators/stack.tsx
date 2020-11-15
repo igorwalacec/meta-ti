@@ -26,6 +26,7 @@ export const HemocentroMapaNavigator: React.FC = () => (
         }}
     >
         <App.Screen name="Mapa" component={MapaHemocentros} />
+        <App.Screen name="HemocentroDetalhes" component={Hemocentro} />
     </App.Navigator>
 );
 

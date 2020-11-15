@@ -48,6 +48,7 @@ const Notificacoes: React.FC = () => {
     useEffect(() => {
         ObterNotificacoes();
     }, []);
+
     const renderNotification = ({ item: notificacao }) => {
         if (notificacao.hemocentro == null) {
             return (

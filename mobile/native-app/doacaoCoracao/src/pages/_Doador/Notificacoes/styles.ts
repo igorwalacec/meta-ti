@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
+import { Collapse } from 'accordion-collapse-react-native';
 
 export const Container = styled.SafeAreaView`
     display: flex;

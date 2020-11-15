@@ -16,6 +16,7 @@ import api from '../../../services/api';
 import { GenericCommandResult } from '../../../@types/GenericCommandResult';
 import Hemocentro from '../Hemocentros';
 import Icon from 'react-native-vector-icons/Feather';
+import { event } from 'react-native-reanimated';
 
 interface MapProps {
     latitude: number,
@@ -88,6 +89,39 @@ const MapaHemocentros: React.FC = () => {
         ObterHemocentros();
     }, [])
 
+    const selecionarHemocentro = useCallback(async (event) => {
+        const idHemocentro = event.nativeEvent.id;
+        const response = await api.get<GenericCommandResult<HemocentroResponse[]>>("/hemocentro/obter-todos");
+        const hemocentroSelecionado = response.data.data.find(x => x.id == idHemocentro);
+        if (hemocentroSelecionado) {
+            setHemocentro(hemocentroSelecionado);
+        }
+    }, [hemocentro])
+
+    const detalheHemocentro = () => {
+        if (hemocentro.id) {
+            return (
+                <HemocentroContainer>
+                    <HemocentroHeader>
+                        <HemocentroTitulo>{hemocentro.nome}</HemocentroTitulo>
+                    </HemocentroHeader>
+                    <HemocentroBody>
+                        <HemocentroEndereco>
+                            {`${hemocentro.endereco.logradouro}, ${hemocentro.endereco.numero}`}
+                        </HemocentroEndereco>
+                        <HemocentroDetalhes onPress={() => {
+                            navigation.navigate("HemocentroDetalhes", {
+                                id: hemocentro.id
+                            })
+                        }}>
+                            <Icon name="arrow-right" size={30} color='#C4284D' />
+                        </HemocentroDetalhes>
+                    </HemocentroBody>
+                </HemocentroContainer>
+            );
+        }
+    }
+
     if (loading) {
         return (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator size="large" color="#999" />
@@ -111,32 +145,19 @@ const MapaHemocentros: React.FC = () => {
                                 };
                                 return (
                                     <Marker
-                                        key={hemocentro.id.toString()}
-                                        title={hemocentro.nome}
-                                        description={`${hemocentro.endereco.logradouro},${hemocentro.endereco.numero}`}
+                                        key={hemocentro.id}
+                                        identifier={hemocentro.id}
                                         coordinate={hemocentroPosition}
-                                        onPress={
-                                            () => { Alert.alert("teste") }
-                                        }
+                                        onPress={selecionarHemocentro}
                                     >
                                     </Marker>);
                             })
                         }
                     </MapView>
-                </Container>                
-                <HemocentroContainer>
-                    <HemocentroHeader>
-                        <HemocentroTitulo>Titulo</HemocentroTitulo>
-                    </HemocentroHeader>
-                    <HemocentroBody>
-                        <HemocentroEndereco>
-                            Rua Joraci Camargo, 68
-                        </HemocentroEndereco>
-                        <HemocentroDetalhes>
-                            <Icon name="arrow-right" size={30} color='#C4284D' />
-                        </HemocentroDetalhes>
-                    </HemocentroBody>
-                </HemocentroContainer>
+                </Container>
+                {
+                    detalheHemocentro()
+                }
             </>
         );
     }
