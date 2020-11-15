@@ -10,6 +10,7 @@ namespace Meta.TI.Application.Interfaces
         GenericCommandResult ObterTodosFeedSolicitacao(ConsultarFeedSolicitacaoCommand command);
         GenericCommandResult ObterFeedSolicitacaoPorHemocentro(ConsultarFeedSolicitacaoPorHemocentroCommand command);
         GenericCommandResult ObterFeedSolicitacaoPorTipoSanguineo(ConsultarFeedSolicitacaoPorTipoSanguineoCommand command);
+        GenericCommandResult ObterFeedSolicitacaoPorUsuario(ObterFeedSolicitacaoPorIdUsuarioCommand command);
         GenericCommandResult CriacaoFeedSolicitacao(CriacaoFeedSolicitacaoCommand command);
         GenericCommandResult AlterarFeedSolicitacao(AlterarFeedSolicitacaoCommand command);
         GenericCommandResult DeletarFeedSolicitacao(DeletarFeedSolicitacaoCommand command);

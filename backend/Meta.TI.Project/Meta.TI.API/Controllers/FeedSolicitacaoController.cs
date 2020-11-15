@@ -50,6 +50,12 @@ namespace Meta.TI.API.Controllers
             return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorTipoSanguineo(comando));
         }
 
+        [HttpPost("obter-por-usuario")]
+        public IActionResult ObterFeedSolicitacaoPorUsuario([FromBody] ObterFeedSolicitacaoPorIdUsuarioCommand comando)
+        {
+            return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorUsuario(comando));
+        }
+
         [HttpPost("criar")]
         public IActionResult CriacaoFeedSolicitacao([FromBody] CriacaoFeedSolicitacaoCommand comando)
         {

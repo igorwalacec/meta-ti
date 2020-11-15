@@ -40,12 +40,13 @@ namespace Meta.TI.API.Controllers
             return Response(hemocentroApp.ObterTodosHemocentros());
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult ObterHemocentroPorId([FromRoute] string id)
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("obter-por-id")]
+        public IActionResult ObterHemocentroPorId([FromBody] ObterHemocentroPorIdCommand idHemocentro)
         {
-            Guid idHemocentro = Guid.Parse(id);
             return Response(hemocentroApp.ObterHemocentroPorId(idHemocentro));
         }
+
     }
 }

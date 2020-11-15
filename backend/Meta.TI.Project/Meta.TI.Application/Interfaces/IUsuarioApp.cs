@@ -10,5 +10,6 @@ namespace Meta.TI.Application.Interfaces
     {
         GenericCommandResult CriarUsuario(CriacaoUsuarioCommand comando);
         GenericCommandResult GetToken(TokenCommand comando);
+        GenericCommandResult ObterUsuarioPorId(ObterUsuarioPorIdCommand comando);        
     }
 }

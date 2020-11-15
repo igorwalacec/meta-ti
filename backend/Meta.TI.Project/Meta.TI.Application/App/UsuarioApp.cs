@@ -41,5 +41,16 @@ namespace Meta.TI.Application.App
         {
             return (GenericCommandResult)handler.Handle(comando);
         }
+
+        public GenericCommandResult ObterUsuarioPorId(ObterUsuarioPorIdCommand comando)
+        {
+            var result = (GenericCommandResult)handler.Handle(comando);
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<UsuarioViewModel>(result.Data);
+            }
+            return result;
+        }
     }
 }

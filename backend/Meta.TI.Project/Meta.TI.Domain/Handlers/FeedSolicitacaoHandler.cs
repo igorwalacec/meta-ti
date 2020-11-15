@@ -137,5 +137,12 @@ namespace Meta.TI.Domain.Handlers
 
             return new GenericCommandResult(true, "Feed de solicitacao removido!");
         }
+
+        public ICommandResult Handle(ObterFeedSolicitacaoPorIdUsuarioCommand command)
+        {
+            var feedSolicitacao = feedSolicitacaoRepository.ObterFeedSolicitacaoPorUsuario(command.IdUsuario);
+
+            return new GenericCommandResult(true, feedSolicitacao);
+        }
     }
 }

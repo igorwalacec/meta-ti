@@ -79,6 +79,17 @@ namespace Meta.TI.Application.App
             return (GenericCommandResult)handler.Handle(command);
         }
 
+        public GenericCommandResult ObterFeedSolicitacaoPorUsuario(ObterFeedSolicitacaoPorIdUsuarioCommand command)
+        {
+            var result = (GenericCommandResult)handler.Handle(command);
+
+            if (result.Sucess)
+            {
+                result.Data = mapper.Map<FeedSolicitacaoViewModel>(result.Data);
+            }
+            return result;
+        }
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);

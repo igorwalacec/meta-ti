@@ -31,5 +31,13 @@ namespace Meta.TI.API.Controllers
         {
             return Response(usuarioApp.CriarUsuario(usuario));
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("obter-usuario-por-id")]
+        public IActionResult ObterUsuarioPorId([FromBody] ObterUsuarioPorIdCommand usuario)
+        {
+            return Response(usuarioApp.ObterUsuarioPorId(usuario));
+        }
     }
 }
