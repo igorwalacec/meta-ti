@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
-import { Container } from './styles';
+import { Container, HemocentroBody, HemocentroContainer, HemocentroDetalhes, HemocentroEndereco, HemocentroHeader, HemocentroTitulo } from './styles';
 
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../../services/api';
 import { GenericCommandResult } from '../../../@types/GenericCommandResult';
 import Hemocentro from '../Hemocentros';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface MapProps {
     latitude: number,
@@ -47,6 +48,8 @@ const MapaHemocentros: React.FC = () => {
     const [hemocentros, setHemocentros] = useState<HemocentroResponse[]>([] as HemocentroResponse[]);
 
     const [loading, setLoading] = useState(true);
+
+    const [hemocentro, setHemocentro] = useState({} as HemocentroResponse);
 
     const navigation = useNavigation();
 
@@ -112,12 +115,28 @@ const MapaHemocentros: React.FC = () => {
                                         title={hemocentro.nome}
                                         description={`${hemocentro.endereco.logradouro},${hemocentro.endereco.numero}`}
                                         coordinate={hemocentroPosition}
+                                        onPress={
+                                            () => { Alert.alert("teste") }
+                                        }
                                     >
                                     </Marker>);
                             })
                         }
                     </MapView>
-                </Container>
+                </Container>                
+                <HemocentroContainer>
+                    <HemocentroHeader>
+                        <HemocentroTitulo>Titulo</HemocentroTitulo>
+                    </HemocentroHeader>
+                    <HemocentroBody>
+                        <HemocentroEndereco>
+                            Rua Joraci Camargo, 68
+                        </HemocentroEndereco>
+                        <HemocentroDetalhes>
+                            <Icon name="arrow-right" size={30} color='#C4284D' />
+                        </HemocentroDetalhes>
+                    </HemocentroBody>
+                </HemocentroContainer>
             </>
         );
     }

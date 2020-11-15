@@ -23,7 +23,7 @@ namespace Meta.TI.API.Controllers
         [AllowAnonymous]
         public IActionResult ConsultarNotificacoesPorIdUsuario()
         {
-            var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
+        var idUsuario = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimarySid)
                    .Select(c => c.Value).SingleOrDefault());
 
             ConsultarNotificacoesPorIdUsuarioCommand comando = new ConsultarNotificacoesPorIdUsuarioCommand();
