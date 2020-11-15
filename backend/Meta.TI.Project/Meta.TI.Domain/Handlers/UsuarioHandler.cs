@@ -109,6 +109,7 @@ namespace Meta.TI.Domain.Handlers
                 command.Nome,
                 command.Sobrenome,
                 command.Email,
+                command.Senha,
                 command.RG,
                 command.CPF,
                 command.DataNascimento,
@@ -246,18 +247,15 @@ namespace Meta.TI.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
             }
 
-            var usuario = usuarioRepository.ObterPorId(command.IdUsuario);
-            
-            var endereco = new Endereco(
-               usuario.Endereco.Id,
-               command.DadosEndereco.Logradouro,
-               command.DadosEndereco.Complemento,
-               command.DadosEndereco.Numero,
-               command.DadosEndereco.Cep,
-               command.DadosEndereco.IdCidade
-           );
+            var usuario = usuarioRepository.ObterUsuarioPorId(command.IdUsuario);
 
-            enderecoRepository.Alterar(endereco);           
+            usuario.Endereco.Logradouro = command.DadosEndereco.Logradouro;
+            usuario.Endereco.Complemento = command.DadosEndereco.Complemento;
+            usuario.Endereco.Numero = command.DadosEndereco.Numero;
+            usuario.Endereco.Cep = command.DadosEndereco.Cep;
+            usuario.Endereco.IdCidade = command.DadosEndereco.IdCidade;
+
+            enderecoRepository.Alterar(usuario.Endereco);           
 
             return new GenericCommandResult(true, "Endereço alterado com sucesso", usuario);
         }

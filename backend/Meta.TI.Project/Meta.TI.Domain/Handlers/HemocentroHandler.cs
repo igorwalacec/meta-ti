@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections.Generic;
 using Flunt.Notifications;
 using Meta.TI.Domain.Commands;
@@ -38,6 +38,19 @@ namespace Meta.TI.Domain.Handlers
             expedienteRepository = _expedienteRepository;
         }
 
+        public ICommandResult Handle()
+        {
+            var todosHemocentro = hemocentroRepository.ObterTodosHemocentro();
+
+            return new GenericCommandResult(true, todosHemocentro);
+        }
+        public ICommandResult Handle(Guid idHemocentro)
+        {
+            var hemocentro= hemocentroRepository.ObterHemocentroPorId(idHemocentro);
+
+            return new GenericCommandResult(true, hemocentro);
+        }
+
         public ICommandResult Handle(CriacaoHemocentroCommand command)
         {
             command.Validate();
@@ -56,7 +69,9 @@ namespace Meta.TI.Domain.Handlers
                 command.Complemento,
                 command.Numero,
                 command.Cep,
-                command.IdCidade
+                command.IdCidade,
+                command.Latitude,
+                command.Longitude
             );
 
             var hemocentro = new Hemocentro(
@@ -109,18 +124,17 @@ namespace Meta.TI.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, parece suas informações estão inválidas.", command.Notifications);
             }
 
-            var hemocentro = hemocentroRepository.ObterPorId(command.IdHemocentro);
+            var hemocentro = hemocentroRepository.ObterHemocentroPorId(command.IdHemocentro);
 
-            var endereco = new Endereco(
-               hemocentro.Endereco.Id,
-               command.DadosEndereco.Logradouro,
-               command.DadosEndereco.Complemento,
-               command.DadosEndereco.Numero,
-               command.DadosEndereco.Cep,
-               command.DadosEndereco.IdCidade
-           );
+            hemocentro.Endereco.Logradouro = command.DadosEndereco.Logradouro;
+            hemocentro.Endereco.Complemento = command.DadosEndereco.Complemento;
+            hemocentro.Endereco.Numero = command.DadosEndereco.Numero;
+            hemocentro.Endereco.Cep = command.DadosEndereco.Cep;
+            hemocentro.Endereco.IdCidade = command.DadosEndereco.IdCidade;
+            hemocentro.Endereco.Latitude = command.DadosEndereco.Latitude;
+            hemocentro.Endereco.Longitude = command.DadosEndereco.Longitude;
 
-            enderecoRepository.Alterar(endereco);
+            enderecoRepository.Alterar(hemocentro.Endereco);
 
             return new GenericCommandResult(true, "Endereço alterado com sucesso", hemocentro);
         }
@@ -137,12 +151,29 @@ namespace Meta.TI.Domain.Handlers
             {
                 var telefone = telefoneRepository.ObterTelefone(item.Id);
                 if (telefone != null)
-                    telefoneRepository.Alterar(item);
+                {
+                    telefone.Numero = item.Numero;
+                    telefoneRepository.Alterar(telefone);
+                }
                 else
-                    telefoneRepository.Adicionar(item);
+                {
+                    Telefone novoTelefone = new Telefone()
+                    {
+                        Numero = item.Numero,
+                        IdHemocentro = item.IdHemocentro
+                    };
+                    telefoneRepository.Adicionar(novoTelefone);
+                }
             };
 
             return new GenericCommandResult(true, "Telefones alterados com sucesso");
+        }
+
+        public ICommandResult Handle(ConsultarTelefoneHemocentroCommand command)
+        {
+            var telefone = telefoneRepository.ObterTelefonesPorHemocentro(command.IdHemocentro);
+
+            return new GenericCommandResult(true, telefone);
         }
 
         public ICommandResult Handle(ConsultarEstoqueSanguineoPorHemocentroCommand command)
@@ -170,10 +201,27 @@ namespace Meta.TI.Domain.Handlers
             foreach (var item in command.DadosEstoqueSanguineo)
             {
                 var estoqueSanguineo = estoqueSanquineoRepository.ObterEstoqueSanquineoPorTipo(item.IdHemocentro, item.IdTipoSanguineo);
+               
+
                 if (estoqueSanguineo != null)
-                    estoqueSanquineoRepository.Alterar(item);
+                {
+                    estoqueSanguineo.QuantidadeBolsas = item.QuantidadeBolsas;
+                    estoqueSanguineo.QuantidadeMinimaBolsas = item.QuantidadeMinimaBolsas;
+
+                    estoqueSanquineoRepository.Alterar(estoqueSanguineo);
+                }
                 else
-                    estoqueSanquineoRepository.Adicionar(item);
+                {
+                    EstoqueSanguineo estoque = new EstoqueSanguineo
+                    {
+                        IdTipoSanguineo = item.IdTipoSanguineo,
+                        IdHemocentro = item.IdHemocentro,
+                        QuantidadeBolsas = item.QuantidadeBolsas,
+                        QuantidadeMinimaBolsas = item.QuantidadeMinimaBolsas
+                    };
+
+                    estoqueSanquineoRepository.Adicionar(estoque);
+                }
             };
 
             return new GenericCommandResult(true, "Estoques Sanguineos alterados com sucesso");
@@ -189,11 +237,27 @@ namespace Meta.TI.Domain.Handlers
 
             foreach (var item in command.DadosExpediente)
             {
-                var expediente = expedienteRepository.ObterExpediente(item.Id);
+                var expediente = expedienteRepository.ObterExpediente(item.IdHemocentro, item.IdDiaSemana);
+
                 if (expediente != null)
-                    expedienteRepository.Alterar(item);
+                {
+                    expediente.Inicio = item.Inicio;
+                    expediente.Fim = item.Fim;
+                    
+                    expedienteRepository.Alterar(expediente);
+                }
                 else
-                    expedienteRepository.Adicionar(item);
+                {
+                    var novoExpediente = new Expediente
+                    {
+                        IdHemocentro = item.IdHemocentro,
+                        IdDiaSemana = item.IdDiaSemana,
+                        Inicio = item.Inicio,
+                        Fim = item.Fim
+                    };
+
+                    expedienteRepository.Adicionar(novoExpediente);
+                }
             };
 
             return new GenericCommandResult(true, "Expedientes alterados com sucesso");

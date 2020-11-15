@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Meta.TI.Application.Interfaces;
 using Meta.TI.Domain.Commands;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +38,16 @@ namespace Meta.TI.API.Controllers
             comando.DataAtual = DateTime.Now;
 
             return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorHemocentro(comando));
+        }
+
+        [HttpGet("{idTipoSanguineo}")]
+        public IActionResult ObterFeedSolicitacaoPorTipoSanguineo([FromRoute] int idTipoSanguineo)
+        {
+            ConsultarFeedSolicitacaoPorTipoSanguineoCommand comando = new ConsultarFeedSolicitacaoPorTipoSanguineoCommand();
+            comando.IdTipoSanguineo = idTipoSanguineo;
+            comando.DataAtual = DateTime.Now;
+
+            return Response(feedSolicitacaoApp.ObterFeedSolicitacaoPorTipoSanguineo(comando));
         }
 
         [HttpPost("obter-por-usuario")]

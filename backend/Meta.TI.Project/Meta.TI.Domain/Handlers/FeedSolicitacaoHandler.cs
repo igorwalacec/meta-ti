@@ -47,6 +47,13 @@ namespace Meta.TI.Domain.Handlers
             return new GenericCommandResult(true, feedSolicitacoes);
         }
 
+        public ICommandResult Handle(ConsultarFeedSolicitacaoPorTipoSanguineoCommand command)
+        {
+            var feedSolicitacoes = feedSolicitacaoRepository.ObterFeedSolicitacaoPorTipoSanguineo(command.DataAtual, command.IdTipoSanguineo);
+
+            return new GenericCommandResult(true, feedSolicitacoes);
+        }
+
         public ICommandResult Handle(CriacaoFeedSolicitacaoCommand command)
         {
             var hemocentro = hemocentroRepository.ObterPorId(command.IdHemocentro);
@@ -93,6 +100,7 @@ namespace Meta.TI.Domain.Handlers
             var hemocentro = hemocentroRepository.ObterPorId(command.IdHemocentro);
             var usuario = usuarioRepository.ObterUsuarioPorCPF(command.CPF);
             var tipoSanguineo = tipoSanguineoRepository.ObterPorId(command.IdTipoSanguineo);
+            var feedSolicitacao = feedSolicitacaoRepository.ObterPorId(command.Id);
 
             command.Validate();
             if (command.Invalid)
@@ -109,15 +117,13 @@ namespace Meta.TI.Domain.Handlers
                 command.AddNotification(new Notification("CNPJ", "Hemocentro não cadastrado na plataforma!"));
                 return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
             }
-         
-            var feedSolicitacao = new FeedSolicitacao(
-                command.Id,
-                command.Descricao,
-                usuario,
-                hemocentro,
-                tipoSanguineo
-            );
+            if (feedSolicitacao == null)
+            {
+                command.AddNotification(new Notification("Feed Solicitação", "Feed Solicitação não cadastrada na plataforma!"));
+                return new GenericCommandResult(false, "Ops, parece seu cadastro está inválido.", command.Notifications);
+            }
 
+            feedSolicitacao.AlterarFeedSolicitacao(command.Descricao, command.IdTipoSanguineo, command.IdHemocentro);
             feedSolicitacao.SetarDataAlteracao(DateTime.Now);
             feedSolicitacaoRepository.Alterar(feedSolicitacao);
             var novoFeedSolicitacao = feedSolicitacaoRepository.ObterFeedSolicitacaoPorId(command.Id);

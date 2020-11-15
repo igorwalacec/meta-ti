@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
@@ -10,9 +12,13 @@ namespace Meta.TI.Infra.Data.Repository
         public TelefoneRepository(MetaTiContext context) : base(context)
         {
         }
-        public Telefone ObterTelefone(int Id)
+        public Telefone ObterTelefone(int id)
         {
-            return DbSet.FirstOrDefault(x => x.Id == Id);
+            return DbSet.FirstOrDefault(x => x.Id == id);
+        }
+        public List<Telefone> ObterTelefonesPorHemocentro(Guid idHemocentro)
+        {
+            return DbSet.Where(x => x.IdHemocentro == idHemocentro).ToList();
         }
     }
 }

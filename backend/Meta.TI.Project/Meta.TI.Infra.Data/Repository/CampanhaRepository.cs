@@ -40,5 +40,13 @@ namespace Meta.TI.Infra.Data.Repository
         {
             return DbSet.Where(x => x.IdHemocentro == idHemocentro).OrderByDescending(x => x.DataCriacao).FirstOrDefault();
         }
+
+        public List<Campanha> ExtracaoCampanhasParaNotificacoes(int idCidade)
+        {
+            return DbSet.Where(x => x.DataCriacao.Date >= DateTime.Today.AddDays(-1)
+                                    && x.Hemocentro.Endereco.IdCidade == idCidade)
+                .Include(y => y.Hemocentro)
+                .ToList();
+        }
     }
 }

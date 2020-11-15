@@ -33,6 +33,14 @@ namespace Meta.TI.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        [Route("obter-todos")]
+        public IActionResult ObterHemocentros()
+        {
+            return Response(hemocentroApp.ObterTodosHemocentros());
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         [Route("obter-por-id")]
         public IActionResult ObterHemocentroPorId([FromBody] ObterHemocentroPorIdCommand idHemocentro)

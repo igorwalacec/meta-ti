@@ -6,6 +6,7 @@ namespace Meta.TI.Application.ViewModels
 {
     public class HemocentroViewModel
     {
+        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string CNPJ { get; set; }
         public bool Aprovado { get; set; }

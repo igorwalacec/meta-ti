@@ -7,22 +7,18 @@ namespace Meta.TI.Domain.Models
 {
     public class Expediente
     {
-        //public Expediente(int idDiaSemana, Guid idHemocentro, DateTime inicio, DateTime fim)
-        //{
-        //    IdDiaSemana = idDiaSemana;
-        //    IdHemocentro = idHemocentro;
-        //    Inicio = inicio;
-        //    Fim = fim;
-        //}
-        //public Expediente(int id, int idDiaSemana, Guid idHemocentro, DateTime inicio, DateTime fim)
-        //{
-        //    Id = id;
-        //    IdDiaSemana = idDiaSemana;
-        //    IdHemocentro = idHemocentro;
-        //    Inicio = inicio;
-        //    Fim = fim;
-        //}
+        public Expediente()
+        {
+        }
 
+        public Expediente(Guid idHemocentro, int idDiaSemana, DateTime inicio, DateTime fim)
+        {
+            IdHemocentro = idHemocentro;
+            IdDiaSemana = idDiaSemana;
+            Inicio = inicio;
+            Fim = fim;
+        }
+     
         [Key]
         public int Id { get; set; }
         public int IdDiaSemana { get; set; }

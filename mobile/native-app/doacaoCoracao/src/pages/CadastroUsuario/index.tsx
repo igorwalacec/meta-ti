@@ -321,7 +321,7 @@ const CadastroUsuario: React.FC = () => {
                             </Form>
                             <Button onPress={() => { formRef.current?.submitForm() }}>
                                 Enviar
-                        </Button>
+                            </Button>
                         </Container>
                     </ScrollView>
                 </SafeAreaView>

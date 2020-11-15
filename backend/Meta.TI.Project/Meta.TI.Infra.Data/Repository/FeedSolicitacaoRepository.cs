@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
 using Meta.TI.Infra.Data.Context;
@@ -21,6 +19,7 @@ namespace Meta.TI.Infra.Data.Repository
             return DbSet.Where(x => (x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao) >= dataAtual.AddDays(-90))
                 .Include(y => y.Hemocentro)
                 .Include(z => z.Usuario)
+                .Include(t => t.TipoSanguineo)
                 .OrderByDescending(x => x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao)
                 .ToList();
         }
@@ -47,6 +46,26 @@ namespace Meta.TI.Infra.Data.Repository
         public bool VerificarFeedSolicitacaoCPF(DateTime dataAtual, string CPF)
         {
             return DbSet.Where(x => (x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao) >= dataAtual.AddDays(-90) && x.Usuario.CPF.ToUpper().Equals(CPF.ToUpper())).Any();
+        }
+
+        public List<FeedSolicitacao> ObterFeedSolicitacaoPorTipoSanguineo(DateTime dataAtual, int idTipoSanguineo)
+        {
+            return DbSet.Where(x => (x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao) >= dataAtual.AddDays(-90) && x.IdTipoSanguineo == idTipoSanguineo)
+               .Include(y => y.Hemocentro)
+               .Include(z => z.Usuario)
+               .OrderByDescending(x => x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao)
+               .ToList();
+        }
+
+        public List<FeedSolicitacao> ExtracaoFeedSolicitacaoParaNotificacoes(Guid idusuario, int idCidade, int? idTipoSanguineo)
+        {
+            return DbSet.Where(x => x.Hemocentro.Endereco.IdCidade == idCidade
+                                    && x.DataCriacao.Date >= DateTime.Today.AddDays(-1)
+                                    && x.IdUsuario != idusuario
+                                    && (idTipoSanguineo != null ? x.IdTipoSanguineo == idTipoSanguineo : 0 == 0))
+               .Include(y => y.Hemocentro)
+               .Include(z => z.TipoSanguineo)
+               .ToList();
         }
     }
 }

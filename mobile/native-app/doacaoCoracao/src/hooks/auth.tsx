@@ -83,7 +83,6 @@ const AuthProvider: React.FC = ({ children }) => {
                 senha: senha,
             },
         ).then((response) => {
-            console.log(response)
             const { token, usuario } = response.data.data;
 
             AsyncStorage.multiSet([

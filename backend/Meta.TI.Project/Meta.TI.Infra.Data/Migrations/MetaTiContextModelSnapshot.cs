@@ -34101,6 +34101,42 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.ToTable("Level");
                 });
 
+            modelBuilder.Entity("Meta.TI.Domain.Models.Notificacoes", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnName("DataCriacao")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<Guid>("IdHemocentro")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnName("Titulo")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdHemocentro");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("Notificacoes");
+                });
+
             modelBuilder.Entity("Meta.TI.Domain.Models.OrientacaoDoacao", b =>
                 {
                     b.Property<int>("Id")
@@ -34877,6 +34913,19 @@ namespace Meta.TI.Infra.Data.Migrations
                     b.HasOne("Meta.TI.Domain.Models.Recompensas", "Recompensa")
                         .WithOne("Level")
                         .HasForeignKey("Meta.TI.Domain.Models.Level", "IdRecompensa")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Meta.TI.Domain.Models.Notificacoes", b =>
+                {
+                    b.HasOne("Meta.TI.Domain.Models.Hemocentro", "Hemocentro")
+                        .WithMany("Notificacoes")
+                        .HasForeignKey("IdHemocentro")
+                        .IsRequired();
+
+                    b.HasOne("Meta.TI.Domain.Models.Usuario", "Usuario")
+                        .WithMany("Notificacoes")
+                        .HasForeignKey("IdUsuario")
                         .IsRequired();
                 });
 

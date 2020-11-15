@@ -29,6 +29,7 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<Level, LevelViewModel>();
             CreateMap<Patrocinador, PatrocinadorViewModel>();
             CreateMap<Recompensas, RecompensasViewModel>();
+            CreateMap<Notificacoes, NotificacoesViewModel>();
         }
     }
 }
