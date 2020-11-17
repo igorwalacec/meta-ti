@@ -11,10 +11,14 @@ const App = createStackNavigator();
 export const MainStackNavigator: React.FC = () => (
     <App.Navigator
         screenOptions={{
-            // headerShown: false,            
+            headerTintColor: '#C4284D',
+            headerStyle: { backgroundColor: '#fff', elevation: 0 }
         }}
     >
-        <App.Screen name="Feed" component={Feed} />
+        <App.Screen name="Feed" component={Feed}
+            options={{
+                title: "Feed"
+            }} />
         <App.Screen name="HemocentroDetalhes" component={Hemocentro} />
     </App.Navigator>
 );
@@ -22,21 +26,33 @@ export const MainStackNavigator: React.FC = () => (
 export const HemocentroMapaNavigator: React.FC = () => (
     <App.Navigator
         screenOptions={{
-            // headerShown: false,            
-        }}
-    >
-        <App.Screen name="Mapa" component={MapaHemocentros} />
-        <App.Screen name="HemocentroDetalhes" component={Hemocentro} />
+            headerTintColor: '#C4284D',
+            headerStyle: { backgroundColor: '#fff', elevation: 0 }
+        }}>
+        <App.Screen name="Mapa" component={MapaHemocentros}
+        />
+        <App.Screen name="HemocentroDetalhes" component={Hemocentro}
+            options={{
+                title: "Detalhes",
+            }} />
     </App.Navigator>
 );
 
 export const NotificacoesNavigator: React.FC = () => (
     <App.Navigator
         screenOptions={{
-            // headerShown: false,            
-        }}
-    >
-        <App.Screen name="Notificacoes" component={Notificacoes} />
+            headerTintColor: '#C4284D',
+            headerStyle: { backgroundColor: '#fff', elevation: 0 }
+        }}>
+        <App.Screen name="Notificacoes" component={Notificacoes}
+            options={{
+                title: "Notificações"
+            }}
+        />
+        <App.Screen name="HemocentroDetalhes" component={Hemocentro}
+            options={{
+                title: "Detalhes",
+            }} />
     </App.Navigator>
 );
 
@@ -44,9 +60,11 @@ export const NotificacoesNavigator: React.FC = () => (
 export const PerfilNavigator: React.FC = () => (
     <App.Navigator
         screenOptions={{
-            // headerShown: false,            
-        }}
-    >
-        <App.Screen name="Perfil" component={Perfil} />
+            headerTintColor: '#C4284D',
+            headerStyle: { backgroundColor: '#fff', elevation: 0 }
+        }}>
+        <App.Screen name="Perfil" component={Perfil} options={{
+            title: "Perfil",
+        }} />
     </App.Navigator>
 );

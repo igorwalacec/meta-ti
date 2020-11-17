@@ -148,6 +148,7 @@ const MapaHemocentros: React.FC = () => {
                                     latitude: parseFloat(hemocentro.endereco.latitude),
                                     longitude: parseFloat(hemocentro.endereco.longitude)
                                 };
+
                                 return (
                                     <Marker
                                         key={hemocentro.id}

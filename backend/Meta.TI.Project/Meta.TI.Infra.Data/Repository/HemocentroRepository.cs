@@ -26,9 +26,10 @@ namespace Meta.TI.Infra.Data.Repository
         public Hemocentro ObterHemocentroPorId(Guid guid)
         {
             return DbSet.Where(x => x.Id == guid)
-                .Include(w => w.EstoquesSanguineos)
+                .Include(w => w.EstoquesSanguineos).ThenInclude(w => w.TipoSanguineo)
                 .Include(y => y.Endereco)
-                .Include(z => z.Expedientes)
+                .Include(y => y.Endereco.Cidade)
+                .Include(z => z.Expedientes).ThenInclude(z => z.DiaSemana)
                 .Include(t => t.Telefones)
                 .FirstOrDefault();
         }

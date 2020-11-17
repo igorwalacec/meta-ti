@@ -14,5 +14,9 @@ namespace Meta.TI.Application.ViewModels
         public DateTime DataCriacao { get; set; }
         public DateTime? DataAlteracao { get; set; }
         public EnderecoViewModel Endereco { get; set; }
+
+        public List<EstoqueSanguineoViewModel> EstoquesSanguineos { get; set; }
+        public List<ExpedienteViewModel> Expedientes { get; set; }
+        public List<TelefoneViewModel> Telefones { get; set; }
     }
 }

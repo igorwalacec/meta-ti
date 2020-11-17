@@ -16,7 +16,7 @@ import {
     DescricaoSemNotificacao
 } from './styles';
 import Icon from 'react-native-vector-icons/Feather';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 interface NotificacaoResponse {
     id: string;
@@ -29,6 +29,8 @@ interface NotificacaoResponse {
 const Notificacoes: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [notificacoes, setNotificacoes] = useState([] as NotificacaoResponse[]);
+
+    const navigation = useNavigation();
 
     const isFocused = useIsFocused();
 
@@ -69,6 +71,7 @@ const Notificacoes: React.FC = () => {
                 </View>
             );
         } else {
+            console.log(notificacao);
             return (
                 <View key={notificacao.id} >
                     <ContainerNotificacao>
@@ -77,7 +80,7 @@ const Notificacoes: React.FC = () => {
                         </CollapseHeader>
                         <CollapseBody style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#C4284D', padding: 10 }}>
                             <DescricaoNotificacao>{notificacao.descricao}</DescricaoNotificacao>
-                            <BotaoDetalheHemocentro onPress={() => { }}>
+                            <BotaoDetalheHemocentro>                                
                                 <Icon name="arrow-right" color="#C4284D" size={50} />
                             </BotaoDetalheHemocentro>
                         </CollapseBody>

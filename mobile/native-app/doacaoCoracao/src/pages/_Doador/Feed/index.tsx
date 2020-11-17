@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { GenericCommandResult } from '../../../@types/GenericCommandResult';
 import Button from '../../../components/Button';
 import FloatButton from '../../../components/FloatButton';
 import api from '../../../services/api';
 import { AvatarUsuario, Container, DataPostagem, Detalhes, DetalhesHemocentro, FeedContainer, FeedInfomacoes, InformacaoUsuario, InformacoesHemocentro, NomeHemocentro, NomeUsuario, TipoSanguineoUsuario } from './styles'
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 interface FeedInformacoesResponse {
     id: number;
@@ -43,6 +44,7 @@ const Feed: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([] as FeedInformacoes[]);
 
+
     async function ObterFeed() {
         setLoading(true);
         const response = await api.get<GenericCommandResult<FeedInformacoesResponse[]>>("/FeedSolicitacao");
@@ -73,7 +75,7 @@ const Feed: React.FC = () => {
         await setPosts([...postsResponse]);
         setLoading(false);
     }
-
+    const navigation = useNavigation();
     useEffect(() => {
         ObterFeed();
     }, []);
@@ -104,14 +106,19 @@ const Feed: React.FC = () => {
                     <NomeHemocentro>
                         {post.nomeHemocentro}
                     </NomeHemocentro>
-                    <DetalhesHemocentro>
-                        <Icon name="arrow-right" color="#FFF" size={30} />
+                    <DetalhesHemocentro key={post.id}>
+                        <TouchableNativeFeedback onPress={() => {
+                            console.log(post);
+                            navigation.navigate("HemocentroDetalhes", {
+                                id: post.idHemocentro
+                            })
+                        }}>
+                            <Icon name="arrow-right" color="#FFF" size={30} />
+                        </TouchableNativeFeedback>
                     </DetalhesHemocentro>
                 </InformacoesHemocentro>
             </FeedContainer>);
     }
-
-    const navigation = useNavigation();
     return (
         <>
             <Container>

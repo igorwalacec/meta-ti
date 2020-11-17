@@ -25,11 +25,15 @@ namespace Meta.TI.Application.AutoMapper
             CreateMap<Funcionario, FuncionarioViewModel>();
             CreateMap<FeedSolicitacao, FeedSolicitacaoViewModel>();
             CreateMap<Campanha, CampanhaViewModel>();
+            CreateMap<EstoqueSanguineo, EstoqueSanguineoViewModel>();
             CreateMap<Agendamento, AgendamentoViewModel>();
             CreateMap<Level, LevelViewModel>();
             CreateMap<Patrocinador, PatrocinadorViewModel>();
             CreateMap<Recompensas, RecompensasViewModel>();
             CreateMap<Notificacoes, NotificacoesViewModel>();
+            CreateMap<Telefone, TelefoneViewModel>();
+            CreateMap<Expediente, ExpedienteViewModel>();
+            CreateMap<DiaSemana, DiaSemanaViewModel>();
         }
     }
 }
