@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import AuthRoutes from './auth.routes';
 import AppRoutes from './doador/app.routes';
 import AppRoutesFuncionario from './app.routes.funcionario';
+import AppRoutesFuncionarioDois from './funcionario/app.routes';
 
 import { useAuth } from '../hooks/auth';
 import { useAuthFuncionario } from '../hooks/funcionario/authFuncionario';
@@ -10,7 +11,7 @@ import { useAuthFuncionario } from '../hooks/funcionario/authFuncionario';
 const Routes: React.FC = () => {
     const { usuario, loading } = useAuth();
     const { funcionario, loading: loading2 } = useAuthFuncionario();
-    
+
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -30,7 +31,7 @@ const Routes: React.FC = () => {
         return <AppRoutes />
     }
     if (funcionario) {
-        return <AppRoutesFuncionario />
+        return <AppRoutesFuncionarioDois />
     } else {
         return <AuthRoutes />
     }

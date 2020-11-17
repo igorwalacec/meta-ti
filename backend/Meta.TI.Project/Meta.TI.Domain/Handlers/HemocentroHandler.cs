@@ -17,7 +17,8 @@ namespace Meta.TI.Domain.Handlers
                                      IHandler<ConsultarEstoqueSanguineoPorHemocentroCommand>,
                                      IHandler<ConsultarEstoqueSanquineoCommand>,
                                      IHandler<AlterarEstoqueSanguineoCommand>,
-                                     IHandler<AlterarExpedienteHemocentroCommand>
+                                     IHandler<AlterarExpedienteHemocentroCommand>,
+                                     IHandler<ObterExpedientePorIdHemocentroCommand>
     {
         private readonly IEnderecoRepository enderecoRepository;
         private readonly IHemocentroRepository hemocentroRepository;
@@ -268,6 +269,13 @@ namespace Meta.TI.Domain.Handlers
             var hemocentro = hemocentroRepository.ObterHemocentroPorId(command.IdHemocentro);
 
             return new GenericCommandResult(true, hemocentro);
+        }
+
+        public ICommandResult Handle(ObterExpedientePorIdHemocentroCommand command)
+        {
+            var expedientes = expedienteRepository.ObterExpedientePorIdHemocentro(command.IdHemocentro);
+
+            return new GenericCommandResult(true, expedientes);
         }
     }
 }

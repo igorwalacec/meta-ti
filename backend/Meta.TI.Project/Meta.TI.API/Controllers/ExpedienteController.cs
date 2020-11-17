@@ -32,5 +32,13 @@ namespace Meta.TI.API.Controllers
 
             return Response(expedienteApp.AlterarExpedienteHemocentro(comando));
         }
+        [HttpGet]
+        public IActionResult ObterExpedientePorHemocentro()
+        {
+            var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
+                   .Select(c => c.Value).SingleOrDefault());
+                        
+            return Response(expedienteApp.ObterExpedientePorHemocentro(new ObterExpedientePorIdHemocentroCommand { IdHemocentro = idHemocentro }));
+        }
     }
 }

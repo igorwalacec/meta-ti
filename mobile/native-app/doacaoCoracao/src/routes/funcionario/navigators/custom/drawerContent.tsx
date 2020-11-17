@@ -11,11 +11,11 @@ import {
 } from '@react-navigation/drawer';
 import logoImg from '../../../../assets/logoImg/drawable-hdpi/logo.png';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useAuth } from '../../../../hooks/auth';
+import { useAuthFuncionario } from '../../../../hooks/funcionario/authFuncionario';
 
 
 const DrawerContent = (props) => {
-    const { usuario, signOut } = useAuth();
+    const { funcionario, signOut } = useAuthFuncionario();
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
@@ -27,7 +27,7 @@ const DrawerContent = (props) => {
                                 size={50}
                             />
                             <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>{usuario.nome}</Title>
+                                <Title style={styles.title}>{funcionario.nomeCompleto}</Title>
                             </View>
                         </View>
                     </View>
@@ -40,7 +40,7 @@ const DrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Home"
+                            label="Agendamentos"
                             onPress={() => { props.navigation.navigate('Home') }}
                         />
                         <DrawerItem
@@ -51,8 +51,30 @@ const DrawerContent = (props) => {
                                     size={size}
                                 />
                             )}
-                            label="Profile"
+                            label="Campanhas"
                             onPress={() => { props.navigation.navigate('Profile') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Leitor QR Code"
+                            onPress={() => { props.navigation.navigate('Profile') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon
+                                    name="account-outline"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Perfil Funcionário"
+                            onPress={() => { props.navigation.navigate('Home') }}
                         />
                     </Drawer.Section>
                 </View>

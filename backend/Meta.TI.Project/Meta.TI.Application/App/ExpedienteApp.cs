@@ -25,5 +25,9 @@ namespace Meta.TI.Application.App
         {
             return (GenericCommandResult)handler.Handle(comando);
         }
+        public GenericCommandResult ObterExpedientePorHemocentro(ObterExpedientePorIdHemocentroCommand comando)
+        {
+            return (GenericCommandResult)handler.Handle(comando);
+        }
     }
 }

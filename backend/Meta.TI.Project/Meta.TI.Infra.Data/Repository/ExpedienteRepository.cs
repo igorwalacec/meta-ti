@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Meta.TI.Domain.Interfaces;
 using Meta.TI.Domain.Models;
@@ -14,6 +15,10 @@ namespace Meta.TI.Infra.Data.Repository
         public Expediente ObterExpediente(Guid idHemocentro, int idDiaSemana)
         {
             return DbSet.FirstOrDefault(x => x.IdHemocentro == idHemocentro && x.IdDiaSemana == idDiaSemana);
+        }
+        public List<Expediente> ObterExpedientePorIdHemocentro(Guid idHemocentro)
+        {
+            return DbSet.Where(x => x.IdHemocentro == idHemocentro).ToList();
         }
     }
 }
