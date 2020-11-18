@@ -10,7 +10,12 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import logoImg from '../../../../assets/logoImg/drawable-hdpi/logo.png';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconMaterialC from 'react-native-vector-icons/MaterialIcons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
+import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconSimple from 'react-native-vector-icons/SimpleLineIcons';
 import { useAuth } from '../../../../hooks/auth';
 
 
@@ -34,25 +39,102 @@ const DrawerContent = (props) => {
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem
                             icon={({ color, size }) => (
-                                <Icon
-                                    name="home-outline"
+                                <IconAntDesign
+                                    name="calendar"
                                     color={color}
                                     size={size}
                                 />
                             )}
-                            label="Home"
+                            label="Agendamento"
                             onPress={() => { props.navigation.navigate('Home') }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (
-                                <Icon
-                                    name="account-outline"
+                                <IconEntypo
+                                    name="documents"
                                     color={color}
                                     size={size}
                                 />
                             )}
-                            label="Profile"
-                            onPress={() => { props.navigation.navigate('Profile') }}
+                            label="Campanhas"
+                            onPress={() => { props.navigation.navigate('Campanhas') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconAntDesign
+                                    name="addusergroup"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Convide um amigo"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconFontisto
+                                    name="history"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Histórico"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconAntDesign
+                                    name="infocirlceo"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Informativos"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconAntDesign
+                                    name="infocirlceo"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Orientações"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconSimple
+                                    name="present"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Recompensas"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconFontisto
+                                    name="blood-test"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Teste Aptidão"
+                            onPress={() => { props.navigation.navigate('Home') }}
+                        />
+                        <DrawerItem
+                            icon={({ color, size }) => (
+                                <IconAntDesign
+                                    name="infocirlceo"
+                                    color={color}
+                                    size={size}
+                                />
+                            )}
+                            label="Sobre nós"
+                            onPress={() => { props.navigation.navigate('Home') }}
                         />
                     </Drawer.Section>
                 </View>
@@ -60,7 +142,7 @@ const DrawerContent = (props) => {
             <Drawer.Section style={styles.bottomDrawerSection}>
                 <DrawerItem
                     icon={({ color, size }) => (
-                        <Icon
+                        <IconMaterialC
                             name="exit-to-app"
                             color={color}
                             size={size}

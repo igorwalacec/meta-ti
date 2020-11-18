@@ -18,7 +18,7 @@ namespace Meta.TI.Infra.Data.Repository
         public List<Campanha> ObterTodasCampanhas(DateTime dataAtual)
         {
             return DbSet.Where(x => (x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao) >= dataAtual.AddDays(-90))
-                .Include(y => y.Hemocentro)
+                .Include(y => y.Hemocentro).ThenInclude(y => y.Endereco)
                 .OrderByDescending(x => x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao)
                 .ToList();
         }
@@ -26,7 +26,7 @@ namespace Meta.TI.Infra.Data.Repository
         public List<Campanha> ObterCampanhaPorHemocentro(DateTime dataAtual, Guid idHemocentro)
         {
             return DbSet.Where(x => (x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao) >= dataAtual.AddDays(-90) && x.IdHemocentro == idHemocentro)
-               .Include(y => y.Hemocentro)
+               .Include(y => y.Hemocentro).ThenInclude(y => y.Endereco)
                .OrderByDescending(x => x.DataAlteracao == null ? x.DataCriacao : x.DataAlteracao)
                .ToList();
         }

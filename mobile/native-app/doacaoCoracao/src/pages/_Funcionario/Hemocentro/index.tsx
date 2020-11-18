@@ -142,7 +142,14 @@ const Hemocentro: React.FC = () => {
                             return (<ExpedienteDescricao key={expediente.id}>{`${expediente.diaSemana.nome} - ${inicio} ás ${fim}`}</ExpedienteDescricao>);
                         })
                     }
-                    <SubTituloDetalhe><IconFeather name="phone" size={25} />Telefones</SubTituloDetalhe>
+                    <SubTituloWrapper>
+                        <SubTituloDetalhe><IconFeather name="phone" size={25} />Telefones</SubTituloDetalhe>
+                        <UpdateDetalhe onPress={() => {
+                            navigation.navigate("EstoqueSanguineo");
+                        }}>
+                            <IconFeather name="tool" size={20} color="#C4284D" />
+                        </UpdateDetalhe>
+                    </SubTituloWrapper>
                     {
                         hemocentro.telefones.map((telefone, index) => {
                             return (<TelefoneDescricao key={index}>{`Telefone ${index + 1}: ${telefone.numero}`}</TelefoneDescricao>);
@@ -221,7 +228,14 @@ const Hemocentro: React.FC = () => {
                 }
             </ContainerDetalhes>
             <ContainerDetalhes>
-                <SubTituloDetalhe style={{ textAlign: 'center' }}><IconMaterial name="location-on" size={25} />Endereço Hemocentro</SubTituloDetalhe>
+                <SubTituloWrapper>
+                    <SubTituloDetalhe><IconMaterial name="location-on" size={25} />Endereço Hemocentro</SubTituloDetalhe>
+                    <UpdateDetalhe onPress={() => {
+                        navigation.navigate("EstoqueSanguineo");
+                    }}>
+                        <IconFeather name="tool" size={20} color="#C4284D" />
+                    </UpdateDetalhe>
+                </SubTituloWrapper>
                 {
                     detalhesEndereco()
                 }

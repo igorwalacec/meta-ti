@@ -71,7 +71,6 @@ const Notificacoes: React.FC = () => {
                 </View>
             );
         } else {
-            console.log(notificacao);
             return (
                 <View key={notificacao.id} >
                     <ContainerNotificacao>
@@ -80,7 +79,11 @@ const Notificacoes: React.FC = () => {
                         </CollapseHeader>
                         <CollapseBody style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#C4284D', padding: 10 }}>
                             <DescricaoNotificacao>{notificacao.descricao}</DescricaoNotificacao>
-                            <BotaoDetalheHemocentro>                                
+                            <BotaoDetalheHemocentro onPress={() => {
+                                navigation.navigate("HemocentroDetalhes", {
+                                    id: notificacao.hemocentro.id
+                                })
+                            }}>
                                 <Icon name="arrow-right" color="#C4284D" size={50} />
                             </BotaoDetalheHemocentro>
                         </CollapseBody>
