@@ -1,5 +1,6 @@
 import React from "react";
 import Icon from "react-native-vector-icons/Feather";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import { Container, ButtonTab } from "./styles";
 
 const TabBarCustom = ({ state, descriptors, navigation }) => {
@@ -12,6 +13,10 @@ const TabBarCustom = ({ state, descriptors, navigation }) => {
         {
             key: "Notificacoes",
             value: "bell"
+        },
+        {
+            key: "Agendamento",
+            value: "qrcode"
         },
         {
             key: "MapaHemocentros",
@@ -68,7 +73,16 @@ const TabBarCustom = ({ state, descriptors, navigation }) => {
                         onPress={onPress}
                         onLongPress={onLongPress}
                     >
-                        <Icon name={iconName ? iconName : "mail"} size={35} color={isFocused ? '#C4284D' : '#C4284D'} />
+                        {
+                            iconName == "qrcode" && (
+                                <IconFontAwesome name={iconName ? iconName : "mail"} size={45} color={isFocused ? '#C4284D' : '#C4284D'} />
+                            )
+                        }
+                        {
+                            iconName != "qrcode" && (
+                                <Icon name={iconName ? iconName : "mail"} size={35} color={isFocused ? '#C4284D' : '#C4284D'} />
+                            )
+                        }
                     </ButtonTab>
                 );
             })}

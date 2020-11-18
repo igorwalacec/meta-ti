@@ -52,7 +52,7 @@ const DrawerContent = (props) => {
                                 />
                             )}
                             label="Campanhas"
-                            onPress={() => { props.navigation.navigate('Profile') }}
+                            onPress={() => { props.navigation.navigate('Campanhas') }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (

@@ -55,6 +55,7 @@ namespace Meta.TI.Application.App
 
         public GenericCommandResult CriacaoAgendamento(CriacaoAgendamentoCommand command)
         {
+            command.DataAgendamento = command.DataAgendamento.AddHours(-3);
             var result = (GenericCommandResult)handler.Handle(command);
 
             if (result.Sucess)

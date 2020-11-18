@@ -45,6 +45,10 @@ namespace Meta.TI.API.Controllers
         [HttpPost("criar")]
         public IActionResult CriacaoCampanha([FromBody] CriacaoCampanhaCommand comando)
         {
+            var idHemocentro = Guid.Parse(User.Claims.Where(c => c.Type == ClaimTypes.PrimaryGroupSid)
+                   .Select(c => c.Value).SingleOrDefault());
+
+            comando.IdHemocentro = idHemocentro;
             return Response(campanhaApp.CriacaoCampanha(comando));
         }
 
