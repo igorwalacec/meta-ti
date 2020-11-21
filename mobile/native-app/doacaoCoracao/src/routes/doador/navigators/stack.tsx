@@ -22,7 +22,7 @@ export const MainStackNavigator: React.FC = () => (
             options={{
                 title: "Feed"
             }} />
-        <App.Screen name="HemocentroDetalhes" component={Hemocentro} />
+        <App.Screen name="HemocentroDetalhes" component={Hemocentro} options={{title: "Hemocentro Detalhes"}} />
         <App.Screen name="Campanhas" component={Campanhas}
             options={{
                 title: "Campanhas"

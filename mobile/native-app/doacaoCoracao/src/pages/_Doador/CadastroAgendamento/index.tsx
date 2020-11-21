@@ -1,5 +1,5 @@
 import { resolvePlugin } from '@babel/core';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -36,14 +36,18 @@ const CadastroAgendamento: React.FC = () => {
     const [showDatetime, setShowDatetime] = useState(false);
     const [showTime, setShowTime] = useState(false);
 
-    const onChangeData = useCallback(async (event) => {
+    const onChangeData = (event) => {
         const { timestamp } = event.nativeEvent;
-        const currentDate = new Date(timestamp);
-        setDate(currentDate);
+        if (timestamp != undefined) {
+            console.log(timestamp);
+            const currentDate = new Date(timestamp);
+            setDate(currentDate);
+        }
         setShowTime(false);
         setShowDatetime(false);
-    }, []);
+    };
 
+    const focused = useIsFocused();
     const formRef = useRef<FormHandles>(null);
     const navigation = useNavigation();
 
@@ -65,9 +69,10 @@ const CadastroAgendamento: React.FC = () => {
 
             setHemocentros([...hemocentrosMap]);
         }
-
+        if (focused) {
+            setDate(new Date());
+        }
         ObterHemocentros();
-        setDate(new Date());
     }, []);
 
     const cadastrar = async (dataSubmit) => {

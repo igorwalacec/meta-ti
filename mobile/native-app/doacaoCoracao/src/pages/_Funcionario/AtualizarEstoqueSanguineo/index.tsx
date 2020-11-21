@@ -132,7 +132,7 @@ const EstoqueSanguineo = () => {
                     return (
                         <TipoSanguineoWrapper key={item.idTipoSanguineo}>
                             <LabelTipoSanguineo>{item.nome}</LabelTipoSanguineo>
-                            <Label>Quantiade Bolsas: {item.quantidadeBolsas}</Label>
+                            <Label>Quantidade Bolsas: {item.quantidadeBolsas}</Label>
                             <TextInputSangueContainer>
 
 
@@ -155,7 +155,7 @@ const EstoqueSanguineo = () => {
                                 />
                             </TextInputSangueContainer>
 
-                            <Label>Quantiade Minima Bolsas: {item.quantidadeMinimaBolsas}</Label>
+                            <Label>Quantidade Minima Bolsas: {item.quantidadeMinimaBolsas}</Label>
                             <TextInputSangueContainer>
                                 <TextInputSangue
                                     value={item.quantidadeMinimaBolsas.toString()}

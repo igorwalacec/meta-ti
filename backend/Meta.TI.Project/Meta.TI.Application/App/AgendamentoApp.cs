@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using AutoMapper;
 using Meta.TI.Application.Interfaces;
 using Meta.TI.Application.ViewModels;
@@ -63,8 +62,7 @@ namespace Meta.TI.Application.App
                 result.Data = mapper.Map<AgendamentoViewModel>(result.Data);
             }
             return result;
-        }
-
+        }        
         public GenericCommandResult DeletarAgendamento(DeletarAgendamentoCommand command)
         {
             return (GenericCommandResult)handler.Handle(command);

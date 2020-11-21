@@ -7,6 +7,10 @@ import AppProvider from './src/hooks';
 import Routes from './src/routes';
 import AppProviderFuncionario from './src/hooks/funcionario';
 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
+
 
 const App: React.FC = () => (
   <NavigationContainer>

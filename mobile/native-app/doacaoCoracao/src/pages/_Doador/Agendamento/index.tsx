@@ -8,7 +8,7 @@ import api from '../../../services/api';
 import { Container, QRCodeSangue, TituloAgendamento } from './styles';
 
 interface AgendamentoState {
-    id: String;
+    id: string;
 }
 
 const Agendamento: React.FC = () => {
@@ -18,12 +18,12 @@ const Agendamento: React.FC = () => {
     const obterAgendamento = async () => {
 
         const token = await AsyncStorage.getItem('@MetaTi:token');
-        api.get<GenericCommandResult<AgendamentoState>>("/agendamento/obter-por-usuario", {
+        api.get<GenericCommandResult<AgendamentoState[]>>("/agendamento/obter-por-usuario", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((response) => {
-            setAgendamento(response.data.data);
+            setAgendamento(response.data.data[0]);
         }).catch((responseError) => {
             navigation.navigate("CadastroAgendamento");
         });
@@ -33,15 +33,19 @@ const Agendamento: React.FC = () => {
         if (focused) {
             obterAgendamento();
         }
-    })
+    }, [focused])
 
     return (
         <Container>
             <TituloAgendamento>Apresente seu QR Code ao hemocentro</TituloAgendamento>
-            <QRCodeSangue
-                size={180}
-                value={agendamento.id}
-            />
+            {
+                agendamento.id != undefined && (
+                    <QRCodeSangue
+                        size={180}
+                        value={agendamento.id}
+                    />
+                )
+            }
         </Container>
     )
 }

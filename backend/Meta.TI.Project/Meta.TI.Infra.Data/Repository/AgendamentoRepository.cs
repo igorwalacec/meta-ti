@@ -19,7 +19,7 @@ namespace Meta.TI.Infra.Data.Repository
         public Agendamento ObterAgendamentoPorId(Guid id)
         {
             return DbSet.Where(x => x.Id == id)
-                .Include(y => y.Usuario)
+                .Include(y => y.Usuario).ThenInclude(y => y.TipoSanguineo)
                 .Include(z => z.Hemocentro)
                 .FirstOrDefault();
         }

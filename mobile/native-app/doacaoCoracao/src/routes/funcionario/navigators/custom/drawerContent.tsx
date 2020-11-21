@@ -63,7 +63,7 @@ const DrawerContent = (props) => {
                                 />
                             )}
                             label="Leitor QR Code"
-                            onPress={() => { props.navigation.navigate('Profile') }}
+                            onPress={() => { props.navigation.navigate('LeitorAgendamento') }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => (

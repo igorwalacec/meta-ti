@@ -12,6 +12,10 @@ target 'doacaoCoracao' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
   target 'doacaoCoracaoTests' do
     inherit! :complete
     # Pods for testing

@@ -51,8 +51,9 @@ namespace Meta.TI.API.Controllers
             return Response(agendamentoApp.AlterarAgendamento(comando));
         }
 
-        [HttpDelete("deletar")]
-        public IActionResult DeletarAgendamento([FromBody] DeletarAgendamentoCommand comando)
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeletarAgendamento([FromRoute] DeletarAgendamentoCommand comando)
         {
             return Response(agendamentoApp.DeletarAgendamento(comando));
         }
